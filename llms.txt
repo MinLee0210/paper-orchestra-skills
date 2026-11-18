@@ -13,8 +13,12 @@
 ## Key facts
 - Format: Agent Skills (SKILL.md + references/ + scripts/).
 - Works with Claude Code, opencode, Codex-style agents, and custom runtimes that read SKILL.md.
-- Bundled templates: CVPR 2025 (two-column) and ICLR 2025 (single-column).
-- Citation verification: Semantic Scholar Graph API; title similarity > 70; abstract required; strict cutoff.
+- Bundled templates: CVPR 2025 (two-column), ICLR 2025 (single-column), generic IEEE conference, neutral arXiv preprint.
+- Citation verification: Semantic Scholar with arXiv/Crossref/DBLP fallbacks; exploration ratio > 70; targeted ratio >= 90 plus year/author; abstract required; strict cutoff.
+- Leakage gate: blocking by default; detects citations, et al./author-year citations, author identities, and result numbers in idea.md.
+- Review: three independent reviewer samples aggregated by mean/median; the writer does not score its own revision.
+- Tests: offline pytest suite plus GitHub Actions CI that compiles every bundled template.
+- Sample output: examples/paper-project/final_paper.pdf and run_report.json.
 - Inputs: idea.md, experimental_log.md, latex_template/ (template.tex, guidelines.md, style files), optional figures.
 - Outputs: outline.json, registry.json, citation_map.json, references.bib, figures/, draft .tex, final .tex/.pdf, metrics/.
 - No fabricated citations by design: verification is API-grounded and the writer may only cite verified keys.
@@ -38,6 +42,7 @@ Clone the repository and run ./install.sh, or symlink any skills/<name> director
 - Repository: https://github.com/MinLee0210/paper-orchestra-skills
 - Upstream: https://github.com/google-research/paper-orchestra
 - Paper: https://arxiv.org/abs/2604.05018
+- Sample output: examples/paper-project/final_paper.pdf
 - Documentation: docs/README.md
 - FAQ: docs/faq.md
 

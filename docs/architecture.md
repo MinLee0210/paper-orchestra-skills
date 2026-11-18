@@ -36,7 +36,7 @@ Stages 2a (literature) and 2b (plotting) run concurrently because they share onl
 
 ### 0. Inputs
 
-Reads user files. Writes a normalized project layout. Gate: required files exist, the idea and log contain no leaked citations or identities, figures referenced by `info.json` exist.
+Reads user files. Writes a normalized project layout. Gate: required files exist, the idea and log contain no leaked citations, identities, or result numbers, and figures referenced by `info.json` exist. Leakage is a blocking error by default.
 
 ### 1. Outline
 
@@ -44,7 +44,7 @@ Reads idea, log, template, guidelines, and cutoff. Writes `outline.json` with `p
 
 ### 2a. Literature
 
-Reads the outline and source materials. Writes a verified registry, citation map, BibTeX, an updated outline with `citation_candidates`, and a template whose Introduction and Related Work are filled. Gate: every citation verified, cutoff respected, keys consistent, minimum coverage.
+Reads the outline and source materials. Writes a verified registry, citation map, BibTeX, an updated outline with `citation_candidates`, and a template whose Introduction and Related Work are filled. Verification tries Semantic Scholar, arXiv, Crossref, and DBLP. Exploration matches use a title ratio above 70; targeted matches require >= 90 plus a year or author check. Gate: every citation verified, cutoff respected, keys consistent, per-cluster coverage present.
 
 ### 2b. Plotting
 
@@ -56,7 +56,7 @@ Reads the merged template, outline, citation map, figures, idea, log, and guidel
 
 ### 4. Content refinement
 
-Reads the draft, log, citation map, and guidelines. Writes review JSON, revised sources, screenshots, and the final `.tex`/`.pdf`. Gate: compile succeeds, the reviewer score did not decrease, the page limit is met, no undefined citations or references.
+Reads the draft, log, citation map, and guidelines. Writes review JSON, revised sources, screenshots, and the final `.tex`/`.pdf`. The reviewer is an independent context and produces three samples per round, aggregated by mean or median. Gate: compile succeeds, the aggregated reviewer score did not decrease, the page limit is met, no undefined citations or references.
 
 ### 5. Evaluation
 
@@ -86,6 +86,16 @@ Every artifact is inspectable JSON or LaTeX:
 - `*.compile.json` records the exact build commands and undefined references.
 
 Because these are files, a run can be resumed, diffed, and audited. The `paper-orchestra` skill's `scripts/pipeline_status.py` reads them and reports the next runnable stage.
+
+## Robustness choices
+
+**Verification has fallbacks.** A single bibliographic API is a single point of failure. Semantic Scholar rate-limits unauthenticated traffic and can be blocked by a proxy. The resolver falls back to arXiv, Crossref, and DBLP, and rejects a match that cannot produce an abstract. Falling back to another source is allowed; falling back to model memory is not.
+
+**Targeted matches are stricter.** A canonical paper lookup is a different task from exploring a field. A near-title match is often a different paper, so targeted verification requires a title ratio of at least 90 and a year or author check.
+
+**Review is ensembled and independent.** The writer does not grade its own revision. Three reviewer samples at temperature 0.75 are aggregated, and the accept/reject rule operates on the aggregate. This reduces the chance that a single noisy sample flips the decision.
+
+**The repository tests itself.** `tests/` covers the leakage gate, matching thresholds, provider normalization and fallback, bibliography construction, reviewer aggregation, LaTeX linting, template scaffolding, and the demo output. CI also compiles every bundled template.
 
 ## Failure handling
 

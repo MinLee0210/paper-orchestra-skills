@@ -1,0 +1,130 @@
+{
+  "Overall": 6.33,
+  "Confidence": 4.0,
+  "Originality": 3.0,
+  "Quality": 3.0,
+  "Clarity": 3.33,
+  "Significance": 3.0,
+  "Soundness": 3.0,
+  "Presentation": 3.0,
+  "Contribution": 2.67,
+  "Strengths": [
+    "clear routing mechanism",
+    "ablations isolate the gate",
+    "limitations are explicit"
+  ],
+  "Weaknesses": [
+    "only synthetic tasks",
+    "single model size"
+  ],
+  "Questions": [
+    "what is the inference latency?"
+  ],
+  "Limitations": [
+    "short sequences",
+    "synthetic tasks",
+    "single model size"
+  ],
+  "Summary": "A small routing gate selects local or global attention per token. The synthetic evaluation is clear and the scope is now stated.",
+  "Decision": "Accept",
+  "ensemble": {
+    "count": 3,
+    "axes": {
+      "Overall": {
+        "mean": 6.333,
+        "median": 6.0,
+        "stdev": 0.577,
+        "values": [
+          6.0,
+          7.0,
+          6.0
+        ]
+      },
+      "Confidence": {
+        "mean": 4.0,
+        "median": 4.0,
+        "stdev": 0.0,
+        "values": [
+          4.0,
+          4.0,
+          4.0
+        ]
+      },
+      "Originality": {
+        "mean": 3.0,
+        "median": 3.0,
+        "stdev": 0.0,
+        "values": [
+          3.0,
+          3.0,
+          3.0
+        ]
+      },
+      "Quality": {
+        "mean": 3.0,
+        "median": 3.0,
+        "stdev": 0.0,
+        "values": [
+          3.0,
+          3.0,
+          3.0
+        ]
+      },
+      "Clarity": {
+        "mean": 3.333,
+        "median": 3.0,
+        "stdev": 0.577,
+        "values": [
+          3.0,
+          4.0,
+          3.0
+        ]
+      },
+      "Significance": {
+        "mean": 3.0,
+        "median": 3.0,
+        "stdev": 0.0,
+        "values": [
+          3.0,
+          3.0,
+          3.0
+        ]
+      },
+      "Soundness": {
+        "mean": 3.0,
+        "median": 3.0,
+        "stdev": 0.0,
+        "values": [
+          3.0,
+          3.0,
+          3.0
+        ]
+      },
+      "Presentation": {
+        "mean": 3.0,
+        "median": 3.0,
+        "stdev": 0.0,
+        "values": [
+          3.0,
+          3.0,
+          3.0
+        ]
+      },
+      "Contribution": {
+        "mean": 2.667,
+        "median": 3.0,
+        "stdev": 0.577,
+        "values": [
+          2.0,
+          3.0,
+          3.0
+        ]
+      }
+    }
+  },
+  "individual_decisions": [
+    "Accept",
+    "Accept",
+    "Accept"
+  ]
+}

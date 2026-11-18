@@ -31,11 +31,15 @@ This repository ports [Google Research's PaperOrchestra](https://github.com/goog
 
 **Prompts as references.** Prompts are preserved in `references/` but rewritten to remove Python format placeholders and provider-specific instructions. The substantive directives remain: exhaustive citation hints, macro/micro separation, exact-number tables, figure fidelity, and score-driven revision.
 
-**Verification thresholds.** The Semantic Scholar logic is reimplemented in the standard library: fuzzy title matching above 70, exact-year bonus, abstract requirement, cutoff filtering, deduplication. The 1-query-per-second default is preserved.
+**Verification thresholds.** The Semantic Scholar logic is reimplemented in the standard library with a fallback chain: Semantic Scholar, arXiv, Crossref, and DBLP. Exploration matches use a fuzzy title ratio above 70; targeted matches require at least 90 plus a year or author check. Abstracts are required, the cutoff is enforced, and duplicates are removed by title and provider ID. The 1-query-per-second default is preserved.
 
-**Reviewer loop.** The accept/reject logic is extracted into `decide_revision.py`: accept on overall increase, reject on decrease, and on a tie accept only when sub-axis gains are at least as large as drops.
+**Reviewer loop.** The accept/reject logic is extracted into `decide_revision.py`: accept on overall increase, reject on decrease, and on a tie accept only when sub-axis gains are at least as large as drops. The skill now requires an independent reviewer and three samples per round, aggregated by `aggregate_reviews.py`.
 
 **Formatting pass.** The VLM review is expressed as a prompt over rendered page images. `render_pages.py` produces individual pages and optional 2×2 grids with PyMuPDF and Pillow.
+
+**Leakage gate.** The upstream anti-leakage prompt is backed by a blocking input validator. It detects citations, `et al.` and author-year citations, named authors, institutions, and result numbers in the idea file.
+
+**Templates.** The CVPR and ICLR bundles are preserved. A generic IEEE conference scaffold and a neutral arXiv preprint are added so the skill description matches what the repository actually ships.
 
 **Figure generation.** Upstream uses PaperBanana and a Gemini image model. The skill prefers code-generated plots and vector diagrams, and treats image generation as an optional tool when the host provides one. This removes a hard provider dependency and makes data figures reproducible.
 
@@ -57,7 +61,7 @@ Preserved from upstream:
 - five-stage pipeline and the parallel literature/plotting step;
 - outline directives, including exhaustive citation hints and the macro/micro split;
 - literature discovery then sequential verification;
-- 90% citation utilization target;
+- per-cluster citation coverage target (the upstream 90% utilization quota is intentionally replaced);
 - Introduction and Related Work filled before the remaining sections;
 - exact-value tables and figure fidelity rules;
 - iterative review with monotonic acceptance;

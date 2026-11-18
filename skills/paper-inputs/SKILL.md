@@ -92,7 +92,16 @@ Run the validator before any expensive stage:
 python scripts/validate_inputs.py /path/to/paper_project
 ```
 
-It checks for missing files, citation-like strings, URLs, arXiv IDs, author markers, and figure references. Treat warnings as prompts to inspect the text, not as automatic failures. The goal is not a perfectly sterile document; it is to remove anything that would let the model reconstruct the source publication instead of writing from the materials.
+It treats leakage as a **blocking error**, not a warning. It detects:
+
+- LaTeX citations, bracketed citations, arXiv IDs, DOIs, and URLs;
+- author-year citations, `et al.` citations, and named attributions such as "by John Doe";
+- author, affiliation, institution, and company markers;
+- result leakage in `idea.md`: percentages, metric values, improvement claims, and mean/variance pairs.
+
+The experimental log is the place for numbers, so result-number patterns are applied only to `idea.md`. Numbered figure/table references remain warnings because they are easy to de-contextualize. Use `--warn-only` when you want an audit without blocking, and `--source-title "..."` when you know the source paper title and want an exact check.
+
+The validator is heuristic. Read the excerpts it prints; a false positive is cheaper than a leaked paper.
 
 ## Normalization tips
 

@@ -1,0 +1,26 @@
+{
+  "Summary": "A small routing gate selects local or global attention per token. The synthetic evaluation is clear but narrow.",
+  "Strengths": [
+    "clear routing mechanism",
+    "ablations isolate the gate"
+  ],
+  "Weaknesses": [
+    "no limitations paragraph",
+    "scope is easy to overread"
+  ],
+  "Questions": [
+    "what is the inference latency?"
+  ],
+  "Limitations": [],
+  "Ethical Concerns": false,
+  "Decision": "Reject",
+  "Confidence": 4,
+  "Originality": 3,
+  "Quality": 3,
+  "Clarity": 3,
+  "Significance": 3,
+  "Soundness": 2,
+  "Presentation": 3,
+  "Contribution": 2,
+  "Overall": 6
+}

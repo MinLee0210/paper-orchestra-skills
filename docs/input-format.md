@@ -85,7 +85,7 @@ python skills/paper-literature-review/scripts/validate_literature.py \
   --template my-project/literature_agent_output/updated_template.tex
 ```
 
-The input validator is heuristic. It flags citation-like strings, URLs, author markers, and numbered figure references. Use the warnings to inspect the text; not every URL is leakage, but every leaked source paper is a problem.
+The input validator blocks on leaked citations, `et al.` and author-year citations, named authors, institutions, and result numbers in `idea.md`. Numbered figure/table references are warnings. It is heuristic, so read the excerpts; use `--warn-only` for a non-blocking audit and `--source-title` to check for a known source title.
 
 ## Research cutoff
 

@@ -1,6 +1,6 @@
 ---
 name: paper-template
-description: Select, scaffold, and adapt a conference LaTeX template and its writing guidelines for automated paper generation. Use when the user names a venue or format (CVPR, ICLR, NeurIPS, ICCV, ECCV, ACL, IEEE, ACM, two-column, single-column), needs template.tex plus guidelines.md, wants to add a custom template, or needs to check page limits, fonts, and required packages before drafting.
+description: Select, scaffold, and adapt a LaTeX template and its writing guidelines for automated paper generation. Use when the user names a venue or format (CVPR, ICLR, IEEE conference, arXiv preprint, two-column, single-column), needs template.tex plus guidelines.md, wants to add a custom template, or needs to check page limits, fonts, and required packages before drafting.
 license: Apache-2.0
 ---
 
@@ -14,6 +14,8 @@ The writing agents edit a real LaTeX project. They need three things from a temp
 |---|---|---|---|
 | `cvpr2025` | CVPR 2025 | two-column | 8 pages excluding references |
 | `iclr2025` | ICLR 2025 | single-column | 10 pages excluding references |
+| `ieeeconf` | IEEE conference (generic) | two-column | commonly 6 pages; check the CFP |
+| `arxiv` | arXiv preprint (neutral) | single-column | no hard limit |
 
 Each bundle contains:
 
@@ -23,7 +25,7 @@ Each bundle contains:
 ├── guidelines.md       # venue rules, in markdown
 ├── references.bib      # starter bibliography
 ├── preamble.tex        # optional shared macros (CVPR)
-└── *.sty / *.bst       # venue style files
+└── *.sty / *.bst       # venue style files, when bundled
 ```
 
 List them:
@@ -37,6 +39,8 @@ ls skills/paper-template/assets/templates
 ```bash
 python scripts/init_template.py --venue cvpr2025 --out /path/to/project/latex_template
 python scripts/init_template.py --venue iclr2025 --out /path/to/project/latex_template
+python scripts/init_template.py --venue ieeeconf --out /path/to/project/latex_template
+python scripts/init_template.py --venue arxiv --out /path/to/project/latex_template
 ```
 
 The script copies every file, refuses to overwrite a non-empty directory unless `--force` is given, and prints the required file check.
@@ -81,6 +85,7 @@ A template that does not compile before generation will not compile after genera
 
 ## Files
 
-- `assets/templates/cvpr2025/`, `assets/templates/iclr2025/` — bundled venues.
+- `assets/templates/cvpr2025/`, `assets/templates/iclr2025/` — bundled venues with style files.
+- `assets/templates/ieeeconf/`, `assets/templates/arxiv/` — generic IEEE conference and neutral preprint scaffolds.
 - `scripts/init_template.py` — copy a bundle into a project.
 - `references/template-contract.md` — exact placeholder and file contract.

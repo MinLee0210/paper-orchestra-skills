@@ -23,13 +23,15 @@ The accept/reject rule is deliberate. Without it, a revision loop drifts: each r
 1. **Copy the draft tree** into `content_refinement_workdir/` and work there. Keep `latex_writeup/` untouched so a failed loop can restart from the original draft.
 2. **Compile the baseline.** If it does not compile, stop and fix LaTeX first. A review of a broken PDF is noise.
 3. **Render pages** to PNGs (or 2×2 grids) for visual review.
-4. **Review.** Produce structured JSON with `Overall` (1–10), `Confidence` (1–5), and the sub-axes: Originality, Quality, Clarity, Significance, Soundness, Presentation, Contribution, plus Strengths, Weaknesses, Questions, and Decision. Use `references/reviewer-rubric.md`.
+4. **Review with an independent reviewer.** Use a fresh reviewer subagent or a separate context; the writer must not grade its own revision. Generate **3 independent reviews** at temperature 0.75 with `references/reviewer-rubric.md`, then aggregate them. This reduces the variance that otherwise flips the keep/revert decision.
 5. **Revise.** Address weaknesses and questions in the manuscript itself, not in a response letter. Answer questions by adding the information to the paper where it naturally belongs. Ignore requests for new experiments that are not in the log. Output a JSON worklog plus the full revised LaTeX.
 6. **Compile the revision.** If compilation fails, revert and try again; do not keep a broken revision.
-7. **Re-review.** Score the new PDF with the same rubric and temperature.
+7. **Re-review.** Score the new PDF with the same rubric, temperature, and a fresh reviewer; again use 3 samples and aggregate.
 8. **Decide.** Use:
 
    ```bash
+   python scripts/aggregate_reviews.py review_v0_a.json review_v0_b.json review_v0_c.json --out review_v0.json
+   python scripts/aggregate_reviews.py review_v1_a.json review_v1_b.json review_v1_c.json --out review_v1.json
    python scripts/decide_revision.py --before review_v0.json --after review_v1.json
    ```
 
@@ -49,7 +51,8 @@ Copy the accepted result to the project root:
 - `final_paper.pdf`
 - `content_refinement_workdir/content_refinement_worklog.json` — decisions and scores per round
 - `content_refinement_workdir/format_refinement_worklog.json` — formatting issues and fixes
-- `content_refinement_workdir/peer_reviews/review_v*.json`
+- `content_refinement_workdir/peer_reviews/review_v*.json` — aggregated reviews
+- `content_refinement_workdir/peer_reviews/raw/review_v*_*.json` — individual reviewer samples
 - `content_refinement_workdir/pdf_screenshots/` — rendered pages used for review
 
 ## Score discipline
@@ -92,4 +95,5 @@ python scripts/render_pages.py content_refinement_workdir/raw_draft_paper.pdf co
 - `references/format-prompt.md` — visual formatting review prompt.
 - `scripts/compile_latex.py` — deterministic LaTeX build.
 - `scripts/render_pages.py` — PDF to PNG pages/grids.
-- `scripts/decide_revision.py` — accept/reject decision from two review JSONs.
+- `scripts/aggregate_reviews.py` — mean/median aggregation of independent reviews.
+- `scripts/decide_revision.py` — accept/reject decision from two aggregated review JSONs.

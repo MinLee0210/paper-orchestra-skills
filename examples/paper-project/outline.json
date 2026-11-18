@@ -1,0 +1,265 @@
+{
+  "plotting_plan": [
+    {
+      "figure_id": "fig_main_results",
+      "title": "Main results",
+      "plot_type": "plot",
+      "data_source": "experimental_log.md",
+      "objective": "Two-panel grouped bar chart: validation perplexity and exact-match on CopyLong and Needle for Dense, Window, Static, and Ours.",
+      "aspect_ratio": "16:9"
+    },
+    {
+      "figure_id": "fig_ablation",
+      "title": "Ablation on the global-token budget",
+      "plot_type": "plot",
+      "data_source": "experimental_log.md",
+      "objective": "Grouped bar chart of Needle exact-match and CopyLong perplexity for the full model, no sparsity penalty, 12.5% global tokens, 50% global tokens, and a fixed gate.",
+      "aspect_ratio": "16:9"
+    },
+    {
+      "figure_id": "fig_routing_schematic",
+      "title": "Routing schematic",
+      "plot_type": "diagram",
+      "data_source": "idea.md",
+      "objective": "Left-to-right schematic of a token sequence entering a gate, splitting into local-window and global-summary attention, and merging at the output.",
+      "aspect_ratio": "4:3"
+    }
+  ],
+  "intro_related_work_plan": {
+    "introduction_strategy": {
+      "hook_hypothesis": "Attention-based language models are the dominant architecture, but dense attention scales quadratically with sequence length.",
+      "problem_gap_hypothesis": "Fixed sparse patterns reduce cost but apply the same connectivity to every input, wasting computation on easy tokens and missing long-range dependencies on hard ones.",
+      "search_directions": [
+        "Find papers establishing the compute and memory cost of dense attention",
+        "Find surveys of efficient Transformer architectures",
+        "Find foundational papers on sparse and adaptive attention"
+      ],
+      "citation_candidates": [
+        "Kaplan2020Scaling",
+        "Tay2022Efficient",
+        "Vaswani2017Attention"
+      ]
+    },
+    "related_work_strategy": {
+      "overview": "Compare fixed sparsity, low-rank or recurrent efficiency, and adaptive computation, then position per-input routing as the missing combination.",
+      "subsections": [
+        {
+          "subsection_title": "2.1 Fixed Sparse Patterns",
+          "methodology_cluster": "Static sparsity",
+          "sota_investigation_mission": "Identify the main fixed-pattern and window-plus-global methods before the cutoff.",
+          "limitation_hypothesis": "Fixed patterns cannot adapt to input content and require a hand-designed global-token budget.",
+          "limitation_search_queries": [
+            "fixed sparse attention limitation content adaptivity",
+            "static attention pattern generalization long sequences"
+          ],
+          "bridge_to_our_method": "A learned gate chooses the local/global split per input.",
+          "citation_candidates": [
+            "Beltagy2020Longformer",
+            "Child2019Generating",
+            "Zaheer2020Big"
+          ]
+        },
+        {
+          "subsection_title": "2.2 Low-Rank and Recurrent Efficiency",
+          "methodology_cluster": "Low-rank and memory compression",
+          "sota_investigation_mission": "Identify low-rank, hashing, and compressed-memory methods and their assumptions.",
+          "limitation_hypothesis": "These methods reduce cost through a fixed approximation or memory budget that is not input-dependent.",
+          "limitation_search_queries": [
+            "low-rank self-attention approximation limitation",
+            "compressed memory transformer fixed budget"
+          ],
+          "bridge_to_our_method": "The router allocates global computation only to tokens that need it.",
+          "citation_candidates": [
+            "Kitaev2020Reformer",
+            "Rae2020Compressive",
+            "Wang2020Linformer"
+          ]
+        },
+        {
+          "subsection_title": "2.3 Adaptive Computation",
+          "methodology_cluster": "Adaptive compute and discrete routing",
+          "sota_investigation_mission": "Identify adaptive-computation and differentiable discrete-selection methods.",
+          "limitation_hypothesis": "Adaptive compute has been studied for recurrent depth and halting, not for per-token attention connectivity.",
+          "limitation_search_queries": [
+            "adaptive computation time transformer attention",
+            "Gumbel softmax discrete routing transformer"
+          ],
+          "bridge_to_our_method": "We apply a straight-through gate to attention connectivity.",
+          "citation_candidates": [
+            "Graves2016Adaptive",
+            "Jang2017Categorical"
+          ]
+        }
+      ]
+    }
+  },
+  "section_plan": [
+    {
+      "section_title": "Abstract",
+      "subsections": [
+        {
+          "subsection_title": "Abstract Content",
+          "content_bullets": [
+            "State the quadratic cost of dense attention and the rigidity of fixed sparsity.",
+            "Introduce per-input local/global routing.",
+            "Report the synthetic results without overclaiming generalization."
+          ],
+          "citation_candidates": []
+        }
+      ]
+    },
+    {
+      "section_title": "1. Introduction",
+      "subsections": [
+        {
+          "subsection_title": "1.1 Problem and Motivation",
+          "content_bullets": [
+            "Explain the cost of dense attention and the limits of fixed patterns.",
+            "Use the scaling motivation from the introduction strategy.",
+            "Do not claim gains beyond the two synthetic tasks."
+          ],
+          "citation_candidates": [
+            "Vaswani2017Attention",
+            "Tay2022Efficient",
+            "Kaplan2020Scaling"
+          ]
+        },
+        {
+          "subsection_title": "1.2 Contributions",
+          "content_bullets": [
+            "Per-input routing gate.",
+            "Explicit sparsity budget.",
+            "Synthetic evaluation with ablations."
+          ],
+          "citation_candidates": []
+        }
+      ]
+    },
+    {
+      "section_title": "2. Related Work",
+      "subsections": [
+        {
+          "subsection_title": "2.1 Fixed Sparse Patterns",
+          "content_bullets": [
+            "Compare Sparse Transformer, Longformer, and BigBird.",
+            "Explain that their patterns are fixed before training."
+          ],
+          "citation_candidates": [
+            "Beltagy2020Longformer",
+            "Child2019Generating",
+            "Zaheer2020Big"
+          ]
+        },
+        {
+          "subsection_title": "2.2 Low-Rank and Recurrent Efficiency",
+          "content_bullets": [
+            "Compare Reformer, Linformer, and Compressive Transformer.",
+            "Explain the fixed approximation or memory budget."
+          ],
+          "citation_candidates": [
+            "Kitaev2020Reformer",
+            "Rae2020Compressive",
+            "Wang2020Linformer"
+          ]
+        },
+        {
+          "subsection_title": "2.3 Adaptive Computation",
+          "content_bullets": [
+            "Adaptive computation time and Gumbel-Softmax.",
+            "Position per-token attention routing as the gap."
+          ],
+          "citation_candidates": [
+            "Graves2016Adaptive",
+            "Jang2017Categorical"
+          ]
+        }
+      ]
+    },
+    {
+      "section_title": "3. Method",
+      "subsections": [
+        {
+          "subsection_title": "3.1 Learned Routing",
+          "content_bullets": [
+            "Define the gate g_i and the local/global split.",
+            "Use a straight-through top-k selection."
+          ],
+          "citation_candidates": [
+            "Jang2017Categorical"
+          ]
+        },
+        {
+          "subsection_title": "3.2 Objective",
+          "content_bullets": [
+            "Language-modeling loss plus a sparsity penalty.",
+            "State the optimizer and training setup."
+          ],
+          "citation_candidates": [
+            "Loshchilov2019Decoupled"
+          ]
+        },
+        {
+          "subsection_title": "3.3 Complexity",
+          "content_bullets": [
+            "Local window cost plus global summary cost.",
+            "Make the budget explicit in the global fraction."
+          ],
+          "citation_candidates": []
+        }
+      ]
+    },
+    {
+      "section_title": "4. Experiments",
+      "subsections": [
+        {
+          "subsection_title": "4.1 Setup",
+          "content_bullets": [
+            "Two synthetic tasks, three seeds, exact numbers from the log.",
+            "Baselines and implementation details."
+          ],
+          "citation_candidates": [
+            "Loshchilov2019Decoupled"
+          ]
+        },
+        {
+          "subsection_title": "4.2 Main Results",
+          "content_bullets": [
+            "Report the main table and figure.",
+            "Compare with Dense, Window, and Static.",
+            "Note which differences are within one standard deviation."
+          ],
+          "citation_candidates": [
+            "Child2019Generating",
+            "Beltagy2020Longformer",
+            "Zaheer2020Big"
+          ]
+        },
+        {
+          "subsection_title": "4.3 Ablation and Analysis",
+          "content_bullets": [
+            "Ablate the sparsity penalty and global fraction.",
+            "Analyze when the gate concentrates on long-range positions."
+          ],
+          "citation_candidates": [
+            "Jang2017Categorical"
+          ]
+        }
+      ]
+    },
+    {
+      "section_title": "5. Conclusion",
+      "subsections": [
+        {
+          "subsection_title": "5.1 Summary and Limitations",
+          "content_bullets": [
+            "Summarize the result.",
+            "State the scope: short sequences, one model size, synthetic tasks."
+          ],
+          "citation_candidates": [
+            "Tay2022Efficient"
+          ]
+        }
+      ]
+    }
+  ]
+}

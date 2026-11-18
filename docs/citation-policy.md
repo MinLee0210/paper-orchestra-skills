@@ -10,13 +10,14 @@ A citation exists only after a bibliographic API returns matching metadata. Mode
 
 | Check | Threshold |
 |---|---|
-| Title similarity | > 70 (normalized Levenshtein-style ratio) |
-| Year match | bonus, never a substitute for title similarity |
+| Title similarity (exploration) | > 70 (normalized Levenshtein-style ratio) |
+| Title similarity (targeted) | >= 90 plus a year or author check |
+| Year match | required for targeted lookups when a year is supplied |
 | Abstract | required |
 | Publication date | strictly before the cutoff |
 | Deduplication | normalized title and Semantic Scholar paper ID |
 
-Semantic Scholar rate-limits unauthenticated traffic. Set `SEMANTIC_SCHOLAR_API_KEY` before a large run. If verification is rate-limited, wait and retry; do not bypass it.
+Verification tries Semantic Scholar, arXiv, Crossref, and DBLP in order. Semantic Scholar rate-limits unauthenticated traffic; set `SEMANTIC_SCHOLAR_API_KEY` before a large run. If one provider is rate-limited or blocked, fall back to the next; do not bypass verification.
 
 ## Cutoff
 
@@ -33,8 +34,8 @@ The outline must produce a citation hint for every P0 dependency. The evaluation
 
 - Minimum for a full paper: 20 unique verified papers.
 - Healthy: 40–60.
-- Cite at least 90% of the verified pool across Introduction and Related Work.
-- Do not pad. A citation that does not support its sentence is a defect.
+- Cover every P0 dependency and at least two verified papers per Related Work cluster.
+- Do not pad to hit an overall percentage. A citation that does not support its sentence is a defect. Overall coverage is reported, not enforced.
 
 ## Anti-hallucination
 

@@ -57,6 +57,7 @@ def main() -> int:
     parser.add_argument("--registry", help="Verified registry JSON")
     parser.add_argument("--cutoff", help="YYYY-MM research cutoff")
     parser.add_argument("--min-papers", type=int, default=20)
+    parser.add_argument("--min-cluster-citations", type=int, default=2)
     args = parser.parse_args()
 
     base = Path(args.dir).expanduser().resolve()
@@ -119,11 +120,27 @@ def main() -> int:
                     errors.append(f"outline candidate '{key}' in '{label}' is not in citation_map")
             if not candidates:
                 warnings.append("outline has no citation_candidates; run inject_citations.py first")
-            if len({k for k, _ in candidates}) < args.min_papers:
+            unique_candidates = {k for k, _ in candidates}
+            if len(unique_candidates) < args.min_papers:
                 warnings.append(
-                    f"outline uses only {len({k for k, _ in candidates})} unique citation candidates "
+                    f"outline uses only {len(unique_candidates)} unique citation candidates "
                     f"(target >= {args.min_papers} for a full paper)"
                 )
+            clusters = (
+                ((outline.get("intro_related_work_plan") or {}).get("related_work_strategy") or {})
+                .get("subsections", [])
+                or []
+            )
+            for cluster in clusters:
+                if not isinstance(cluster, dict):
+                    continue
+                label = cluster.get("subsection_title") or "Related Work cluster"
+                count = len(cluster.get("citation_candidates") or [])
+                if count < args.min_cluster_citations:
+                    warnings.append(
+                        f"cluster '{label}' has {count} citation candidates "
+                        f"(target >= {args.min_cluster_citations})"
+                    )
 
     if args.template:
         template = Path(args.template).expanduser()
@@ -140,13 +157,6 @@ def main() -> int:
             unknown = sorted(cited - map_set)
             if unknown:
                 errors.append(f"LaTeX cites keys not in citation_map: {', '.join(unknown[:20])}")
-            unused = sorted(map_set - cited)
-            if unused:
-                warnings.append(f"{len(unused)} verified papers are never cited (for example: {', '.join(unused[:10])})")
-            if len(cited) < max(1, int(len(map_set) * 0.9)):
-                warnings.append(
-                    f"only {len(cited)}/{len(map_set)} verified papers are cited; the literature stage targets >= 90%"
-                )
             if "cleverref" in text:
                 errors.append("template contains 'cleverref'; the package is 'cleveref'")
 
@@ -205,6 +215,9 @@ def main() -> int:
     for item in warnings:
         print(f"WARNING {item}")
     print(f"Checked {len(bib_set)} papers")
+    if args.template and "cited" in locals():
+        print(f"Cited {len(cited)} of {len(map_set)} verified papers")
+        print("Coverage is reported for review, not enforced as a quota; cite what supports the text.")
     print("OK" if not errors else "FAILED")
     return 0 if not errors else 1
 

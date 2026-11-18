@@ -15,8 +15,8 @@ PaperOrchestra Skills is an open-source collection of portable [Agent Skills](ht
 | Output | verified bibliography, figures, `final_paper.tex`, `final_paper.pdf`, optional metrics |
 | Pipeline | outline → literature + plotting (parallel) → section writing → refinement → evaluation |
 | Skills | 9 portable `SKILL.md` packages with references and deterministic scripts |
-| Templates | CVPR 2025 (two-column), ICLR 2025 (single-column), or any custom venue |
-| Citation safety | Semantic Scholar verification, strict cutoff, no unverified keys |
+| Templates | CVPR 2025, ICLR 2025, generic IEEE conference, arXiv preprint, or any custom venue |
+| Citation safety | Semantic Scholar + arXiv/Crossref/DBLP verification, strict cutoff, targeted matches at >= 90 |
 | Works with | Claude Code, opencode, Codex-style agents, custom `SKILL.md` runtimes |
 | License | Apache-2.0 |
 
@@ -50,8 +50,13 @@ Use the paper-content-refinement skill to improve the draft and produce the fina
 - `pdflatex` and `bibtex` for compiling papers. `xelatex`/`biber` are supported by the compile script.
 - `SEMANTIC_SCHOLAR_API_KEY` (optional) to raise literature-verification rate limits.
 - `PyMuPDF` and `Pillow` (optional) for rendering PDF pages during review.
+- `pytest` (optional) to run the offline test suite.
 
 No model API key is required by the skills. They use the model and tools provided by the host agent.
+
+## Proof it runs
+
+The repo ships a complete synthetic run: [`examples/paper-project/final_paper.pdf`](examples/paper-project/final_paper.pdf) (5 pages), its figures, a cached 12-paper bibliography, three-review refinement rounds, and [`run_report.json`](examples/paper-project/run_report.json). The demo is deliberately labeled as synthetic; it proves the pipeline and its artifacts, not a research result.
 
 ## Why this exists
 
@@ -70,7 +75,7 @@ PaperOrchestra addresses this with specialized agents, machine-readable artifact
 | Stage | Skill | Input | Output | Gate |
 |---|---|---|---|---|
 | 1 | `paper-outline` | idea, log, template, guidelines | `outline.json` | valid plan with figure, search, and citation plans |
-| 2a | `paper-literature-review` | outline + materials | verified registry, `references.bib`, citation map, cited Intro/Related Work | every citation verified; cutoff respected |
+| 2a | `paper-literature-review` | outline + materials | verified registry, `references.bib`, citation map, cited Intro/Related Work | every citation verified; targeted matches >= 90 with year/author; cutoff respected |
 | 2b | `paper-plotting` | outline + materials | figures, captions, manifests | every planned figure produced or explicitly skipped |
 | 3 | `paper-section-writing` | merged template + plan | complete LaTeX draft | compiles to PDF |
 | 4 | `paper-content-refinement` | draft + log + guidelines | final `.tex` and `.pdf` | score improves; page limit met; no undefined refs |
@@ -85,7 +90,7 @@ Stages 2a and 2b are independent and can run in parallel. The orchestrator merge
 | [`paper-orchestra`](skills/paper-orchestra/SKILL.md) | run or resume the full pipeline |
 | [`paper-inputs`](skills/paper-inputs/SKILL.md) | prepare `idea.md`, `experimental_log.md`, figures, and remove leakage |
 | [`paper-outline`](skills/paper-outline/SKILL.md) | plan the paper: sections, figures, search strategy, citation hints |
-| [`paper-template`](skills/paper-template/SKILL.md) | scaffold CVPR 2025, ICLR 2025, or a custom venue template |
+| [`paper-template`](skills/paper-template/SKILL.md) | scaffold CVPR 2025, ICLR 2025, IEEE conference, arXiv preprint, or a custom venue template |
 | [`paper-plotting`](skills/paper-plotting/SKILL.md) | make data plots and conceptual diagrams with a critic loop |
 | [`paper-literature-review`](skills/paper-literature-review/SKILL.md) | find, verify, deduplicate, and cite real papers; write Intro/Related Work |
 | [`paper-section-writing`](skills/paper-section-writing/SKILL.md) | draft the remaining sections, tables, figures, and appendix |
@@ -129,14 +134,18 @@ paper_project/
 The literature stage is deliberately split:
 
 1. **Discovery** uses broad, parallel web search to find candidate papers.
-2. **Verification** queries the Semantic Scholar Graph API for every candidate and keeps only papers with a strong title match, a retrievable abstract, and a publication date before the cutoff.
+2. **Verification** tries Semantic Scholar, then arXiv, Crossref, and DBLP. Exploration matches require a title ratio above 70. Targeted matches, such as the canonical paper for a dataset or optimizer, require **>= 90 plus a year or author check**. The paper must have an abstract and predate the cutoff.
 3. **Writing** uses only the verified registry. Every `\cite{}` key must exist in `citation_map.json`.
+
+The fallback chain matters in restricted environments: Semantic Scholar rate-limits aggressively, and a proxy can block it entirely. Falling back to another bibliographic source is acceptable; falling back to model memory is not.
 
 This design targets the dominant failure mode of autonomous writers: a short, plausible reference list that is partly fabricated and misses most of the field. The bundled scripts make the verification step repeatable:
 
 ```bash
 python skills/paper-literature-review/scripts/semantic_scholar.py \
   search --title "Attention Is All You Need" --year 2017 --cutoff 2024-11
+python skills/paper-literature-review/scripts/semantic_scholar.py \
+  search --title "AdamW" --author "Loshchilov" --year 2019 --targeted --cutoff 2024-11
 ```
 
 ## Evaluation
@@ -147,6 +156,8 @@ python skills/paper-literature-review/scripts/semantic_scholar.py \
 - **Literature review quality** on six 0–100 axes with anti-inflation caps.
 - **Overall quality** via an AgentReview-style reviewer with an accept/reject decision.
 - **Side-by-side win rate** against a baseline, evaluated in both orderings.
+
+Overall scores use three independent reviewer samples aggregated by mean (or median), not a single self-review. Per-axis variance is recorded so an unstable score is visible.
 
 Metrics are useful for detecting regressions. They are not a substitute for human review.
 
@@ -166,11 +177,11 @@ It can draft a paper from an idea and an experimental log. It cannot perform the
 
 ### Does it fabricate citations?
 
-The workflow is built to prevent that. Discovery may guess; verification may not. A paper enters the bibliography only after the Semantic Scholar API returns matching metadata and an abstract. The validator rejects citation keys that are not in the verified map.
+The workflow is built to prevent that. Discovery may guess; verification may not. A paper enters the bibliography only after Semantic Scholar, arXiv, Crossref, or DBLP returns matching metadata and an abstract. The validator rejects citation keys that are not in the verified map.
 
 ### Which conferences are supported?
 
-Bundled templates: CVPR 2025 (two-column, 8 pages) and ICLR 2025 (single-column, 10 pages). Any venue works if you provide a `template.tex`, `guidelines.md`, and the venue's style files. See the `paper-template` skill for the contract.
+Bundled templates: CVPR 2025 (two-column, 8 pages), ICLR 2025 (single-column, 10 pages), a generic IEEE conference scaffold, and a neutral arXiv preprint. Any venue works if you provide a `template.tex`, `guidelines.md`, and the venue's style files. See the `paper-template` skill for the contract.
 
 ### Which agents does it work with?
 
@@ -183,6 +194,14 @@ Only for literature verification. Set `SEMANTIC_SCHOLAR_API_KEY` to raise rate l
 ### Can I use it without internet access?
 
 You can write and refine a paper if you already have a BIB file and figures. The literature discovery and verification stages require network access. Offline mode is not a supported path for citation generation.
+
+### Is there a test suite and CI?
+
+Yes. `tests/` runs offline with pytest; it covers leakage blocking, outline validation, matching thresholds and provider fallbacks, bibliography construction, reviewer aggregation, LaTeX linting, template scaffolding, and the demo output. `.github/workflows/ci.yml` runs the tests and compiles all bundled templates.
+
+### Is there a sample output?
+
+Yes. `examples/paper-project/final_paper.pdf` is a complete synthetic run with a 5-page paper, figures, a 12-paper cached bibliography, three-review refinement rounds, and `run_report.json`. It is deliberately marked as a demo; the citations are cached fixtures, not live verification.
 
 ### Is the generated paper ready to submit?
 
@@ -205,6 +224,16 @@ Manual install:
 ln -s "$PWD/skills/paper-orchestra" ~/.claude/skills/paper-orchestra
 ```
 
+## Tests and CI
+
+Run the offline suite:
+
+```bash
+python -m pytest -q
+```
+
+The tests cover the blocking leakage gate, outline validation, targeted matching, provider fallbacks, bibliography construction, reviewer aggregation, LaTeX linting, template scaffolding, compilation, and the committed demo output. CI compiles all four bundled templates and runs the deterministic pipeline stages.
+
 ## Repository structure
 
 ```text
@@ -212,12 +241,15 @@ skills/                     # one directory per Agent Skill
 ├── paper-orchestra/        # orchestrator + pipeline status script
 ├── paper-inputs/           # raw-material templates and validator
 ├── paper-outline/          # outline prompt, schema, validator
-├── paper-template/         # CVPR/ICLR templates, scaffold script
+├── paper-template/         # CVPR/ICLR/IEEE/arXiv templates, scaffold script
 ├── paper-plotting/         # figure prompts, style guide, validator
 ├── paper-literature-review/# S2 verification, BibTeX, citation map, validators
 ├── paper-section-writing/  # section prompt, LaTeX conventions, linter
 ├── paper-content-refinement/# compile, render, review decision, prompts
 └── paper-evaluation/       # citation F1, SxS aggregation, rubrics
+tests/                      # offline pytest suite and fixtures
+.github/workflows/ci.yml    # tests + template compilation
+examples/paper-project/     # complete synthetic run with final PDF and run_report.json
 docs/                       # architecture, input format, evaluation, FAQ, upstream notes
 examples/paper-project/     # synthetic input files for a first run
 ```
@@ -233,7 +265,7 @@ examples/paper-project/     # synthetic input files for a first run
 
 ## Keywords
 
-automated research paper writing · AI paper writer · LaTeX manuscript generation · multi-agent paper writing · literature review agent · citation verification · Agent Skills · Claude Code skills · opencode skills · PaperWritingBench · PaperOrchestra · CVPR 2025 template · ICLR 2025 template · citation F1 · LLM peer review
+automated research paper writing · AI paper writer · LaTeX manuscript generation · multi-agent paper writing · literature review agent · citation verification · Agent Skills · Claude Code skills · opencode skills · PaperWritingBench · PaperOrchestra · CVPR 2025 template · ICLR 2025 template · IEEE conference template · arXiv preprint template · citation F1 · LLM peer review
 
 ## Attribution and license
 

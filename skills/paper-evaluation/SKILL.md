@@ -59,7 +59,7 @@ Ground the score against the venue's average citation count. A review that lists
 
 ## Overall quality
 
-Use the AgentReview rubric in `references/agentreview.md`: Overall 1–10 plus sub-axes, strengths, weaknesses, questions, and an accept/reject decision. For stability, use three reviews and a meta-review. Report the mean overall and the simulated acceptance rate across papers.
+Use the AgentReview rubric in `references/agentreview.md`: Overall 1–10 plus sub-axes, strengths, weaknesses, questions, and an accept/reject decision. Use three independent reviewer samples and aggregate them with `paper-content-refinement/scripts/aggregate_reviews.py`. Report the mean overall, its variance, and the simulated acceptance rate across papers.
 
 ## Side-by-side
 
@@ -108,4 +108,5 @@ Never report a metric without saying what produced it. An LLM score without the 
 - `scripts/aggregate_sxs.py` — side-by-side win/tie/loss aggregation.
 - `references/lit-review-rubric.md` — six-axis 0–100 rubric.
 - `references/agentreview.md` — reviewer rubric and ensemble protocol.
+- `paper-content-refinement/scripts/aggregate_reviews.py` — mean/median aggregation for multi-sample reviews.
 - `references/sxs-prompts.md` — literature and full-paper SxS prompts.

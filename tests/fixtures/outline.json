@@ -1,0 +1,61 @@
+{
+  "plotting_plan": [
+    {
+      "figure_id": "fig_main_results",
+      "title": "Main results",
+      "plot_type": "plot",
+      "data_source": "experimental_log.md",
+      "objective": "Grouped bar chart comparing our method with three baselines on two datasets.",
+      "aspect_ratio": "16:9"
+    }
+  ],
+  "intro_related_work_plan": {
+    "introduction_strategy": {
+      "hook_hypothesis": "Sparse attention is the standard way to scale sequence models.",
+      "problem_gap_hypothesis": "Fixed sparse patterns ignore input content.",
+      "search_directions": [
+        "cost of dense attention",
+        "surveys of efficient attention",
+        "foundational sparse attention"
+      ]
+    },
+    "related_work_strategy": {
+      "overview": "Compare fixed, learned, and content-dependent sparsity.",
+      "subsections": [
+        {
+          "subsection_title": "2.1 Fixed Sparse Patterns",
+          "methodology_cluster": "Static sparsity",
+          "sota_investigation_mission": "Identify fixed-pattern methods before the cutoff.",
+          "limitation_hypothesis": "Fixed patterns cannot adapt to input content.",
+          "limitation_search_queries": [
+            "fixed sparse attention limitation content adaptivity",
+            "static attention pattern generalization"
+          ],
+          "bridge_to_our_method": "A learned router selects the pattern per input."
+        }
+      ]
+    }
+  },
+  "section_plan": [
+    {
+      "section_title": "Abstract",
+      "subsections": [
+        {
+          "subsection_title": "Abstract Content",
+          "content_bullets": ["State the problem", "Introduce the method"],
+          "citation_hints": []
+        }
+      ]
+    },
+    {
+      "section_title": "3. Methodology",
+      "subsections": [
+        {
+          "subsection_title": "3.1 Learned Routing",
+          "content_bullets": ["Formalize the router", "Define the sparsity loss"],
+          "citation_hints": ["research paper or technical report introducing 'Gumbel-Softmax'"]
+        }
+      ]
+    }
+  ]
+}

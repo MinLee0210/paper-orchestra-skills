@@ -1,0 +1,64 @@
+{
+  "project": "examples/paper-project",
+  "mode": "offline-demo",
+  "created_at": "2026-11-18T23:35:00Z",
+  "research_cutoff": "2024-11",
+  "template": "neutral-example",
+  "inputs": {
+    "idea": "raw_materials/idea.md",
+    "experimental_log": "raw_materials/experimental_log.md",
+    "figures": "raw_materials/figures (none supplied)"
+  },
+  "stages": {
+    "inputs": {
+      "status": "complete",
+      "artifact": "raw_materials/",
+      "notes": "Leakage validator passes."
+    },
+    "outline": {
+      "status": "complete",
+      "artifact": "outline.json",
+      "notes": "Three figures, three related-work clusters, exhaustive hints."
+    },
+    "literature": {
+      "status": "complete",
+      "artifact": "literature_agent_output/registry.json",
+      "notes": "12 cached local-fixture records; live Semantic Scholar verification was not run in this environment."
+    },
+    "plotting": {
+      "status": "complete",
+      "artifact": "figures/info.json",
+      "notes": "Two data plots and one vector schematic."
+    },
+    "section_writing": {
+      "status": "complete",
+      "artifact": "latex_writeup/raw_draft_paper.tex",
+      "notes": "Compiled to a 5-page draft."
+    },
+    "refinement": {
+      "status": "complete",
+      "artifact": "final_paper.pdf",
+      "notes": "Three-review ensemble accepted one revision; final compile has no undefined citations. Page images were checked locally."
+    },
+    "evaluation": {
+      "status": "skipped",
+      "artifact": "metrics/",
+      "notes": "No independent ground-truth registry is available for the synthetic demo."
+    }
+  },
+  "artifacts": {
+    "outline": "outline.json",
+    "citation_map": "literature_agent_output/citation_map.json",
+    "bibliography": "literature_agent_output/references.bib",
+    "figures": "figures/",
+    "draft": "latex_writeup/raw_draft_paper.tex",
+    "final_tex": "final_paper.tex",
+    "final_pdf": "final_paper.pdf",
+    "reviews": "content_refinement_workdir/peer_reviews/"
+  },
+  "warnings": [
+    "The manuscript is synthetic and is not a real publication.",
+    "Citations come from a cached local fixture for offline reproducibility; run the literature skill against Semantic Scholar/arXiv/Crossref/DBLP before using this in a real project.",
+    "The reviewer scores are illustrative samples, not independent human reviews."
+  ]
+}

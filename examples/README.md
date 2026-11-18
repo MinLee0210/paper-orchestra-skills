@@ -1,6 +1,13 @@
 # Examples
 
-The example project is synthetic. It exists to exercise the pipeline: the method is invented, the numbers are illustrative, and the template is a neutral `article` scaffold rather than a real venue.
+`paper-project/` is a complete, synthetic end-to-end run. It includes raw
+materials, an outline, a cached citation registry, figures, a draft, a
+three-review refinement round, the final PDF, and `run_report.json`.
+
+The method is invented, the numbers are illustrative, and the template is a
+neutral `article` scaffold rather than a real venue. See
+[`paper-project/README.md`](paper-project/README.md) for the artifact map and
+the honest caveats.
 
 ## Try the input audit
 

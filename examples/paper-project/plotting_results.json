@@ -1,0 +1,38 @@
+[
+  {
+    "figure_id": "fig_main_results",
+    "title": "Main results",
+    "task_name": "plot",
+    "aspect_ratio": "16:9",
+    "caption": "Main results on the two synthetic tasks. Left: validation perplexity (lower is better). Right: exact match (higher is better). Error bars are one standard deviation over three seeds.",
+    "image_path": "figures/fig_main_results.pdf",
+    "preview_path": "figures/fig_main_results.png",
+    "data_source": "experimental_log.md",
+    "critic_rounds": 1,
+    "notes": "Values copied from the main results table."
+  },
+  {
+    "figure_id": "fig_ablation",
+    "title": "Ablation on the global-token budget",
+    "task_name": "plot",
+    "aspect_ratio": "16:9",
+    "caption": "Ablation on the global-token budget. Left: CopyLong perplexity. Right: Needle exact match. A fixed gate at 0.25 isolates the effect of learned routing.",
+    "image_path": "figures/fig_ablation.pdf",
+    "preview_path": "figures/fig_ablation.png",
+    "data_source": "experimental_log.md",
+    "critic_rounds": 1,
+    "notes": "Values copied from the ablation table."
+  },
+  {
+    "figure_id": "fig_routing_schematic",
+    "title": "Routing schematic",
+    "task_name": "diagram",
+    "aspect_ratio": "4:3",
+    "caption": "Routing schematic. Each token is scored by a gate and assigned to local-window or global-summary attention before the outputs are merged.",
+    "image_path": "figures/fig_routing_schematic.pdf",
+    "preview_path": "figures/fig_routing_schematic.png",
+    "data_source": "idea.md",
+    "critic_rounds": 1,
+    "notes": "Vector schematic generated with matplotlib patches."
+  }
+]

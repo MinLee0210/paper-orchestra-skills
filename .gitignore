@@ -33,5 +33,11 @@ peer_reviews/
 *.synctex.gz
 .paper_orchestra_cache.json
 
-# Keep example inputs
+# Keep the committed demo artifacts
+!examples/paper-project/content_refinement_workdir/
+!examples/paper-project/content_refinement_workdir/**
+!examples/paper-project/content_refinement_workdir/peer_reviews/
+!examples/paper-project/content_refinement_workdir/peer_reviews/**
+!examples/paper-project/content_refinement_workdir/pdf_screenshots/
+!examples/paper-project/content_refinement_workdir/pdf_screenshots/**
 !examples/**/references.bib

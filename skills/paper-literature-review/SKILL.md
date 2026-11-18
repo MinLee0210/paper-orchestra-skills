@@ -34,19 +34,27 @@ Read `references/prompts.md` for the discovery and writing prompts.
 
 For every candidate, sequentially:
 
-1. Query Semantic Scholar by title (optionally with the candidate year as a hint).
-2. Accept a match only when the fuzzy title ratio is above 70. Exact year alignment adds a bonus.
+1. Query the configured providers in order: Semantic Scholar, arXiv, Crossref, then DBLP.
+2. Exploration tasks accept a fuzzy title ratio above 70. Targeted tasks (the canonical paper for a dataset, metric, optimizer, baseline, or model) require **>= 90** and a year or author check.
 3. Reject if the paper is on or after the cutoff.
-4. Reject if there is no abstract; the writer needs the abstract to describe the work accurately.
+4. Reject if there is no abstract; the writer needs the abstract to describe the work accurately. (DBLP records can be enriched by DOI through Crossref.)
 5. Fetch authors, venue, year, citation count, journal, volume, pages, and publication date.
-6. Deduplicate by normalized title and by Semantic Scholar paper ID.
+6. Deduplicate by normalized title and by provider paper ID.
 
 Use the bundled script:
 
 ```bash
+# Exploration: wider match, still cutoff-aware
 python scripts/semantic_scholar.py search --title "Attention Is All You Need" --year 2017 --cutoff 2024-11
+
+# Targeted: require a high-confidence canonical paper
+python scripts/semantic_scholar.py search --title "AdamW" --author "Loshchilov" --year 2019 --targeted --cutoff 2024-11
+
+# Batch: strings are treated as targeted; dicts use "targeted": true or "search_type": "targeted"
 python scripts/semantic_scholar.py enrich --candidates candidates.json --out registry.json --cutoff 2024-11
 ```
+
+Fallback providers are tried in order (`--sources semantic_scholar,arxiv,crossref,dblp`). A provider rate-limit or network block is not a reason to verify from memory; it is a reason to fall back or retry.
 
 `candidates.json` may be a list of strings or objects:
 
@@ -82,7 +90,8 @@ Write only those two sections. Leave every other section untouched.
 Rules:
 
 - Cite only keys from `citation_map.json`. A citation key not in the map is a bug.
-- Use at least 90% of the verified pool across the two sections. The point of gathering 40 papers is not to cite 8.
+- Cover every P0 dependency: baselines, datasets, metrics, and foundational methods. In Related Work, cite at least two verified papers per methodology cluster.
+- Do not pad to hit an overall percentage. A citation that does not support its sentence is a defect, not coverage.
 - Introduction: macro context, impact, foundational work, surveys, and the gap. Cite statistics and broad claims.
 - Related Work: micro comparisons, grouped by methodology cluster. Use comparative sentences ("Several methods [A, B] reduce ... but assume ...") rather than a list of summaries.
 - Treat papers after the cutoff as concurrent work, never as baselines the method beats.
@@ -107,8 +116,9 @@ Checks:
 - every key in `citation_map.json` exists in `references.bib` and vice versa;
 - every `\cite{...}` in the template resolves;
 - every `citation_candidates` key in the outline exists in the map;
+- every Related Work cluster has at least two verified candidates;
 - no duplicate keys, missing titles, missing authors, or missing years;
-- paper count and citation density are plausible for a full paper.
+- paper count and per-cluster coverage are plausible for a full paper. Overall citation percentage is reported, not enforced as a quota.
 
 Treat 20 unique papers as the minimum for a full research paper and 40+ as healthy. A thin registry is a reason to rerun discovery, not a reason to lower the bar.
 
@@ -124,7 +134,7 @@ Treat 20 unique papers as the minimum for a full research paper and 40+ as healt
 
 - `references/prompts.md` — discovery, targeted search, and Introduction/Related Work prompts.
 - `references/citation-policy.md` — verification thresholds, cutoff logic, and P0/P1 definitions.
-- `scripts/semantic_scholar.py` — search, enrich, deduplicate, and key generation.
+- `scripts/semantic_scholar.py` — Semantic Scholar plus arXiv/Crossref/DBLP fallback, targeted matching, deduplication, and key generation.
 - `scripts/build_bib.py` — registry to BibTeX and citation map.
 - `scripts/inject_citations.py` — attach verified keys to the outline.
 - `scripts/validate_literature.py` — consistency checks before writing.

@@ -7,6 +7,9 @@
 - [Upstream notes](upstream.md) — what was ported, changed, and removed from PaperOrchestra.
 - [FAQ](faq.md) — direct answers for humans and answer engines.
 
+A complete synthetic run with a final PDF and run report lives in
+[`examples/paper-project/`](../examples/paper-project/README.md).
+
 Skill-level references live next to each skill:
 
 - `skills/paper-outline/references/` — outline prompt and schema.

@@ -7,13 +7,14 @@ Discovery may use web search and model judgment. Verification may not. A candida
 | Step | Allowed sources | Output |
 |---|---|---|
 | Discovery | web search, search-grounded model | candidate title, year, reason |
-| Verification | Semantic Scholar Graph API | paper ID, authors, venue, year, abstract, dates |
+| Verification | Semantic Scholar, then arXiv, Crossref, DBLP | paper ID, authors, venue, year, abstract, dates |
 | Writing | verified registry only | LaTeX with `\cite{...}` |
 
 ## Acceptance thresholds
 
-- Fuzzy title similarity must be **greater than 70** (Levenshtein-style ratio).
-- An exact year match adds a bonus, but never overrides a low title similarity.
+- Exploration tasks require a fuzzy title similarity **greater than 70** (Levenshtein-style ratio).
+- Targeted tasks require **>= 90** plus a year or author check, because a near-title match can be a different paper.
+- A year mismatch or author mismatch rejects a targeted match unless the other check confirms identity.
 - The paper must have an abstract. Without one, the writer cannot describe it accurately.
 - The paper must strictly predate the cutoff.
 - Duplicate candidates are removed by normalized title and by paper ID.
@@ -45,8 +46,8 @@ The outline's `citation_hints` should cover every P0 dependency exhaustively. If
 
 - Minimum for a full research paper: 20 unique verified papers.
 - Healthy range: 40–60, depending on the field.
-- Cite at least 90% of the verified pool across Introduction and Related Work. Gathering papers and then citing eight of them defeats the purpose.
-- Do not pad. A citation that does not support the sentence it is attached to is a defect, not coverage.
+- Cover every P0 dependency. In Related Work, cite at least two verified papers per methodology cluster.
+- Do not pad to hit an overall percentage. A citation that does not support the sentence it is attached to is a defect, not coverage. Overall coverage is reported for review, not enforced.
 
 ## Anti-hallucination rules
 

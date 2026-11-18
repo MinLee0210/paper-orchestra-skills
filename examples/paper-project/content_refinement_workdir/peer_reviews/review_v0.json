@@ -1,0 +1,125 @@
+{
+  "Overall": 6.0,
+  "Confidence": 4.0,
+  "Originality": 3.0,
+  "Quality": 2.33,
+  "Clarity": 3.0,
+  "Significance": 3.0,
+  "Soundness": 2.33,
+  "Presentation": 3.0,
+  "Contribution": 2.0,
+  "Strengths": [
+    "clear routing mechanism",
+    "ablations isolate the gate"
+  ],
+  "Weaknesses": [
+    "no limitations paragraph",
+    "scope is easy to overread"
+  ],
+  "Questions": [
+    "what is the inference latency?"
+  ],
+  "Limitations": [],
+  "Summary": "A small routing gate selects local or global attention per token. The synthetic evaluation is clear but narrow.",
+  "Decision": "Reject",
+  "ensemble": {
+    "count": 3,
+    "axes": {
+      "Overall": {
+        "mean": 6.0,
+        "median": 6.0,
+        "stdev": 0.0,
+        "values": [
+          6.0,
+          6.0,
+          6.0
+        ]
+      },
+      "Confidence": {
+        "mean": 4.0,
+        "median": 4.0,
+        "stdev": 0.0,
+        "values": [
+          4.0,
+          4.0,
+          4.0
+        ]
+      },
+      "Originality": {
+        "mean": 3.0,
+        "median": 3.0,
+        "stdev": 0.0,
+        "values": [
+          3.0,
+          3.0,
+          3.0
+        ]
+      },
+      "Quality": {
+        "mean": 2.333,
+        "median": 2.0,
+        "stdev": 0.577,
+        "values": [
+          2.0,
+          3.0,
+          2.0
+        ]
+      },
+      "Clarity": {
+        "mean": 3.0,
+        "median": 3.0,
+        "stdev": 0.0,
+        "values": [
+          3.0,
+          3.0,
+          3.0
+        ]
+      },
+      "Significance": {
+        "mean": 3.0,
+        "median": 3.0,
+        "stdev": 0.0,
+        "values": [
+          3.0,
+          3.0,
+          3.0
+        ]
+      },
+      "Soundness": {
+        "mean": 2.333,
+        "median": 2.0,
+        "stdev": 0.577,
+        "values": [
+          2.0,
+          2.0,
+          3.0
+        ]
+      },
+      "Presentation": {
+        "mean": 3.0,
+        "median": 3.0,
+        "stdev": 0.0,
+        "values": [
+          3.0,
+          3.0,
+          3.0
+        ]
+      },
+      "Contribution": {
+        "mean": 2.0,
+        "median": 2.0,
+        "stdev": 0.0,
+        "values": [
+          2.0,
+          2.0,
+          2.0
+        ]
+      }
+    }
+  },
+  "individual_decisions": [
+    "Reject",
+    "Reject",
+    "Reject"
+  ]
+}

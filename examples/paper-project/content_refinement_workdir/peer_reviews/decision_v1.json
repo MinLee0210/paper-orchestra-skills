@@ -1,0 +1,17 @@
+{
+  "decision": "ACCEPT",
+  "reason": "overall score increased",
+  "overall_before": 6.0,
+  "overall_after": 6.33,
+  "deltas": {
+    "Originality": 0.0,
+    "Quality": 0.67,
+    "Clarity": 0.33,
+    "Significance": 0.0,
+    "Soundness": 0.67,
+    "Presentation": 0.0,
+    "Contribution": 0.67
+  },
+  "total_gain": 2.34,
+  "total_drop": 0.0
+}

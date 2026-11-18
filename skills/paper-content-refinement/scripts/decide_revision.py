@@ -52,7 +52,7 @@ def decide(before: dict, after: dict) -> dict:
         a = number(after, axis)
         if b is None or a is None:
             continue
-        delta = a - b
+        delta = round(a - b, 3)
         deltas[axis] = delta
         if delta > 0:
             gain += delta
@@ -78,8 +78,8 @@ def decide(before: dict, after: dict) -> dict:
         "overall_before": b_overall,
         "overall_after": a_overall,
         "deltas": deltas,
-        "total_gain": gain,
-        "total_drop": drop,
+        "total_gain": round(gain, 3),
+        "total_drop": round(drop, 3),
     }
 
 

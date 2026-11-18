@@ -49,10 +49,15 @@ A knowledgeable, responsible, benign reviewer with a PhD in the paper's area. Re
 
 ## Ensemble protocol
 
-1. Generate three independent reviews at temperature 0.75.
-2. Generate a meta-review with an area-chair persona that combines them into one review in the same format.
-3. For numeric axes, use the rounded mean of the three reviews when available; otherwise use the meta-review.
-4. Report the mean Overall and the fraction of `Accept` decisions as the simulated acceptance rate.
+1. Generate three independent reviews at temperature 0.75, preferably with independent reviewer contexts.
+2. Aggregate them:
+
+   ```bash
+   python <paper-content-refinement>/scripts/aggregate_reviews.py review_a.json review_b.json review_c.json --out review.json
+   ```
+
+3. Use the aggregated numeric axes (`--stat mean` by default) and the majority decision.
+4. Report the mean Overall and the fraction of `Accept` decisions as the simulated acceptance rate. Inspect per-axis standard deviation; high variance means the score is unstable.
 
 ## Anti-inflation
 

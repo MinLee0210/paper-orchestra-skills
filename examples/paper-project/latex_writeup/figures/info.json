@@ -1,0 +1,14 @@
+[
+  {
+    "name": "fig_main_results.pdf",
+    "caption": "Main results on the two synthetic tasks. Left: validation perplexity (lower is better). Right: exact match (higher is better). Error bars are one standard deviation over three seeds."
+  },
+  {
+    "name": "fig_ablation.pdf",
+    "caption": "Ablation on the global-token budget. Left: CopyLong perplexity. Right: Needle exact match. A fixed gate at 0.25 isolates the effect of learned routing."
+  },
+  {
+    "name": "fig_routing_schematic.pdf",
+    "caption": "Routing schematic. Each token is scored by a gate and assigned to local-window or global-summary attention before the outputs are merged."
+  }
+]

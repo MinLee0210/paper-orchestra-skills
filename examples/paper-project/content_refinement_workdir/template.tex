@@ -1,0 +1,71 @@
+\documentclass[10pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{times}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+
+\title{Anonymous Submission}
+\author{Anonymous}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+% TODO: abstract
+\end{abstract}
+
+
+\section{Introduction}
+\label{sec:intro}
+The Transformer replaced recurrence with attention and became the dominant architecture for sequence modeling~\cite{Vaswani2017Attention}. Its central operation, self-attention, compares every token with every other token. This quadratic cost is tolerable at short lengths but becomes the binding constraint as context grows. Empirical scaling studies show that loss improves predictably with model size, data, and compute~\cite{Kaplan2020Scaling}, which makes the cost of attention a first-order systems problem rather than an implementation detail. Surveys of efficient Transformers organize the response into sparse patterns, low-rank approximations, recurrent memory, and adaptive computation~\cite{Tay2022Efficient}.
+
+Sparse attention is the most direct response. Sparse Transformer introduces fixed factorized patterns~\cite{Child2019Generating}; Longformer combines a sliding window with a small set of global tokens~\cite{Beltagy2020Longformer}; BigBird adds global tokens with theoretical guarantees~\cite{Zaheer2020Big}. These methods reduce cost, but the connectivity is chosen before training and applied to every input. A token that must copy a value from hundreds of steps earlier receives the same pattern as a token that only needs local context.
+
+A second line of work changes the representation rather than the pattern. Reformer uses locality-sensitive hashing and reversible layers~\cite{Kitaev2020Reformer}; Linformer projects keys and values into a low-rank space~\cite{Wang2020Linformer}; Compressive Transformer keeps a compressed memory of past activations~\cite{Rae2020Compressive}. Each method fixes an approximation or a memory budget, so the allocation is still input-independent.
+
+Adaptive computation offers a different lever. Adaptive Computation Time learns when to stop a recurrent computation~\cite{Graves2016Adaptive}, and Gumbel-Softmax provides a differentiable approximation to discrete selection~\cite{Jang2017Categorical}. These ideas make computation input-dependent, but they have not been used to choose attention connectivity per token.
+
+This paper asks whether the local/global split can be selected per input. We introduce a small gate that scores each token, a straight-through top-$k$ selection that assigns tokens to local-window or global-summary attention, and a sparsity penalty that makes the global budget explicit. The design is deliberately simple: the contribution is the allocation mechanism, not a new attention kernel.
+
+Our contributions are:
+\begin{itemize}
+  \item a per-input routing gate that mixes local and global attention;
+  \item a sparsity penalty that exposes the compute budget as a tunable quantity;
+  \item an evaluation on two synthetic sequence tasks with ablations on the budget and on the gate.
+\end{itemize}
+
+The scope is narrow. The experiments use sequences of at most 1{,}024 tokens, one model size, and synthetic tasks. We do not claim state-of-the-art results on natural-language benchmarks, and we do not claim that the gains transfer to larger models without further evidence.
+
+\section{Related Work}
+\label{sec:related_work}
+\subsection{Fixed Sparse Patterns}
+\label{sec:fixed_sparse}
+Sparse Transformer factorizes attention into fixed local and strided patterns~\cite{Child2019Generating}. Longformer uses a sliding window and learns a small number of global tokens for tasks that need document-level context~\cite{Beltagy2020Longformer}. BigBird combines window, global, and random connections and analyzes the resulting expressivity~\cite{Zaheer2020Big}. These methods share a design choice: the pattern and the global-token budget are fixed before training. Our gate instead selects the split per input, and the penalty makes the average budget explicit.
+
+\subsection{Low-Rank and Recurrent Efficiency}
+\label{sec:low_rank}
+Reformer reduces memory with locality-sensitive hashing and reversible residual layers~\cite{Kitaev2020Reformer}. Linformer projects keys and values to a lower-dimensional space, yielding linear complexity in sequence length~\cite{Wang2020Linformer}. Compressive Transformer extends the context with a compressed memory of past activations~\cite{Rae2020Compressive}. Each approach lowers cost through a fixed approximation or memory budget; none allocates attention connectivity according to the content of the current input.
+
+\subsection{Adaptive Computation}
+\label{sec:adaptive}
+Adaptive Computation Time learns per-step halting for recurrent networks~\cite{Graves2016Adaptive}. Gumbel-Softmax makes discrete categorical selection differentiable through a continuous relaxation~\cite{Jang2017Categorical}. Our work applies a related discrete-selection idea to attention connectivity: the gate decides whether a token participates in the global summary, and a straight-through estimator passes gradients through the top-$k$ split.
+
+
+\section{Method}
+% TODO: method
+
+\section{Experiments}
+% TODO: experiments
+
+\section{Conclusion}
+% TODO: conclusion
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

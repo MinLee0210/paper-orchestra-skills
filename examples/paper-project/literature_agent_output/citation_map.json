@@ -1,0 +1,172 @@
+{
+  "Vaswani2017Attention": {
+    "citation_key": "Vaswani2017Attention",
+    "title": "Attention Is All You Need",
+    "authors": [
+      "Ashish Vaswani",
+      "Noam Shazeer",
+      "Niki Parmar"
+    ],
+    "venue": "NeurIPS",
+    "year": 2017,
+    "abstract": "Introduces the Transformer, a sequence model built entirely from attention without recurrence or convolution.",
+    "source": "local-fixture",
+    "doi": null
+  },
+  "Tay2022Efficient": {
+    "citation_key": "Tay2022Efficient",
+    "title": "Efficient Transformers: A Survey",
+    "authors": [
+      "Yi Tay",
+      "Mostafa Dehghani",
+      "Dara Bahri",
+      "Donald Metzler"
+    ],
+    "venue": "ACM Computing Surveys",
+    "year": 2022,
+    "abstract": "Surveys efficient Transformer architectures and organizes their trade-offs in compute, memory, and accuracy.",
+    "source": "local-fixture",
+    "doi": null
+  },
+  "Kaplan2020Scaling": {
+    "citation_key": "Kaplan2020Scaling",
+    "title": "Scaling Laws for Neural Language Models",
+    "authors": [
+      "Jared Kaplan",
+      "Sam McCandlish",
+      "Tom Henighan"
+    ],
+    "venue": "arXiv",
+    "year": 2020,
+    "abstract": "Empirical scaling laws relating model size, data, compute, and language-modeling loss.",
+    "source": "local-fixture",
+    "doi": null
+  },
+  "Child2019Generating": {
+    "citation_key": "Child2019Generating",
+    "title": "Generating Long Sequences with Sparse Transformers",
+    "authors": [
+      "Rewon Child",
+      "Scott Gray",
+      "Alec Radford",
+      "Ilya Sutskever"
+    ],
+    "venue": "arXiv",
+    "year": 2019,
+    "abstract": "Introduces fixed sparse attention patterns that scale Transformers to long sequences.",
+    "source": "local-fixture",
+    "doi": null
+  },
+  "Beltagy2020Longformer": {
+    "citation_key": "Beltagy2020Longformer",
+    "title": "Longformer: The Long-Document Transformer",
+    "authors": [
+      "Iz Beltagy",
+      "Matthew E. Peters",
+      "Arman Cohan"
+    ],
+    "venue": "arXiv",
+    "year": 2020,
+    "abstract": "Combines sliding-window attention with task-specific global attention for long documents.",
+    "source": "local-fixture",
+    "doi": null
+  },
+  "Zaheer2020Big": {
+    "citation_key": "Zaheer2020Big",
+    "title": "Big Bird: Transformers for Longer Sequences",
+    "authors": [
+      "Manzil Zaheer",
+      "Guru Guruganesh",
+      "Avinava Dubey"
+    ],
+    "venue": "NeurIPS",
+    "year": 2020,
+    "abstract": "Sparse attention with global tokens plus theoretical guarantees for long sequences.",
+    "source": "local-fixture",
+    "doi": null
+  },
+  "Kitaev2020Reformer": {
+    "citation_key": "Kitaev2020Reformer",
+    "title": "Reformer: The Efficient Transformer",
+    "authors": [
+      "Nikita Kitaev",
+      "Lukasz Kaiser",
+      "Anselm Levskaya"
+    ],
+    "venue": "ICLR",
+    "year": 2020,
+    "abstract": "Uses locality-sensitive hashing and reversible layers to reduce Transformer memory.",
+    "source": "local-fixture",
+    "doi": null
+  },
+  "Wang2020Linformer": {
+    "citation_key": "Wang2020Linformer",
+    "title": "Linformer: Self-Attention with Linear Complexity",
+    "authors": [
+      "Sinong Wang",
+      "Belinda Z. Li",
+      "Madian Khabsa",
+      "Han Fang",
+      "Hao Ma"
+    ],
+    "venue": "arXiv",
+    "year": 2020,
+    "abstract": "Projects keys and values to a low-rank space to obtain linear-time self-attention.",
+    "source": "local-fixture",
+    "doi": null
+  },
+  "Rae2020Compressive": {
+    "citation_key": "Rae2020Compressive",
+    "title": "Compressive Transformers for Long-Range Sequence Modelling",
+    "authors": [
+      "Jack W. Rae",
+      "Anna Potapenko",
+      "Siddhant M. Jayakumar",
+      "Timothy P. Lillicrap"
+    ],
+    "venue": "ICLR",
+    "year": 2020,
+    "abstract": "Keeps a compressed memory of past activations to extend the effective context.",
+    "source": "local-fixture",
+    "doi": null
+  },
+  "Graves2016Adaptive": {
+    "citation_key": "Graves2016Adaptive",
+    "title": "Adaptive Computation Time for Recurrent Neural Networks",
+    "authors": [
+      "Alex Graves"
+    ],
+    "venue": "arXiv",
+    "year": 2016,
+    "abstract": "Learns per-step halting so recurrent networks can spend variable computation.",
+    "source": "local-fixture",
+    "doi": null
+  },
+  "Jang2017Categorical": {
+    "citation_key": "Jang2017Categorical",
+    "title": "Categorical Reparameterization with Gumbel-Softmax",
+    "authors": [
+      "Eric Jang",
+      "Shixiang Gu",
+      "Ben Poole"
+    ],
+    "venue": "ICLR",
+    "year": 2017,
+    "abstract": "Gumbel-Softmax gives a differentiable approximation to sampling categorical variables.",
+    "source": "local-fixture",
+    "doi": null
+  },
+  "Loshchilov2019Decoupled": {
+    "citation_key": "Loshchilov2019Decoupled",
+    "title": "Decoupled Weight Decay Regularization",
+    "authors": [
+      "Ilya Loshchilov",
+      "Frank Hutter"
+    ],
+    "venue": "ICLR",
+    "year": 2019,
+    "abstract": "Decouples weight decay from adaptive gradient updates, yielding the AdamW optimizer.",
+    "source": "local-fixture",
+    "doi": null
+  }
+}

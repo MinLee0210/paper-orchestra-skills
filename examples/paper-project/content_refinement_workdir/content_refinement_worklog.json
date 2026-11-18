@@ -1,0 +1,27 @@
+{
+  "rounds": [
+    {
+      "round": 1,
+      "candidate": "refined_paper_v1.tex",
+      "reviews": [
+        "peer_reviews/raw/review_v1_a.json",
+        "peer_reviews/raw/review_v1_b.json",
+        "peer_reviews/raw/review_v1_c.json"
+      ],
+      "aggregated_review": "peer_reviews/review_v1.json",
+      "scores_before": {
+        "Overall": 6.0
+      },
+      "scores_after": {
+        "Overall": 6.33
+      },
+      "outcome": "ACCEPTED_SCORE_INCREASE",
+      "actions": [
+        "Added an explicit limitations paragraph covering sequence length, synthetic tasks, model size, and the within-variance perplexity result.",
+        "Clarified that the contribution is allocation rather than a new attention kernel."
+      ]
+    }
+  ],
+  "final": "final_paper.tex",
+  "notes": "Demo artifacts. Reviewer samples are illustrative, not independent human reviews."
+}

@@ -1,0 +1,1 @@
+{"Overall": 6, "Confidence": 4, "Originality": 3, "Quality": 2, "Clarity": 3, "Significance": 3, "Soundness": 2, "Presentation": 3, "Contribution": 2, "Strengths": ["clear method"], "Weaknesses": ["weak baseline"], "Questions": ["what is the latency?"], "Limitations": ["short sequences"], "Decision": "Reject"}

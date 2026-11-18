@@ -40,7 +40,13 @@ Caps matter: a descriptive review cannot score above 60 on synthesis, and an uns
 
 ## Overall quality
 
-Use `skills/paper-evaluation/references/agentreview.md`. Overall 1–10, sub-axes, strengths, weaknesses, questions, and accept/reject. For stability, use three reviews at temperature 0.75 plus a meta-review, then average the numeric axes.
+Use `skills/paper-evaluation/references/agentreview.md`. Overall 1–10, sub-axes, strengths, weaknesses, questions, and accept/reject. For stability, use three independent reviews at temperature 0.75 and aggregate them:
+
+```bash
+python skills/paper-content-refinement/scripts/aggregate_reviews.py   review_a.json review_b.json review_c.json --out review.json
+```
+
+The default is the mean; `--stat median` is available. The aggregate records per-axis standard deviation, so a high-variance score is visible rather than hidden.
 
 Report the mean overall score and the simulated acceptance rate. Both are simulations, not peer review.
 

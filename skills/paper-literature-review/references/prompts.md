@@ -69,7 +69,9 @@ You must cite only the given `collected_papers`. Do not introduce new citations.
 Citation requirements:
 
 - You have abstracts for `<N>` collected papers.
-- Cite at least `<MIN_CITE>` of them across the two sections.
+- Cite every P0 dependency: direct baselines, datasets, metrics, and foundational methods.
+- In Related Work, cite at least two verified papers per methodology cluster.
+- Do not pad citations to reach an overall percentage.
 - Introduction: cite foundational models, key statistics, and broad problem statements.
 - Related Work: make deep comparative citations. Group distinct works ("Several methods [A, B, C] ...").
 - Every `\cite{key}` must correspond exactly to a key in `citation_checklist`.

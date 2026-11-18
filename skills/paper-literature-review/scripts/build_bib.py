@@ -94,6 +94,8 @@ def main() -> int:
             "venue": clean(paper.get("venue")),
             "year": paper.get("year"),
             "abstract": clean(paper.get("abstract")),
+            "source": paper.get("source"),
+            "doi": paper.get("doi"),
         }
 
     out = Path(args.out).expanduser()

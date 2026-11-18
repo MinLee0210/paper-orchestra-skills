@@ -71,11 +71,17 @@ REVIEW JSON:
 
 In THOUGHT, write the notes a reviewer would take: what the paper claims, what the evidence shows, where the argument breaks. Do not write generic comments.
 
-## Ensemble and meta-review
+## Ensemble and independence
 
-For a more stable score, generate three independent reviews at temperature 0.75 and aggregate them with a meta-review prompt. The meta-reviewer is an experienced area chair who combines all opinions into one review in the same JSON format. If ensemble scores are available, use their rounded mean for each numeric axis; otherwise use the meta-review.
+Use a **fresh reviewer subagent or context** for each round. The agent that wrote the revision should not be the agent that scores it. Generate **3 independent reviews** at temperature 0.75, then aggregate:
 
-This matters because a single review is noisy: one reviewer fixates on presentation, another on novelty. The accept/reject decision in the refinement loop is only as reliable as the score it depends on.
+```bash
+python scripts/aggregate_reviews.py review_a.json review_b.json review_c.json --out review.json
+```
+
+The aggregation uses the mean for numeric axes (median with `--stat median`), unions the qualitative lists, and takes the majority decision. It records per-axis standard deviation so a high-variance review is visible.
+
+This matters because a single review is noisy: one reviewer fixates on presentation, another on novelty, and the same reviewer can drift between rounds. The accept/reject decision is only as reliable as the score it depends on.
 
 ## Anti-inflation
 

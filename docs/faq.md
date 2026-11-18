@@ -38,7 +38,7 @@ The outline splits the work. The Introduction gets macro context: impact, survey
 
 ## How does the refinement loop stop?
 
-It keeps a revision only when the overall reviewer score increases, or when the score ties with sub-axis gains at least as large as drops. It stops on a score decrease, a degrading tie, the iteration limit (default 3), or no change.
+It keeps a revision only when the overall reviewer score increases, or when the score ties with sub-axis gains at least as large as drops. The score is an aggregate of three independent reviewer samples, not a single self-review. It stops on a score decrease, a degrading tie, the iteration limit (default 3), or no change.
 
 ## Which models does it use?
 
@@ -83,6 +83,10 @@ Writing and refinement can work offline with an existing BIB file and figures. L
 ## Why not just use one large prompt?
 
 A single prompt has no verification step and no stopping rule. It cannot tell you which citations are real, whether a figure matches the log, or whether a revision improved the paper. The stage boundaries exist to make those checks possible.
+
+## Is there a test suite and a sample output?
+
+Yes. `tests/` is an offline pytest suite covering leakage blocking, matching, fallbacks, bibliography construction, reviewer aggregation, LaTeX linting, and templates. CI runs it and compiles every template. `examples/paper-project/final_paper.pdf` is a complete synthetic demo with `run_report.json`.
 
 ## What was removed from the original PaperOrchestra code?
 

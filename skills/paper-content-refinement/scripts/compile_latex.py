@@ -103,6 +103,9 @@ def main() -> int:
         log = run(command, cwd, args.timeout, env)
         logs.append(log)
         blob = f"{log.get('stdout', '')}\n{log.get('stderr', '')}"
+        # Only the final pass matters; earlier passes legitimately report
+        # citations that BibTeX has not resolved yet.
+        undefined = []
         for line in UNDEFINED.findall(blob):
             if line not in undefined:
                 undefined.append(line)

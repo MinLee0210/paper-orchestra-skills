@@ -1,0 +1,15 @@
+{
+  "iterations": [
+    {
+      "round": 1,
+      "outcome": "NO_CRITICAL_ISSUES",
+      "checked": "Rendered pages 1-5 locally with pdftoppm; screenshots are not committed to keep the demo small.",
+      "notes": [
+        "All figures fit the text width and appear before the conclusion.",
+        "Tables use booktabs and do not overflow the margins.",
+        "No blank float-only pages.",
+        "No undefined citations or references in the final compile."
+      ]
+    }
+  ]
+}

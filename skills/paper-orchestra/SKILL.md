@@ -95,7 +95,7 @@ Merge after both finish:
 4. Overwrite `latex_writeup/references.bib` with the verified bibliography.
 5. Copy `figures/` (including `info.json`) into `latex_writeup/figures/`.
 
-Gate: every citation key in `citation_map.json` must resolve in `references.bib`; every `citation_candidates` key in the outline must exist in the citation map; every figure named in `info.json` must exist. If the literature stage found fewer than 20 unique papers for a research paper, re-run the missing search tasks or tell the user the coverage is thin.
+Gate: every citation key in `citation_map.json` must resolve in `references.bib`; every `citation_candidates` key in the outline must exist in the citation map; every Related Work cluster has at least two verified candidates; every figure named in `info.json` must exist. If the literature stage found fewer than 20 unique papers, re-run the missing search tasks or tell the user the coverage is thin. Overall citation percentage is reported, not enforced as a quota.
 
 ### 3. Section writing
 
@@ -111,7 +111,7 @@ A missing PDF is a hard stop. Fix the LaTeX or retry the section-writing step; d
 
 ### 4. Content refinement
 
-Load `paper-content-refinement`. It reviews the compiled PDF, revises, recompiles, and keeps a revision only when the reviewer score improves (or ties with non-negative sub-axis gains). It then runs a visual formatting pass.
+Load `paper-content-refinement`. An independent reviewer scores the compiled PDF three times; the samples are aggregated, and a revision is kept only when the aggregate score improves (or ties with non-negative sub-axis gains). It then runs a visual formatting pass.
 
 Outputs: `final_paper.tex` and `final_paper.pdf`.
 

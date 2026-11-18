@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use this software, cite it and the upstream PaperOrchestra paper."
+title: "PaperOrchestra Skills"
+abstract: "Agent Skills for automated AI research paper writing: outline, verified literature review, figures, LaTeX section writing, content refinement, and evaluation."
+type: software
+license: Apache-2.0
+authors:
+  - name: "PaperOrchestra Skills contributors"
+repository-code: "https://github.com/MinLee0210/paper-orchestra-skills"
+keywords:
+  - agent-skills
+  - research-paper-writing
+  - latex
+  - literature-review
+  - citation-verification
+  - multi-agent
+references:
+  - type: article
+    title: "PaperOrchestra: A Multi-Agent Framework for Automated AI Research Paper Writing"
+    authors:
+      - family-names: Song
+        given-names: Yiwen
+      - family-names: Song
+        given-names: Yale
+      - family-names: Pfister
+        given-names: Tomas
+      - family-names: Yoon
+        given-names: Jinsung
+    year: 2026
+    journal: "arXiv preprint arXiv:2604.05018"
+    url: "https://arxiv.org/abs/2604.05018"

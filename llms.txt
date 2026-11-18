@@ -1,0 +1,45 @@
+# PaperOrchestra Skills
+
+> PaperOrchestra Skills is an open-source collection of Agent Skills that turns raw research materials (an idea brief and an experimental log) into a submission-ready LaTeX research paper and PDF. It is a skill-native port of Google Research's PaperOrchestra multi-agent paper-writing framework.
+
+## What it does
+- Generates a structured paper outline with a figure plan, literature search strategy, and exhaustive citation hints.
+- Discovers, verifies, deduplicates, and cites real academic literature using the Semantic Scholar API and a strict research cutoff.
+- Generates data plots and conceptual diagrams with a critic-driven revision loop.
+- Writes Introduction, Related Work, Method, Experiments, Conclusion, tables, and appendix into a conference LaTeX template.
+- Iteratively reviews and refines the manuscript, keeping only revisions that improve a reviewer score, then fixes formatting and compiles the final PDF.
+- Evaluates citation precision/recall/F1, literature review quality, overall quality, and side-by-side win rates.
+
+## Key facts
+- Format: Agent Skills (SKILL.md + references/ + scripts/).
+- Works with Claude Code, opencode, Codex-style agents, and custom runtimes that read SKILL.md.
+- Bundled templates: CVPR 2025 (two-column) and ICLR 2025 (single-column).
+- Citation verification: Semantic Scholar Graph API; title similarity > 70; abstract required; strict cutoff.
+- Inputs: idea.md, experimental_log.md, latex_template/ (template.tex, guidelines.md, style files), optional figures.
+- Outputs: outline.json, registry.json, citation_map.json, references.bib, figures/, draft .tex, final .tex/.pdf, metrics/.
+- No fabricated citations by design: verification is API-grounded and the writer may only cite verified keys.
+- Human authors remain responsible for correctness, originality, and submission compliance.
+
+## Install
+Clone the repository and run ./install.sh, or symlink any skills/<name> directory into ~/.claude/skills or ~/.config/opencode/skills.
+
+## Skills
+- paper-orchestra: full pipeline orchestration and resume.
+- paper-inputs: raw-material templates and leakage audit.
+- paper-outline: outline.json generation and validation.
+- paper-template: CVPR/ICLR/custom LaTeX template scaffolding.
+- paper-plotting: plots, diagrams, captions, critic loop.
+- paper-literature-review: discovery, verification, BibTeX, Intro/Related Work.
+- paper-section-writing: remaining LaTeX sections, tables, figures.
+- paper-content-refinement: peer-review loop, formatting pass, final PDF.
+- paper-evaluation: citation F1, rubrics, side-by-side aggregation.
+
+## Links
+- Repository: https://github.com/MinLee0210/paper-orchestra-skills
+- Upstream: https://github.com/google-research/paper-orchestra
+- Paper: https://arxiv.org/abs/2604.05018
+- Documentation: docs/README.md
+- FAQ: docs/faq.md
+
+## License
+Apache-2.0. Prompts and templates adapted from PaperOrchestra (Apache-2.0). See NOTICE and LICENSE.

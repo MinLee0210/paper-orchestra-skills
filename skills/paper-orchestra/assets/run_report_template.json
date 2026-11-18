@@ -1,0 +1,22 @@
+{
+  "project": "/absolute/path/to/paper_project",
+  "created_at": "YYYY-MM-DDTHH:MM:SSZ",
+  "research_cutoff": "YYYY-MM",
+  "template": "cvpr2025 | iclr2025 | custom",
+  "inputs": {
+    "idea": "raw_materials/idea.md",
+    "experimental_log": "raw_materials/experimental_log.md",
+    "figures": "raw_materials/figures (optional)"
+  },
+  "stages": {
+    "inputs": {"status": "pending", "artifact": null, "notes": ""},
+    "outline": {"status": "pending", "artifact": "outline.json", "notes": ""},
+    "literature": {"status": "pending", "artifact": "literature_agent_output/registry.json", "notes": ""},
+    "plotting": {"status": "pending", "artifact": "figures/info.json", "notes": ""},
+    "section_writing": {"status": "pending", "artifact": "latex_writeup/raw_draft_paper.tex", "notes": ""},
+    "refinement": {"status": "pending", "artifact": "final_paper.pdf", "notes": ""},
+    "evaluation": {"status": "optional", "artifact": "metrics/", "notes": ""}
+  },
+  "retries": [],
+  "warnings": []
+}

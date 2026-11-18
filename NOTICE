@@ -1,0 +1,26 @@
+PaperOrchestra Skills
+Copyright 2026 the paper-orchestra-skills contributors
+
+This repository is an independent, skill-native port of PaperOrchestra:
+  PaperOrchestra: A Multi-Agent Framework for Automated AI Research Paper Writing
+  Yiwen Song, Yale Song, Tomas Pfister, Jinsung Yoon
+  Google Cloud AI Research
+  https://github.com/google-research/paper-orchestra
+  Copyright 2026 Google LLC
+  Licensed under the Apache License, Version 2.0.
+
+The following material is adapted from that repository and remains under the
+Apache License, Version 2.0:
+  - the five-stage pipeline design and agent responsibilities;
+  - outline, literature review, section writing, content refinement, and
+    plotting prompt directives;
+  - the citation verification policy, reviewer rubric, and evaluation concepts;
+  - the CVPR 2025 and ICLR 2025 template bundles under
+    skills/paper-template/assets/templates/.
+
+The conference style files (*.sty, *.bst) are the official files distributed
+with each venue's author kit and remain subject to their original terms. Their
+copyright headers are preserved.
+
+The scripts in this repository are a clean-room reimplementation using the
+Python standard library unless a dependency is explicitly documented.

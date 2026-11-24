@@ -70,7 +70,7 @@ Read `references/template-contract.md` for the section-placeholder format and th
 - Do not rename style files. `\usepackage{cvpr}` and `\bibliographystyle{ieeenat_fullname}` depend on exact names.
 - Do not replace `cleveref` with `cleverref`; there is no `cleverref.sty`. This typo appears repeatedly in generated LaTeX.
 - Do not add packages that the venue forbids. When in doubt, use what the skeleton already loads.
-- Keep the preamble stable across revisions. Formatting fixes should change layout, not packages.
+- Keep the preamble stable across revisions. Formatting fixes should change layout, not packages; the one allowed addition is `tabularx` (see `paper-content-refinement`).
 - If the venue requires a specific engine (for example `xelatex` for font reasons), record it in `guidelines.md` so the compile step uses it.
 
 ## Validation
@@ -88,4 +88,5 @@ A template that does not compile before generation will not compile after genera
 - `assets/templates/cvpr2025/`, `assets/templates/iclr2025/` — bundled venues with style files.
 - `assets/templates/ieeeconf/`, `assets/templates/arxiv/` — generic IEEE conference and neutral preprint scaffolds.
 - `scripts/init_template.py` — copy a bundle into a project.
+- For OSDI, SOSP, ASPLOS, and NSDI, use the `research-systems-paper-writing` skill's `init_systems_template.py`; it produces the same `template.tex` + `guidelines.md` + `references.bib` contract.
 - `references/template-contract.md` — exact placeholder and file contract.

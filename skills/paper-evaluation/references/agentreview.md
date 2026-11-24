@@ -1,6 +1,6 @@
 # AgentReview rubric
 
-Use this when you need an overall quality score rather than a literature-only score. It is the same rubric used by the refinement stage; keep the two consistent.
+Use this when you need an overall quality score rather than a literature-only score. It is the same rubric used by the refinement stage. The scales and the anti-inflation caps are defined once, in `paper-content-refinement/references/reviewer-rubric.md`; do not redefine them here.
 
 ## Persona
 
@@ -62,6 +62,5 @@ A knowledgeable, responsible, benign reviewer with a PhD in the paper's area. Re
 ## Anti-inflation
 
 - Most drafts are 4–6, not 8.
-- Layout defects cap Presentation at 2.
-- Unsupported claims cap Soundness at 2.
+- Apply the Presentation and Soundness caps from the refinement rubric.
 - A standard method with a small gain is not "very high" originality or contribution.

@@ -8,7 +8,7 @@ This file is the detailed companion to `SKILL.md`. Read it when you need exact a
 |---|---|---|---|---|
 | 0 | `paper-inputs` | user files | normalized `raw_materials/` | required files exist; no leaked citations or author identities |
 | 1 | `paper-outline` | idea, log, template, guidelines | `outline.json` | valid JSON; three top-level plans; citation hints cover every named dependency |
-| 2a | `paper-literature-review` | outline, idea, log, template, guidelines | `literature_agent_output/*` | every paper verified; cutoff respected; >=20 unique papers for a full paper |
+| 2a | `paper-literature-review` | outline, idea, log, template, guidelines | `literature_agent_output/*` | every paper verified; cutoff respected; >=20 unique papers for a full paper (below that the validator warns and the orchestrator must tell the user coverage is thin) |
 | 2b | `paper-plotting` | outline, idea, log | `figures/*`, `plotting_results.json`, `figures/info.json` | every planned figure produced or explicitly skipped with a reason |
 | 3 | `paper-section-writing` | merged template, outline, citation map, figures, inputs | `latex_writeup/raw_draft_paper.tex` | PDF compiles |
 | 4 | `paper-content-refinement` | draft, log, citation map, guidelines | `final_paper.tex`, `final_paper.pdf` | compile succeeds; page limit respected; no undefined citations/refs |
@@ -70,7 +70,7 @@ cp literature_agent_output/references.bib latex_writeup/references.bib
 cp -r figures/. latex_writeup/figures/
 ```
 
-The merge is not optional. Writing from the pre-literature template produces uncited Introduction and Related Work sections, and writing without `references.bib` produces undefined citations. Copying the full template directory keeps the venue's `.sty`, `.bst`, and `guidelines.md` beside the draft.
+The merge is not optional. Writing from the pre-literature template produces uncited Introduction and Related Work sections, and writing without `references.bib` produces undefined citations. Copying the full template directory keeps the venue's `.sty`, `.bst`, and `guidelines.md` beside the draft. A user-supplied `raw_materials/references.bib` is not part of the merge: the literature stage re-verifies its entries, and the merge copies only the verified bibliography.
 
 ## Retry policy
 

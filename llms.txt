@@ -25,7 +25,7 @@
 - Human authors remain responsible for correctness, originality, and submission compliance.
 
 ## Install
-Clone the repository and run ./install.sh, or symlink any skills/<name> directory into ~/.claude/skills or ~/.config/opencode/skills.
+Clone the repository and run ./install.sh, or symlink any skills/<name> directory into ~/.claude/skills or ~/.config/opencode/skills. On Windows, run ./install.sh from Git Bash, MSYS2, Cygwin, or WSL; it uses native symlinks when allowed and copies otherwise.
 
 ## Skills
 - paper-orchestra: full pipeline orchestration and resume.

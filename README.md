@@ -29,7 +29,7 @@ PaperOrchestra Skills is an open-source collection of portable [Agent Skills](ht
 | Claude Code marketplace | `/plugin marketplace add MinLee0210/paper-orchestra-skills`, then `/plugin install paper-orchestra-skills@paper-orchestra-skills` |
 | Codex | `codex plugin marketplace add MinLee0210/paper-orchestra-skills` |
 | GitHub Copilot | add the marketplace `MinLee0210/paper-orchestra-skills`, then install |
-| From a clone | `./install.sh` (symlinks into `~/.claude/skills` and `~/.config/opencode/skills`) |
+| From a clone | `./install.sh` (symlinks into `~/.claude/skills` and `~/.config/opencode/skills`; on Windows see [Install on Windows](#install-on-windows)) |
 
 Each skill is self-contained, so a single one can be installed alone. Install `paper-orchestra` to get the
 full pipeline.
@@ -263,6 +263,7 @@ The skills are plain directories. You can copy or symlink them.
 ./install.sh                          # Claude + opencode
 ./install.sh --target ~/.claude/skills
 ./install.sh --target ~/.config/opencode/skills
+./install.sh --copy                   # copy instead of symlink
 ./install.sh --uninstall
 ```
 
@@ -270,6 +271,22 @@ Manual install:
 
 ```bash
 ln -s "$PWD/skills/paper-orchestra" ~/.claude/skills/paper-orchestra
+```
+
+### Install on Windows
+
+Run `./install.sh` from **Git Bash**, **MSYS2**, or **Cygwin**. Inside **WSL** it behaves like Linux and installs for the agents running in WSL.
+
+- Default targets follow `%USERPROFILE%` (for example `C:\Users\you\.claude\skills`), which is where Claude Code looks, even if Git Bash's `$HOME` differs.
+- The script asks Windows for real symlinks. They need **Developer Mode** (Settings > System > For developers) or an Administrator shell. If Windows refuses, the script copies each skill instead and tells you so.
+- Copies do not follow the repository. Re-run `./install.sh` after `git pull` to refresh them. Use `--copy` to choose this on purpose.
+- `--uninstall` removes only the links and copies the script created. Directories it did not create are left alone, and `--force` is required to replace them.
+- If a Git checkout converts line endings, `install.sh` still works: `.gitattributes` pins `*.sh` to LF.
+
+Without bash (plain PowerShell), copy a skill by hand:
+
+```powershell
+Copy-Item -Recurse skills\paper-orchestra $env:USERPROFILE\.claude\skills\paper-orchestra
 ```
 
 ## Tests and CI

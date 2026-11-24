@@ -46,7 +46,7 @@ The skills do not pin a model. They use whatever model and tools the host agent 
 
 ## Which agents support these skills?
 
-Claude Code, opencode, and other runtimes that read the `SKILL.md` format. `./install.sh` links skills into `~/.claude/skills` and `~/.config/opencode/skills`.
+Claude Code, opencode, and other runtimes that read the `SKILL.md` format. `./install.sh` links skills into `~/.claude/skills` and `~/.config/opencode/skills` (on Windows, run it from Git Bash; it falls back to copying when symlinks are not allowed).
 
 ## Which conference templates are included?
 

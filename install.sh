@@ -13,6 +13,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SOURCE="$ROOT/skills"
 MARKER=".research-orchestra-installed"
+LEGACY_MARKER=".paper-orchestra-installed"
 UNINSTALL=0
 FORCE=0
 LINK_MODE="auto"   # auto = symlink (Windows: symlink, else copy); copy = always copy
@@ -111,8 +112,9 @@ fi
 # --- helpers -------------------------------------------------------------------------------------
 
 # A directory this script created by copying. Only these are ever removed with rm -rf.
+# LEGACY_MARKER keeps copies made before the research-* rename deletable.
 is_our_copy() {
-  [[ -d "$1" && ! -L "$1" && -f "$1/$MARKER" ]]
+  [[ -d "$1" && ! -L "$1" ]] && { [[ -f "$1/$MARKER" ]] || [[ -f "$1/$LEGACY_MARKER" ]]; }
 }
 
 copy_skill() {

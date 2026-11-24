@@ -1,10 +1,12 @@
 # PaperOrchestra Skills
 
-**Agent Skills for automated AI research paper writing — from raw idea and experiment logs to a submission-ready LaTeX manuscript.**
+**Agent Skills for research: a verified paper pipeline from idea and experiment logs, plus ideation, experiment design, and talks.**
 
-PaperOrchestra Skills is an open-source collection of portable [Agent Skills](https://docs.claude.com/en/docs/claude-code/skills) that turns unstructured pre-writing materials into a complete research paper: outline, figures, verified literature review, LaTeX sections, iterative peer-review refinement, and a final PDF. It is a skill-native port of [Google Research's PaperOrchestra](https://github.com/google-research/paper-orchestra) (Song et al., 2026), redesigned for Claude Code, opencode, Codex, and any agent that reads a `SKILL.md`.
+PaperOrchestra Skills is an open-source collection of portable [Agent Skills](https://docs.claude.com/en/docs/claude-code/skills). Its core turns unstructured pre-writing materials into a complete research paper: outline, figures, verified literature review, LaTeX sections, iterative peer-review refinement, and a final PDF. It is a skill-native port of [Google Research's PaperOrchestra](https://github.com/google-research/paper-orchestra) (Song et al., 2026), redesigned for Claude Code, opencode, Codex, and any agent that reads a `SKILL.md`.
 
-> **What it is:** a multi-agent paper-writing workflow packaged as reusable skills.
+Every skill in the collection is named `research-*`, so a skill's origin is visible from its name. Nine of the fifteen are the paper pipeline. The other six cover the work around it: ideation, experiment design, statistical power, autonomous project loops, systems-venue writing, and conference talks.
+
+> **What it is:** a research toolkit packaged as reusable skills, with a multi-agent paper pipeline at its core.
 > **What it is not:** a substitute for human scientific judgment. You remain responsible for the correctness, originality, and integrity of every generated manuscript.
 
 ## At a glance
@@ -14,7 +16,7 @@ PaperOrchestra Skills is an open-source collection of portable [Agent Skills](ht
 | Input | `idea.md`, `experimental_log.md`, a LaTeX template, optional figures, a research cutoff |
 | Output | verified bibliography, figures, `final_paper.tex`, `final_paper.pdf`, optional metrics |
 | Pipeline | outline → literature + plotting (parallel) → section writing → refinement → evaluation |
-| Skills | 15 skills: a 9-skill paper pipeline (`research-orchestra` plus eight stages) and 6 research companions, each a portable `SKILL.md` package |
+| Skills | 15 skills, all named `research-*`: a 9-skill paper pipeline (`research-orchestra` plus eight stages) and 6 companions, each a portable `SKILL.md` package |
 | Templates | CVPR 2025, ICLR 2025, IEEE conference, arXiv preprint, OSDI/SOSP/ASPLOS/NSDI, or any custom venue |
 | Citation safety | Semantic Scholar + arXiv/Crossref/DBLP verification, strict cutoff, targeted matches at >= 90 |
 | Works with | Claude Code, opencode, Codex-style agents, custom `SKILL.md` runtimes |
@@ -31,8 +33,14 @@ PaperOrchestra Skills is an open-source collection of portable [Agent Skills](ht
 | GitHub Copilot | add the marketplace `MinLee0210/paper-orchestra-skills`, then install |
 | From a clone | `./install.sh` (symlinks into `~/.claude/skills` and `~/.config/opencode/skills`; on Windows see [Install on Windows](#install-on-windows)) |
 
-Each skill is self-contained, so a single one can be installed alone. Install `research-orchestra` to get the
-full pipeline.
+Each skill is a plain directory and can be installed on its own, with two exceptions that cross the skill
+boundary by calling another skill's script:
+
+- `research-orchestra` runs `research-inputs/scripts/validate_inputs.py` and `research-content-refinement/scripts/compile_latex.py`;
+- `research-evaluation` reuses `research-content-refinement/scripts/aggregate_reviews.py`.
+
+Install the plugin to get all fifteen, or install those pairs together. A lone `--skill research-orchestra`
+will not be able to compile a draft.
 
 ### Maintaining the plugin manifests
 
@@ -84,7 +92,7 @@ No model API key is required by the skills. They use the model and tools provide
 
 ## Proof it runs
 
-The repo ships a complete synthetic run: [`examples/paper-project/final_paper.pdf`](examples/paper-project/final_paper.pdf) (5 pages), its figures, a cached 12-paper bibliography (below the 20-paper target for a real paper), three-review refinement rounds, and [`run_report.json`](examples/paper-project/run_report.json). The demo is deliberately labeled as synthetic; it proves the pipeline and its artifacts, not a research result.
+The repo ships a complete synthetic run: [`examples/paper-project/final_paper.pdf`](examples/paper-project/final_paper.pdf) (5 pages), its figures, a cached 12-paper bibliography (below the 20-paper target for a real paper), one refinement round scored by three independent reviewers, and [`run_report.json`](examples/paper-project/run_report.json). The demo is deliberately labeled as synthetic; it proves the pipeline and its artifacts, not a research result.
 
 ## Why this exists
 
@@ -106,7 +114,7 @@ PaperOrchestra addresses this with specialized agents, machine-readable artifact
 | 2a | `research-literature-review` | outline + materials | verified registry, `references.bib`, citation map, cited Intro/Related Work | every citation verified; targeted matches >= 90 with year/author; cutoff respected |
 | 2b | `research-plotting` | outline + materials | figures, captions, manifests | every planned figure produced or explicitly skipped |
 | 3 | `research-section-writing` | merged template + plan | complete LaTeX draft | compiles to PDF |
-| 4 | `research-content-refinement` | draft + log + guidelines | final `.tex` and `.pdf` | score improves; page limit met; no undefined refs |
+| 4 | `research-content-refinement` | draft + log + guidelines | final `.tex` and `.pdf` | score improves on the delta (no absolute threshold); page limit met; no undefined refs |
 | 5 | `research-evaluation` | final paper + optional ground truth | citation F1, lit-review score, SxS wins | metrics computed from real files |
 
 Stages 2a and 2b are independent and can run in parallel. The orchestrator merges their outputs before stage 3.
@@ -212,7 +220,7 @@ Metrics are useful for detecting regressions. They are not a substitute for huma
 
 ### What is PaperOrchestra Skills?
 
-It is a set of reusable agent skills that implement the PaperOrchestra multi-agent paper-writing method. Each stage is a separate skill with its own inputs, outputs, quality gate, and supporting scripts.
+It is a set of fifteen reusable agent skills, all named `research-*`. Nine implement the PaperOrchestra multi-agent paper-writing method, each stage a separate skill with its own inputs, outputs, quality gate, and supporting scripts. The other six cover ideation, experimental design, statistical power, autonomous research loops, systems-paper writing, and conference talks.
 
 ### How is it different from a single “write my paper” prompt?
 
@@ -228,7 +236,7 @@ The workflow is built to prevent that. Discovery may guess; verification may not
 
 ### Which conferences are supported?
 
-Bundled templates: CVPR 2025 (two-column, 8 pages), ICLR 2025 (single-column, 10 pages), a generic IEEE conference scaffold, and a neutral arXiv preprint. Any venue works if you provide a `template.tex`, `guidelines.md`, and the venue's style files. See the `research-template` skill for the contract.
+Bundled templates: CVPR 2025 (two-column, 8 pages), ICLR 2025 (single-column, 10 pages), a generic IEEE conference scaffold, a neutral arXiv preprint, and OSDI 2026, SOSP 2026, ASPLOS 2027, and NSDI 2027. Any venue works if you provide a `template.tex`, `guidelines.md`, and the venue's style files. One scaffolder, `research-template/scripts/init_template.py`, copies any of them. See the `research-template` skill for the contract.
 
 ### Which agents does it work with?
 
@@ -244,7 +252,7 @@ You can write and refine a paper offline only if a verified registry from an ear
 
 ### Is there a test suite and CI?
 
-Yes. `tests/` runs offline with pytest; it covers leakage blocking, outline validation, matching thresholds and provider fallbacks, bibliography construction, reviewer aggregation, LaTeX linting, template scaffolding, and the demo output. `.github/workflows/ci.yml` runs the tests and compiles all bundled templates.
+Yes. `tests/` runs offline with pytest; it covers leakage blocking, outline validation, matching thresholds and provider fallbacks, bibliography construction, reviewer aggregation, LaTeX linting, template scaffolding, and the demo output. `.github/workflows/ci.yml` runs the tests and compiles the CVPR, ICLR, IEEE, and arXiv bundles; the four systems bundles are scaffolded and validated but not compiled in CI.
 
 ### Is there a sample output?
 
@@ -272,6 +280,19 @@ Manual install:
 ln -s "$PWD/skills/research-orchestra" ~/.claude/skills/research-orchestra
 ```
 
+### Upgrading from the `paper-*` names
+
+The nine paper skills were renamed mechanically: `paper-X` is now `research-X` (`paper-outline` → `research-outline`, and so on). The two ideation skills were merged into `research-ideation`.
+
+- `/plugin` and `npx skills` users: reinstall; the old skill entries are replaced.
+- `./install.sh` users: pull, then re-run the script. `--uninstall` still recognizes copies made before the rename. Old `paper-*` symlinks are ordinary links into the repository and must be removed by hand:
+
+  ```bash
+  find ~/.claude/skills ~/.config/opencode/skills -maxdepth 1 -type l -name 'paper-*' -delete
+  ```
+
+- Any prompt, note, or CI job that names `paper-*` skills needs the new names.
+
 ### Install on Windows
 
 Run `./install.sh` from **Git Bash**, **MSYS2**, or **Cygwin**. Inside **WSL** it behaves like Linux and installs for the agents running in WSL.
@@ -296,33 +317,34 @@ Run the offline suite:
 python -m pytest -q
 ```
 
-The tests cover the blocking leakage gate, outline validation, targeted matching, provider fallbacks, bibliography construction, reviewer aggregation, LaTeX linting, template scaffolding, compilation, and the committed demo output. CI compiles the bundled conference templates and runs the deterministic pipeline stages.
+The tests cover the blocking leakage gate, outline validation, targeted matching, provider fallbacks, bibliography construction, reviewer aggregation, LaTeX linting, template scaffolding, compilation, and the committed demo output. CI compiles the CVPR, ICLR, IEEE, and arXiv bundles and runs the deterministic pipeline stages.
 
 ## Repository structure
 
 ```text
-skills/                          # one directory per Agent Skill
-├── research-orchestra/          # orchestrator + pipeline status script
-├── research-inputs/             # raw-material templates and validator
-├── research-outline/            # outline prompt, schema, validator
-├── research-template/           # CVPR/ICLR/IEEE/arXiv/OSDI/SOSP/ASPLOS/NSDI, one scaffolder
-├── research-plotting/           # figure prompts, style guide, validator
-├── research-literature-review/  # S2 verification, BibTeX, citation map, validators
-├── research-section-writing/    # section prompt, LaTeX conventions, linter
-├── research-content-refinement/ # compile, render, review decision, prompts
-├── research-evaluation/         # citation F1, SxS aggregation, rubrics
-├── research-ideation/           # ideation workflow + 13 lenses (MIT)
-├── research-experimental-design/# randomization, blocking, DOE (MIT)
-├── research-statistical-power/  # sample size, MDE, power curves (MIT)
-├── research-autoresearch/       # two-loop project orchestration (MIT)
-├── research-systems-paper-writing/ # OSDI/SOSP/ASPLOS/NSDI blueprints (MIT)
-└── research-conference-talks/   # Beamer/PPTX slides (MIT)
-tests/                      # offline pytest suite and fixtures
-.github/workflows/ci.yml    # tests + template compilation
-examples/paper-project/     # complete synthetic run with final PDF and run_report.json
-docs/                       # architecture, input format, evaluation, FAQ, upstream notes
-THIRD_PARTY_LICENSES/       # upstream MIT license texts for the research-* skills
-examples/paper-project/     # synthetic input files for a first run
+skills/                            # 15 Agent Skills, all named research-*
+├── research-orchestra/            # pipeline entry point + status script
+├── research-inputs/               # raw-material templates, leakage validator
+├── research-outline/              # outline prompt, schema, validator
+├── research-template/             # one scaffolder, eight venues
+├── research-plotting/             # figure prompts, style guide, validator
+├── research-literature-review/    # S2 verification, BibTeX, citation map
+├── research-section-writing/      # section prompt, LaTeX conventions, linter
+├── research-content-refinement/   # compile, render, review decision, prompts
+├── research-evaluation/           # citation F1, SxS aggregation, rubrics
+├── research-ideation/             # ideation workflow + 13 lenses (MIT)
+├── research-experimental-design/  # randomization, blocking, DOE (MIT)
+├── research-statistical-power/    # sample size, MDE, power curves (MIT)
+├── research-autoresearch/         # two-loop project orchestration (MIT)
+├── research-systems-paper-writing/# OSDI/SOSP/ASPLOS/NSDI blueprints (MIT)
+└── research-conference-talks/     # Beamer/PPTX slides (MIT)
+scripts/                     # skills.mjs: scaffold, sync, check manifests
+templates/skill/             # skeleton used by `skills.mjs new`
+tests/                       # offline pytest suite and fixtures
+.github/workflows/ci.yml     # manifest check, pytest, template compilation
+examples/paper-project/      # complete synthetic run + run_report.json
+docs/                        # architecture, input format, evaluation, FAQ, upstream
+THIRD_PARTY_LICENSES/        # upstream MIT license texts
 ```
 
 ## Documentation
@@ -336,7 +358,7 @@ examples/paper-project/     # synthetic input files for a first run
 
 ## Keywords
 
-automated research paper writing · AI paper writer · LaTeX manuscript generation · multi-agent paper writing · literature review agent · citation verification · Agent Skills · Claude Code skills · opencode skills · PaperWritingBench · PaperOrchestra · CVPR 2025 template · ICLR 2025 template · IEEE conference template · arXiv preprint template · citation F1 · LLM peer review
+automated research paper writing · AI paper writer · LaTeX manuscript generation · multi-agent paper writing · literature review agent · citation verification · research ideation · experiment design · statistical power · Agent Skills · Claude Code skills · opencode skills · PaperWritingBench · PaperOrchestra · CVPR 2025 template · ICLR 2025 template · IEEE conference template · arXiv preprint template · OSDI template · SOSP template · citation F1 · LLM peer review
 
 ## Attribution and license
 

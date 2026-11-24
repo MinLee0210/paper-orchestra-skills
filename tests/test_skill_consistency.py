@@ -9,25 +9,27 @@ def read(rel: str) -> str:
 
 
 def test_reviewer_caps_defined_in_one_place():
-    refinement = read("skills/paper-content-refinement/references/reviewer-rubric.md")
-    evaluation = read("skills/paper-evaluation/references/agentreview.md")
+    refinement = read("skills/research-content-refinement/references/reviewer-rubric.md")
+    evaluation = read("skills/research-evaluation/references/agentreview.md")
     assert "cap Presentation at 2" in refinement and "caps Soundness at 2" in refinement
     for phrase in ("Presentation at 2", "Soundness at 2"):
         assert phrase not in evaluation
     assert "reviewer-rubric.md" in evaluation
+    # The 1-10 anchors live only in the refinement rubric; the evaluation file links to them.
+    assert "| 8 |" not in evaluation and "Top 10%" not in evaluation
 
 
 def test_tie_handling_is_consistent():
-    text = read("skills/paper-content-refinement/SKILL.md")
+    text = read("skills/research-content-refinement/SKILL.md")
     assert "gains >= drops → accept and continue" not in text
     assert "gains >= drops → accept the revision, then stop" in text
     assert "a tie counts as a stall" in text
 
 
 def test_tabularx_exception_is_declared_where_packages_are_restricted():
-    assert "tabularx" in read("skills/paper-section-writing/SKILL.md")
-    assert "tabularx" in read("skills/paper-template/SKILL.md")
-    assert "tabularx" in read("skills/paper-content-refinement/SKILL.md")
+    assert "tabularx" in read("skills/research-section-writing/SKILL.md")
+    assert "tabularx" in read("skills/research-template/SKILL.md")
+    assert "tabularx" in read("skills/research-content-refinement/SKILL.md")
 
 
 def test_autoresearch_does_not_override_integrity_gates():
@@ -38,9 +40,9 @@ def test_autoresearch_does_not_override_integrity_gates():
 
 
 def test_user_bib_is_reverified_not_merged():
-    assert "never copied into the paper" in read("skills/paper-orchestra/SKILL.md")
-    assert (ROOT / "skills/paper-literature-review/scripts/bib_to_candidates.py").exists()
-    assert "bib_to_candidates.py" in read("skills/paper-literature-review/SKILL.md")
+    assert "never copied into the paper" in read("skills/research-orchestra/SKILL.md")
+    assert (ROOT / "skills/research-literature-review/scripts/bib_to_candidates.py").exists()
+    assert "bib_to_candidates.py" in read("skills/research-literature-review/SKILL.md")
 
 
 def test_trigger_descriptions_do_not_claim_everything():

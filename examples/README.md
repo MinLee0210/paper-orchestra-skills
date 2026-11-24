@@ -12,13 +12,13 @@ the honest caveats.
 ## Try the input audit
 
 ```bash
-python skills/paper-inputs/scripts/validate_inputs.py examples/paper-project
+python skills/research-inputs/scripts/validate_inputs.py examples/paper-project
 ```
 
 ## Try a full run with an agent
 
 ```text
-Use the paper-orchestra skill.
+Use the research-orchestra skill.
 Project: examples/paper-project
 Research cutoff: 2024-11
 Template: the provided neutral template.
@@ -27,7 +27,7 @@ Template: the provided neutral template.
 For a real submission, scaffold a venue template first:
 
 ```bash
-python skills/paper-template/scripts/init_template.py \
+python skills/research-template/scripts/init_template.py \
   --venue cvpr2025 --out examples/paper-project/latex_template --force
 ```
 

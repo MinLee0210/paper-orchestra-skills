@@ -2,14 +2,17 @@ from __future__ import annotations
 
 from conftest import run_script
 
-SCRIPT = "skills/research-systems-paper-writing/scripts/init_systems_template.py"
+# The systems venues moved into research-template so one scaffolder serves every venue.
+SCRIPT = "skills/research-template/scripts/init_template.py"
 VENUES = ["osdi2026", "sosp2026", "asplos2027", "nsdi2027"]
 
 
 def test_list_venues():
     completed = run_script(SCRIPT, "--list")
     assert completed.returncode == 0
-    assert completed.stdout.split() == sorted(VENUES)
+    listed = completed.stdout.split()
+    for venue in VENUES:
+        assert venue in listed, f"{venue} missing from --list"
 
 
 def test_scaffold_meets_pipeline_contract(tmp_path):
@@ -33,5 +36,5 @@ def test_scaffold_passes_input_validator(tmp_path):
     (raw / "experimental_log.md").write_text("| System | Latency |\n|---|---|\n| Ours | 41 |\n")
     out = project / "latex_template"
     assert run_script(SCRIPT, "--venue", "osdi2026", "--out", str(out)).returncode == 0
-    completed = run_script("skills/paper-inputs/scripts/validate_inputs.py", str(project))
+    completed = run_script("skills/research-inputs/scripts/validate_inputs.py", str(project))
     assert completed.returncode == 0, completed.stdout

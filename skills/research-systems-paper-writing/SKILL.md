@@ -1,6 +1,6 @@
 ---
 name: research-systems-paper-writing
-description: "Comprehensive guide for writing systems papers targeting OSDI, SOSP, ASPLOS, NSDI, and EuroSys. Provides paragraph-level structural blueprints, writing patterns, venue-specific checklists, reviewer guidelines, LaTeX templates, and conference deadlines. Use it for page budgets, section blueprints, and venue checklists on systems papers; for end-to-end generation from an idea and experimental log, use paper-orchestra (this skill supplies the OSDI/SOSP/ASPLOS/NSDI templates and structure)."
+description: "Comprehensive guide for writing systems papers targeting OSDI, SOSP, ASPLOS, NSDI, and EuroSys. Provides paragraph-level structural blueprints, writing patterns, venue-specific checklists, reviewer guidelines, and conference deadlines. Use it for page budgets, section blueprints, and venue checklists on systems papers; for end-to-end generation from an idea and experimental log, use research-orchestra, and scaffold a venue with research-template (which ships the OSDI/SOSP/ASPLOS/NSDI templates)."
 version: 1.1.0
 author: Orchestra Research
 license: MIT
@@ -13,17 +13,17 @@ Fine-grained structural guidance for writing **10–12 page systems papers** tar
 
 ## When to Use This Skill
 
-| Scenario | Use This Skill | Use paper-orchestra Instead |
+| Scenario | Use This Skill | Use research-orchestra Instead |
 |----------|---------------|------------------------------|
 | Structuring a 12-page OSDI/SOSP paper | ✅ | |
 | Page budget and paragraph planning | ✅ | |
 | Systems-specific evaluation structure | ✅ | |
 | General ML paper writing philosophy | | ✅ |
 | Citation verification workflow | | ✅ |
-| LaTeX templates and formatting | | ✅ |
+| LaTeX templates and formatting | | ✅ (research-template) |
 | NeurIPS/ICML/ICLR paper structure | | ✅ |
 
-**Boundary**: paper-orchestra (with paper-section-writing, paper-template, and paper-literature-review) provides the general pipeline, multi-venue templates, and citation verification. This skill focuses exclusively on **paragraph-level structural blueprints** for systems conferences.
+**Boundary**: research-orchestra (with research-section-writing, research-template, and research-literature-review) provides the general pipeline, multi-venue templates including this skill's OSDI/SOSP/ASPLOS/NSDI bundles, and citation verification. This skill focuses exclusively on **paragraph-level structural blueprints** for systems conferences.
 
 ---
 
@@ -163,16 +163,16 @@ Structure the entire paper around: "X is better for applications Y running in en
 
 ---
 
-## Using the templates with paper-orchestra
+## Using the templates with research-orchestra
 
-The bundled venue folders hold `main.tex`, but the paper-orchestra pipeline expects `latex_template/template.tex`, `guidelines.md`, and `references.bib`. Scaffold the venue instead of copying it by hand:
+The OSDI/SOSP/ASPLOS/NSDI templates ship in the `research-template` skill, alongside CVPR, ICLR, IEEE, and arXiv. Scaffold the venue instead of copying it by hand:
 
 ```bash
-python scripts/init_systems_template.py --list
-python scripts/init_systems_template.py --venue osdi2026 --out paper_project/latex_template
+python <research-template>/scripts/init_template.py --list
+python <research-template>/scripts/init_template.py --venue osdi2026 --out paper_project/latex_template
 ```
 
-It renames `main.tex` to `template.tex` and writes `guidelines.md` from the template's own header comment, quoted verbatim. Check that file against the current call for papers, then run `paper-inputs` as usual.
+Every venue is copied to the pipeline contract (`template.tex`, `guidelines.md`, `references.bib`). The systems bundles arrived with a quoted header comment, so their `guidelines.md` is generated from that header and carries the page limit verbatim. Check it against the current call for papers, then run `research-inputs` as usual.
 
 ## Conference Differences
 
@@ -206,7 +206,7 @@ Include a figure on the first page that captures the core idea. Reviewers form f
 ## Academic Integrity Requirements
 
 ### Citation Discipline
-- **Never generate citations from memory.** Use the paper-literature-review skill's citation verification workflow (Semantic Scholar / arXiv / Crossref / DBLP).
+- **Never generate citations from memory.** Use the research-literature-review skill's citation verification workflow (Semantic Scholar / arXiv / Crossref / DBLP).
 - Mark unverified references as `[CITATION NEEDED]`.
 
 ### Prohibition of Fabrication
@@ -234,7 +234,7 @@ Step 2: Read references/section-blueprints.md for per-section paragraph template
 Step 3: Choose a writing pattern from references/writing-patterns.md
 Step 4: Draft section by section following the blueprint
 Step 5: Run the checklist from references/checklist.md before submission
-Step 6: Use paper-literature-review for citation verification and paper-content-refinement for LaTeX formatting
+Step 6: Use research-literature-review for citation verification and research-content-refinement for LaTeX formatting
 ```
 
 ### Quick Checklist
@@ -275,10 +275,8 @@ Step 6: Use paper-literature-review for citation verification and paper-content-
 - [references/reviewer-guidelines.md](references/reviewer-guidelines.md) — How systems conference reviewers evaluate papers, with venue-specific criteria and common concerns
 
 ### LaTeX Templates
-- [templates/osdi2026/](templates/osdi2026/) — OSDI 2026 (USENIX format)
-- [templates/nsdi2027/](templates/nsdi2027/) — NSDI 2027 (USENIX format)
-- [templates/asplos2027/](templates/asplos2027/) — ASPLOS 2027 (ACM SIGPLAN format)
-- [templates/sosp2026/](templates/sosp2026/) — SOSP 2026 (ACM SIGPLAN format)
+
+The OSDI, SOSP, ASPLOS, and NSDI templates live in the `research-template` skill, in research-template/assets/templates/ (`osdi2026`, `sosp2026`, `asplos2027`, `nsdi2027`), so there is one scaffolder for every venue. Run research-template/scripts/init_template.py to copy one into a project.
 
 ---
 

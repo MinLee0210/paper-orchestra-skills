@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from conftest import ROOT, load_script
 
-aggregate_mod = load_script("skills/paper-content-refinement/scripts/aggregate_reviews.py")
-decide_mod = load_script("skills/paper-content-refinement/scripts/decide_revision.py")
+aggregate_mod = load_script("skills/research-content-refinement/scripts/aggregate_reviews.py")
+decide_mod = load_script("skills/research-content-refinement/scripts/decide_revision.py")
 REVIEWS = ROOT / "tests/fixtures/reviews"
 
 

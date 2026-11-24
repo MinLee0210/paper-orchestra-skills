@@ -16,7 +16,7 @@ Apache License, Version 2.0:
     plotting prompt directives;
   - the citation verification policy, reviewer rubric, and evaluation concepts;
   - the CVPR 2025 and ICLR 2025 template bundles under
-    skills/paper-template/assets/templates/.
+    skills/research-template/assets/templates/.
 
 The conference style files (*.sty, *.bst) are the official files distributed
 with each venue's author kit and remain subject to their original terms. Their
@@ -34,8 +34,8 @@ The full upstream license texts are in THIRD_PARTY_LICENSES/.
   From Orchestra-Research/AI-Research-SKILLs
   (Copyright (c) 2025 Claude AI Research Skills Contributors):
     - skills/research-autoresearch
-    - skills/research-brainstorming
-    - skills/research-creative-thinking
+    - skills/research-ideation (merges the upstream brainstorming-research-ideas
+      and creative-thinking-for-research skills)
     - skills/research-conference-talks
     - skills/research-systems-paper-writing
 
@@ -43,10 +43,11 @@ The full upstream license texts are in THIRD_PARTY_LICENSES/.
     - skills/research-experimental-design
     - skills/research-statistical-power
 
-Changes: folders and `name` fields were prefixed with `research-`, long
-descriptions were quoted for strict YAML parsers, and cross-references to skills
-not present in this repository were retargeted. The systems-paper templates and
-USENIX style files under skills/research-systems-paper-writing/templates/ keep
+Changes: every skill folder and `name` field uses the `research-` prefix, long
+descriptions were quoted for strict YAML parsers, duplicate skills were merged
+(the ideation pair above), and cross-references to skills not present in this
+repository were retargeted or removed. The systems-paper templates and USENIX
+style files now live in skills/research-template/assets/templates/ and keep
 their original headers and terms. The research-experimental-design and
 research-statistical-power scripts need numpy, pandas, scipy and statsmodels;
 this is the only place the repository depends on third-party Python packages.

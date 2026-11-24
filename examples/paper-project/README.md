@@ -22,7 +22,7 @@ Open `final_paper.pdf` to inspect the output.
 ## Honest caveats
 
 - The citation registry is a **cached local fixture** so the demo works offline.
-  Run `paper-literature-review` against Semantic Scholar, arXiv, Crossref, or
+  Run `research-literature-review` against Semantic Scholar, arXiv, Crossref, or
   DBLP before using this workflow for a real paper.
 - The reviewer scores are illustrative samples from the demo, not independent
   human reviews.
@@ -32,11 +32,11 @@ Open `final_paper.pdf` to inspect the output.
 ## Regenerate the deterministic parts
 
 ```bash
-python skills/paper-inputs/scripts/validate_inputs.py examples/paper-project
-python skills/paper-literature-review/scripts/build_bib.py \
+python skills/research-inputs/scripts/validate_inputs.py examples/paper-project
+python skills/research-literature-review/scripts/build_bib.py \
   --registry examples/paper-project/literature_agent_output/registry.json \
   --out examples/paper-project/literature_agent_output
-python skills/paper-literature-review/scripts/inject_citations.py \
+python skills/research-literature-review/scripts/inject_citations.py \
   --outline examples/paper-project/literature_agent_output/outline_plan.json \
   --registry examples/paper-project/literature_agent_output/registry.json \
   --out examples/paper-project/literature_agent_output/outline_v1.json
@@ -53,6 +53,6 @@ python -m venv /tmp/paper-venv
 Recompile the paper with:
 
 ```bash
-python skills/paper-content-refinement/scripts/compile_latex.py \
+python skills/research-content-refinement/scripts/compile_latex.py \
   examples/paper-project/content_refinement_workdir --name final_paper
 ```

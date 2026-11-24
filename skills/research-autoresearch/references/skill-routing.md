@@ -1,6 +1,6 @@
 # Skill Routing: When to Use Which Domain Skill
 
-> **Note for this repository.** The tables below come from the upstream Orchestra library and name skills (Ray Data, Megatron-Core, TRL, ...) that are **not bundled here**. Treat them as a map of what to look for: route to a skill only if your agent has it installed, otherwise do the work directly. Skills that ship in this repository: `paper-orchestra` and the other `paper-*` skills, `research-brainstorming`, `research-creative-thinking`, `research-experimental-design`, `research-statistical-power`, `research-conference-talks`, `research-systems-paper-writing`.
+> **Note for this repository.** The tables below come from the upstream Orchestra library and name skills (Ray Data, Megatron-Core, TRL, ...) that are **not bundled here**. Treat them as a map of what to look for: route to a skill only if your agent has it installed, otherwise do the work directly. Skills that ship in this repository: `research-orchestra` and its eight stage skills, `research-ideation`, `research-experimental-design`, `research-statistical-power`, `research-autoresearch`, `research-conference-talks`, `research-systems-paper-writing`.
 
 The autoresearch skill orchestrates — domain skills execute. This reference maps research activities to the skills library.
 
@@ -176,8 +176,8 @@ When you encounter a domain-specific task during research, search the skills lib
 
 | Task | Skill | Location |
 |---|---|---|
-| Generate research ideas | Research Ideation | `21-research-ideation/` |
-| Write publication-ready paper | ML Paper Writing | `20-ml-paper-writing/` |
+| Generate research ideas | `research-ideation` | `skills/research-ideation/` |
+| Write publication-ready paper | `research-orchestra` | `skills/research-orchestra/` |
 
 ## Common Research Workflows
 

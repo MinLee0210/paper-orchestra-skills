@@ -5,7 +5,7 @@ Four measurements are supported. Each has a deterministic script or a fixed rubr
 ## Citation F1
 
 ```bash
-python skills/paper-evaluation/scripts/citation_f1.py \
+python skills/research-evaluation/scripts/citation_f1.py \
   --gt ground_truth_registry.json \
   --gen generated_registry.json
 ```
@@ -25,7 +25,7 @@ A low citation count can produce a high F1 because precision dominates. Always r
 
 ## Literature review quality
 
-Use `skills/paper-evaluation/references/lit-review-rubric.md`. Six axes, 0–100, with anti-inflation caps:
+Use `skills/research-evaluation/references/lit-review-rubric.md`. Six axes, 0–100, with anti-inflation caps:
 
 | Axis | Weight |
 |---|---:|
@@ -40,10 +40,10 @@ Caps matter: a descriptive review cannot score above 60 on synthesis, and an uns
 
 ## Overall quality
 
-Use `skills/paper-evaluation/references/agentreview.md`. Overall 1–10, sub-axes, strengths, weaknesses, questions, and accept/reject. For stability, use three independent reviews at temperature 0.75 and aggregate them:
+Use `skills/research-evaluation/references/agentreview.md`. Overall 1–10, sub-axes, strengths, weaknesses, questions, and accept/reject. For stability, use three independent reviews at temperature 0.75 and aggregate them:
 
 ```bash
-python skills/paper-content-refinement/scripts/aggregate_reviews.py   review_a.json review_b.json review_c.json --out review.json
+python skills/research-content-refinement/scripts/aggregate_reviews.py   review_a.json review_b.json review_c.json --out review.json
 ```
 
 The default is the mean; `--stat median` is available. The aggregate records per-axis standard deviation, so a high-variance score is visible rather than hidden.
@@ -52,10 +52,10 @@ Report the mean overall score and the simulated acceptance rate. Both are simula
 
 ## Side-by-side
 
-Use `skills/paper-evaluation/references/sxs-prompts.md` for the two comparison prompts. Evaluate each pair in both orderings, then aggregate:
+Use `skills/research-evaluation/references/sxs-prompts.md` for the two comparison prompts. Evaluate each pair in both orderings, then aggregate:
 
 ```bash
-python skills/paper-evaluation/scripts/aggregate_sxs.py results.json
+python skills/research-evaluation/scripts/aggregate_sxs.py results.json
 ```
 
 A pair is a candidate win when both orderings favor it, or one favors it and the other ties. A loss is the mirror. One win and one loss is a tie.

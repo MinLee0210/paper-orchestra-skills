@@ -2,7 +2,7 @@
 """Generate the illustrative figures for the synthetic demo paper.
 
 The values are copied from raw_materials/experimental_log.md. This script is a
-demo artifact; the paper-plotting skill normally asks the agent to write the
+demo artifact; the research-plotting skill normally asks the agent to write the
 plotting code from the log.
 """
 

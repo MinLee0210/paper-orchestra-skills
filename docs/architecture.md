@@ -85,7 +85,7 @@ Every artifact is inspectable JSON or LaTeX:
 - `review_v*.json` records why a revision was kept or reverted.
 - `*.compile.json` records the exact build commands and undefined references.
 
-Because these are files, a run can be resumed, diffed, and audited. The `paper-orchestra` skill's `scripts/pipeline_status.py` reads them and reports the next runnable stage.
+Because these are files, a run can be resumed, diffed, and audited. The `research-orchestra` skill's `scripts/pipeline_status.py` reads them and reports the next runnable stage.
 
 ## Robustness choices
 
@@ -95,7 +95,7 @@ Because these are files, a run can be resumed, diffed, and audited. The `paper-o
 
 **Review is ensembled and independent.** The writer does not grade its own revision. Three reviewer samples at temperature 0.75 are aggregated, and the accept/reject rule operates on the aggregate. This reduces the chance that a single noisy sample flips the decision.
 
-**The repository tests itself.** `tests/` covers the leakage gate, matching thresholds, provider normalization and fallback, bibliography construction, reviewer aggregation, LaTeX linting, template scaffolding, and the demo output. CI also compiles every bundled template.
+**The repository tests itself.** `tests/` covers the leakage gate, matching thresholds, provider normalization and fallback, bibliography construction, reviewer aggregation, LaTeX linting, template scaffolding, and the demo output. CI compiles the CVPR, ICLR, IEEE, and arXiv bundles; the systems bundles are scaffolded and validated but not compiled in CI.
 
 ## Failure handling
 

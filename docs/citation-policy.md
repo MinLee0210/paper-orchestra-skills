@@ -1,6 +1,6 @@
 # Citation policy
 
-This is the short version. The operational details live in `skills/paper-literature-review/references/citation-policy.md`.
+This is the short version. The operational details live in `skills/research-literature-review/references/citation-policy.md`.
 
 ## The rule
 

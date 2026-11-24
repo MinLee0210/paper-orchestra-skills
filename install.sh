@@ -12,7 +12,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SOURCE="$ROOT/skills"
-MARKER=".paper-orchestra-installed"
+MARKER=".research-orchestra-installed"
 UNINSTALL=0
 FORCE=0
 LINK_MODE="auto"   # auto = symlink (Windows: symlink, else copy); copy = always copy

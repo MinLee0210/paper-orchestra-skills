@@ -19,9 +19,9 @@ Generate conference presentation slides from a compiled research paper. Produces
 | Preparing oral/spotlight/poster-talk slides | ✅ | |
 | Generating Beamer PDF + PPTX from paper | ✅ | |
 | Speaker notes and talk script | ✅ | |
-| Writing the paper itself | | paper-orchestra |
+| Writing the paper itself | | research-orchestra |
 | Structuring a systems paper | | research-systems-paper-writing |
-| Creating publication-quality plots | | paper-plotting |
+| Creating publication-quality plots | | research-plotting |
 
 **Attribution**: This skill's structure draws inspiration from the ARIS paper-slides skill (570 lines, supporting poster/spotlight/oral/invited with Beamer+PPTX). This is an independent implementation for the AI-Research-SKILLs ecosystem.
 

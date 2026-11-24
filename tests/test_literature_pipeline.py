@@ -11,14 +11,14 @@ OUTLINE = ROOT / "tests/fixtures/outline.json"
 def test_build_inject_and_validate(tmp_path):
     out = tmp_path / "literature_agent_output"
     built = run_script(
-        "skills/paper-literature-review/scripts/build_bib.py",
+        "skills/research-literature-review/scripts/build_bib.py",
         "--registry", str(REGISTRY),
         "--out", str(out),
     )
     assert built.returncode == 0, built.stderr
 
     injected = run_script(
-        "skills/paper-literature-review/scripts/inject_citations.py",
+        "skills/research-literature-review/scripts/inject_citations.py",
         "--outline", str(OUTLINE),
         "--registry", str(REGISTRY),
         "--out", str(out / "outline_v1.json"),
@@ -26,7 +26,7 @@ def test_build_inject_and_validate(tmp_path):
     assert injected.returncode == 0, injected.stderr
 
     validated = run_script(
-        "skills/paper-literature-review/scripts/validate_literature.py",
+        "skills/research-literature-review/scripts/validate_literature.py",
         "--dir", str(out),
         "--outline", str(out / "outline_v1.json"),
         "--registry", str(REGISTRY),
@@ -56,7 +56,7 @@ def test_missing_cluster_is_reported(tmp_path):
     path.write_text(json.dumps(registry))
     out = tmp_path / "out"
     completed = run_script(
-        "skills/paper-literature-review/scripts/inject_citations.py",
+        "skills/research-literature-review/scripts/inject_citations.py",
         "--outline", str(OUTLINE),
         "--registry", str(path),
         "--out", str(out / "outline_v1.json"),

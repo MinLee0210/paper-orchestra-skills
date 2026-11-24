@@ -5,7 +5,7 @@ import json
 
 from conftest import load_script
 
-figures_mod = load_script("skills/paper-plotting/scripts/validate_figures.py")
+figures_mod = load_script("skills/research-plotting/scripts/validate_figures.py")
 PNG = base64.b64decode(
     "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Y9Z1ZkAAAAASUVORK5CYII="
 )

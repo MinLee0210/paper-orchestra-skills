@@ -5,7 +5,7 @@ from pathlib import Path
 
 from conftest import ROOT, load_script, run_script
 
-validator = load_script("skills/paper-inputs/scripts/validate_inputs.py")
+validator = load_script("skills/research-inputs/scripts/validate_inputs.py")
 EXAMPLE = ROOT / "examples/paper-project"
 
 
@@ -47,7 +47,7 @@ def test_warn_only_cli(tmp_path):
     shutil.copytree(EXAMPLE, project)
     idea = project / "raw_materials/idea.md"
     idea.write_text(idea.read_text() + "\nSmith et al. (2023) achieves 95.2%.\n")
-    completed = run_script("skills/paper-inputs/scripts/validate_inputs.py", str(project), "--warn-only")
+    completed = run_script("skills/research-inputs/scripts/validate_inputs.py", str(project), "--warn-only")
     assert completed.returncode == 0, completed.stdout + completed.stderr
     assert "WARNING" in completed.stdout
 

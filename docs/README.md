@@ -12,10 +12,10 @@ A complete synthetic run with a final PDF and run report lives in
 
 Skill-level references live next to each skill:
 
-- `skills/paper-outline/references/` — outline prompt and schema.
-- `skills/paper-literature-review/references/` — discovery and writing prompts, citation policy.
-- `skills/paper-plotting/references/` — figure prompts and style rules.
-- `skills/paper-section-writing/references/` — writing prompt and LaTeX conventions.
-- `skills/paper-content-refinement/references/` — reviewer rubric, revision and formatting prompts.
-- `skills/paper-evaluation/references/` — literature, reviewer, and SxS rubrics.
-- `skills/paper-template/references/` — template contract.
+- `skills/research-outline/references/` — outline prompt and schema.
+- `skills/research-literature-review/references/` — discovery and writing prompts, citation policy.
+- `skills/research-plotting/references/` — figure prompts and style rules.
+- `skills/research-section-writing/references/` — writing prompt and LaTeX conventions.
+- `skills/research-content-refinement/references/` — reviewer rubric, revision and formatting prompts.
+- `skills/research-evaluation/references/` — literature, reviewer, and SxS rubrics.
+- `skills/research-template/references/` — template contract.

@@ -48,26 +48,26 @@ jobs:
         run: python -m pytest -q
 
       - name: Validate example inputs
-        run: python skills/paper-inputs/scripts/validate_inputs.py examples/paper-project
+        run: python skills/research-inputs/scripts/validate_inputs.py examples/paper-project
 
       - name: Compile bundled templates
         run: |
           set -euo pipefail
           for venue in cvpr2025 iclr2025 ieeeconf arxiv; do
             rm -rf "/tmp/template-$venue"
-            python skills/paper-template/scripts/init_template.py --venue "$venue" --out "/tmp/template-$venue"
-            python skills/paper-content-refinement/scripts/compile_latex.py \
+            python skills/research-template/scripts/init_template.py --venue "$venue" --out "/tmp/template-$venue"
+            python skills/research-content-refinement/scripts/compile_latex.py \
               "/tmp/template-$venue" --name template --no-bib --timeout 60 --strict
           done
 
       - name: Run offline demo checks
         run: |
-          python skills/paper-orchestra/scripts/pipeline_status.py examples/paper-project || test $? -eq 2
-          python skills/paper-literature-review/scripts/build_bib.py \
+          python skills/research-orchestra/scripts/pipeline_status.py examples/paper-project || test $? -eq 2
+          python skills/research-literature-review/scripts/build_bib.py \
             --registry tests/fixtures/registry.json --out /tmp/lit
-          python skills/paper-literature-review/scripts/inject_citations.py \
+          python skills/research-literature-review/scripts/inject_citations.py \
             --outline tests/fixtures/outline.json --registry tests/fixtures/registry.json \
             --out /tmp/lit/outline_v1.json
-          python skills/paper-literature-review/scripts/validate_literature.py \
+          python skills/research-literature-review/scripts/validate_literature.py \
             --dir /tmp/lit --outline /tmp/lit/outline_v1.json --registry tests/fixtures/registry.json \
             --min-papers 3

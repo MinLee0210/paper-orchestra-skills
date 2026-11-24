@@ -7,7 +7,7 @@ import pytest
 
 from conftest import load_script
 
-ss = load_script("skills/paper-literature-review/scripts/semantic_scholar.py")
+ss = load_script("skills/research-literature-review/scripts/semantic_scholar.py")
 ARXIV_NS = {"a": "http://www.w3.org/2005/Atom", "arxiv": "http://arxiv.org/schemas/atom"}
 
 

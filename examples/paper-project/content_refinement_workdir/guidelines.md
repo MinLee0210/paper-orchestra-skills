@@ -13,5 +13,5 @@ This is not a real venue template. It exists so the example project validates an
 For a real submission, replace this directory with a venue bundle:
 
 ```bash
-python skills/paper-template/scripts/init_template.py --venue cvpr2025 --out path/to/latex_template --force
+python skills/research-template/scripts/init_template.py --venue cvpr2025 --out path/to/latex_template --force
 ```

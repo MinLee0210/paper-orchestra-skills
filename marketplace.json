@@ -15,69 +15,9 @@
       "version": "0.1.0"
     },
     {
-      "name": "paper-content-refinement",
-      "source": "./skills/paper-content-refinement",
-      "description": "Iteratively review, revise, and compile a LaTeX research paper using simulated peer review and a visual formatting pass, keeping only revisions that do not lower the score. Use when a draft already exists and the user wants to improve it, address reviewer feedback, fix page-limit or layout problems, resolve LaTeX compile errors, or produce the final PDF. Also use after section writing as the final stage of the paper pipeline.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "paper-evaluation",
-      "source": "./skills/paper-evaluation",
-      "description": "Evaluate a generated research paper against a ground-truth paper, a baseline, or a benchmark. Use when the user asks to score, benchmark, compare, or ablate paper-writing quality, measure citation precision/recall/F1, judge literature reviews, compute side-by-side win rates, or reproduce PaperWritingBench-style evaluation. Also use after generation to report objective metrics instead of impressions.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "paper-inputs",
-      "source": "./skills/paper-inputs",
-      "description": "Prepare, normalize, and audit raw materials for automated research-paper writing. Use whenever a user is starting a paper project, has messy notes or experiment outputs, needs an idea.md or experimental_log.md, wants to remove citations, author identities, or leaked paper metadata before generation, or needs figures/info.json. Also use when the paper-orchestra pipeline fails its input gate.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "paper-literature-review",
-      "source": "./skills/paper-literature-review",
-      "description": "Discover, verify, deduplicate, and cite real academic literature, then write the Introduction and Related Work sections. Use when the user asks for a literature review, related work, citation gathering, bibliography or BibTeX construction, citation coverage, or wants to find and verify papers for a manuscript. Also use when another paper-writing skill needs registry.json, citation_map.json, references.bib, or a cited LaTeX template. Enforces a research cutoff and rejects unverifiable citations.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "paper-orchestra",
-      "source": "./skills/paper-orchestra",
-      "description": "End-to-end orchestration for writing a submission-ready AI research paper from raw materials. Use when the user wants to generate, draft, write, or assemble a full research paper, LaTeX manuscript, or conference submission from an idea file plus experimental logs, or wants the complete PaperOrchestra multi-agent workflow run or resumed. Coordinates outline generation, figure generation, verified literature review, section writing, content refinement, and optional evaluation. Do not use for editing a single paragraph or for a literature-only request; use the narrower paper-* skill instead.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "paper-outline",
-      "source": "./skills/paper-outline",
-      "description": "Build the machine-readable plan for an AI research paper: figure plan, intro/related-work search strategy, section outline, and exhaustive citation hints. Use before drafting whenever the user has an idea and experimental log and needs an outline, story, figure plan, paper structure, or search plan, or when another paper-writing skill needs outline.json. Also use to repair or expand an existing outline.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "paper-plotting",
-      "source": "./skills/paper-plotting",
-      "description": "Generate publication-quality figures for a research paper from raw materials: statistical plots, conceptual diagrams, captions, and a critic-driven revision loop. Use when the user asks for paper figures, plots, charts, architecture diagrams, teaser figures, or visual summaries, when plotting_plan exists in outline.json, or when a draft is missing figures. Do not use for general graphic design or slide decks.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "paper-section-writing",
-      "source": "./skills/paper-section-writing",
-      "description": "Write the remaining sections of a LaTeX research paper from a structured outline, verified citation map, figures, and experimental log, producing a complete compilable manuscript. Use after the Introduction and Related Work are filled, or whenever the user needs the abstract, method, experiments, results, discussion, conclusion, tables, or appendix drafted into an existing template. Do not use to invent results or to fill in missing data.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "paper-template",
-      "source": "./skills/paper-template",
-      "description": "Select, scaffold, and adapt a LaTeX template and its writing guidelines for automated paper generation. Use when the user names a venue or format (CVPR, ICLR, IEEE conference, arXiv preprint, two-column, single-column), needs template.tex plus guidelines.md, wants to add a custom template, or needs to check page limits, fonts, and required packages before drafting.",
-      "version": "0.1.0"
-    },
-    {
       "name": "research-autoresearch",
       "source": "./skills/research-autoresearch",
-      "description": "Orchestrates end-to-end autonomous AI research projects using a two-loop architecture. The inner loop runs rapid experiment iterations with clear optimization targets. The outer loop synthesizes results, identifies patterns, and steers research direction. Routes to domain-specific skills for execution, supports continuous agent operation via Claude Code /loop and OpenClaw heartbeat, and hands writing to paper-orchestra and talks to research-conference-talks. Use when starting a research project, running autonomous experiments, or managing a multi-hypothesis research effort.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "research-brainstorming",
-      "source": "./skills/research-brainstorming",
-      "description": "Guides researchers through structured ideation frameworks to discover high-impact research directions. Use when exploring new problem spaces, pivoting between projects, or seeking novel angles on existing work. Start here to choose among directions; to deliberately generate more unusual ideas with cognitive-science techniques, use research-creative-thinking.",
+      "description": "Orchestrates end-to-end autonomous AI research projects using a two-loop architecture. The inner loop runs rapid experiment iterations with clear optimization targets. The outer loop synthesizes results, identifies patterns, and steers research direction. Routes to domain-specific skills for execution, supports continuous agent operation via Claude Code /loop and OpenClaw heartbeat, and hands writing to research-orchestra and talks to research-conference-talks. Use when starting a research project, running autonomous experiments, or managing a multi-hypothesis research effort.",
       "version": "0.1.0"
     },
     {
@@ -87,15 +27,63 @@
       "version": "0.1.0"
     },
     {
-      "name": "research-creative-thinking",
-      "source": "./skills/research-creative-thinking",
-      "description": "Applies cognitive science frameworks for creative thinking to CS and AI research ideation. Use when seeking genuinely novel research directions by leveraging combinatorial creativity, analogical reasoning, constraint manipulation, and other empirically grounded creative strategies. Use it when candidate directions from research-brainstorming feel too conventional, not to survey problem spaces.",
+      "name": "research-content-refinement",
+      "source": "./skills/research-content-refinement",
+      "description": "Iteratively review, revise, and compile a LaTeX research paper using simulated peer review and a visual formatting pass, keeping only revisions that do not lower the score. Use when a draft already exists and the user wants to improve it, address reviewer feedback, fix page-limit or layout problems, resolve LaTeX compile errors, or produce the final PDF. Also use after section writing as the final stage of the paper pipeline.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "research-evaluation",
+      "source": "./skills/research-evaluation",
+      "description": "Evaluate a generated research paper against a ground-truth paper, a baseline, or a benchmark. Use when the user asks to score, benchmark, compare, or ablate paper-writing quality, measure citation precision/recall/F1, judge literature reviews, compute side-by-side win rates, or reproduce PaperWritingBench-style evaluation. Also use after generation to report objective metrics instead of impressions.",
       "version": "0.1.0"
     },
     {
       "name": "research-experimental-design",
       "source": "./skills/research-experimental-design",
       "description": "Designs experiments and studies BEFORE data is collected — choosing a design, randomizing, blocking, and laying out treatment combinations so results are interpretable. Use whenever someone is planning a study, asks how to assign subjects/samples to groups, mentions randomization, blocking, stratification, controls, factorial or fractional-factorial designs, design of experiments (DOE), screening many factors, response-surface optimization, crossover or repeated-measures or split-plot designs, cluster/group randomization, Latin squares, plate layouts, batch/run-order effects, replication vs. pseudoreplication, or sequential/adaptive/group-sequential designs. Trigger even for informal phrasings like 'how should I set up this experiment', 'how do I avoid confounding', 'what's the best way to test these 6 factors', or 'assign these mice to conditions'. For computing the sample size or power once the design is chosen, use research-statistical-power; analyzing data already collected is out of scope.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "research-ideation",
+      "source": "./skills/research-ideation",
+      "description": "Structured ideation for research: a diverge-converge-refine workflow plus 13 cognitive-science lenses (problem reframing, hard/soft/hidden constraints, structural analogy and bisociation, negation, abstraction laddering, tension synthesis, adjacent possible, composition, stakeholder rotation, boundary probing, simplicity). Use when exploring a problem space, choosing or pivoting a research direction, judging whether an idea is worth pursuing, preparing a brainstorming session, or when candidate directions feel too conventional - including fixation, tunnel vision, incrementalism, and analysis paralysis. Not for literature surveys (use research-literature-review), experiment design (research-experimental-design), sample sizing (research-statistical-power), or running experiments (research-autoresearch).",
+      "version": "0.1.0"
+    },
+    {
+      "name": "research-inputs",
+      "source": "./skills/research-inputs",
+      "description": "Prepare, normalize, and audit raw materials for automated research-paper writing. Use whenever a user is starting a paper project, has messy notes or experiment outputs, needs an idea.md or experimental_log.md, wants to remove citations, author identities, or leaked paper metadata before generation, or needs figures/info.json. Also use when the research-orchestra pipeline fails its input gate.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "research-literature-review",
+      "source": "./skills/research-literature-review",
+      "description": "Discover, verify, deduplicate, and cite real academic literature, then write the Introduction and Related Work sections. Use when the user asks for a literature review, related work, citation gathering, bibliography or BibTeX construction, citation coverage, or wants to find and verify papers for a manuscript. Also use when another paper-writing skill needs registry.json, citation_map.json, references.bib, or a cited LaTeX template. Enforces a research cutoff and rejects unverifiable citations.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "research-orchestra",
+      "source": "./skills/research-orchestra",
+      "description": "End-to-end orchestration for writing a submission-ready AI research paper from raw materials. Use when the user wants to generate, draft, write, or assemble a full research paper, LaTeX manuscript, or conference submission from an idea file plus experimental logs, or wants the complete PaperOrchestra multi-agent workflow run or resumed. Coordinates outline generation, figure generation, verified literature review, section writing, content refinement, and optional evaluation. Do not use for editing a single paragraph or for a literature-only request; use the narrower stage skill instead.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "research-outline",
+      "source": "./skills/research-outline",
+      "description": "Build the machine-readable plan for an AI research paper: figure plan, intro/related-work search strategy, section outline, and exhaustive citation hints. Use before drafting whenever the user has an idea and experimental log and needs an outline, story, figure plan, paper structure, or search plan, or when another paper-writing skill needs outline.json. Also use to repair or expand an existing outline.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "research-plotting",
+      "source": "./skills/research-plotting",
+      "description": "Generate publication-quality figures for a research paper from raw materials: statistical plots, conceptual diagrams, captions, and a critic-driven revision loop. Use when the user asks for paper figures, plots, charts, architecture diagrams, teaser figures, or visual summaries, when plotting_plan exists in outline.json, or when a draft is missing figures. Do not use for general graphic design or slide decks.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "research-section-writing",
+      "source": "./skills/research-section-writing",
+      "description": "Write the remaining sections of a LaTeX research paper from a structured outline, verified citation map, figures, and experimental log, producing a complete compilable manuscript. Use after the Introduction and Related Work are filled, or whenever the user needs the abstract, method, experiments, results, discussion, conclusion, tables, or appendix drafted into an existing template. Do not use to invent results or to fill in missing data.",
       "version": "0.1.0"
     },
     {
@@ -107,7 +95,13 @@
     {
       "name": "research-systems-paper-writing",
       "source": "./skills/research-systems-paper-writing",
-      "description": "Comprehensive guide for writing systems papers targeting OSDI, SOSP, ASPLOS, NSDI, and EuroSys. Provides paragraph-level structural blueprints, writing patterns, venue-specific checklists, reviewer guidelines, LaTeX templates, and conference deadlines. Use it for page budgets, section blueprints, and venue checklists on systems papers; for end-to-end generation from an idea and experimental log, use paper-orchestra (this skill supplies the OSDI/SOSP/ASPLOS/NSDI templates and structure).",
+      "description": "Comprehensive guide for writing systems papers targeting OSDI, SOSP, ASPLOS, NSDI, and EuroSys. Provides paragraph-level structural blueprints, writing patterns, venue-specific checklists, reviewer guidelines, and conference deadlines. Use it for page budgets, section blueprints, and venue checklists on systems papers; for end-to-end generation from an idea and experimental log, use research-orchestra, and scaffold a venue with research-template (which ships the OSDI/SOSP/ASPLOS/NSDI templates).",
+      "version": "0.1.0"
+    },
+    {
+      "name": "research-template",
+      "source": "./skills/research-template",
+      "description": "Select, scaffold, and adapt a LaTeX template and its writing guidelines for automated paper generation. Use when the user names a venue or format (CVPR, ICLR, IEEE conference, arXiv preprint, OSDI, SOSP, ASPLOS, NSDI, two-column, single-column), needs template.tex plus guidelines.md, wants to add a custom template, or needs to check page limits, fonts, and required packages before drafting.",
       "version": "0.1.0"
     }
   ]

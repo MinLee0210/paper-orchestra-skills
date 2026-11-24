@@ -5,7 +5,7 @@ import json
 
 from conftest import ROOT, load_script
 
-validator = load_script("skills/paper-outline/scripts/validate_outline.py")
+validator = load_script("skills/research-outline/scripts/validate_outline.py")
 OUTLINE = json.loads((ROOT / "tests/fixtures/outline.json").read_text())
 
 

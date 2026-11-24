@@ -4,7 +4,7 @@ import json
 
 from conftest import ROOT, load_script
 
-lint_mod = load_script("skills/paper-section-writing/scripts/lint_latex.py")
+lint_mod = load_script("skills/research-section-writing/scripts/lint_latex.py")
 TEMPLATE = ROOT / "examples/paper-project/latex_template/template.tex"
 
 

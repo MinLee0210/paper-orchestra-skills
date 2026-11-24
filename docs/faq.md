@@ -50,7 +50,7 @@ Claude Code, opencode, and other runtimes that read the `SKILL.md` format. `./in
 
 ## Which conference templates are included?
 
-CVPR 2025 and ICLR 2025. Custom venues work when they provide `template.tex`, `guidelines.md`, `references.bib`, and their style files. See the `paper-template` skill.
+CVPR 2025, ICLR 2025, a generic IEEE conference scaffold, a neutral arXiv preprint, and OSDI 2026, SOSP 2026, ASPLOS 2027, NSDI 2027. Custom venues work when they provide `template.tex`, `guidelines.md`, `references.bib`, and their style files. See the `research-template` skill.
 
 ## Can it handle a two-column paper?
 

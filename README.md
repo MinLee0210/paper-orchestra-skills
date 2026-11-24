@@ -14,8 +14,8 @@ PaperOrchestra Skills is an open-source collection of portable [Agent Skills](ht
 | Input | `idea.md`, `experimental_log.md`, a LaTeX template, optional figures, a research cutoff |
 | Output | verified bibliography, figures, `final_paper.tex`, `final_paper.pdf`, optional metrics |
 | Pipeline | outline → literature + plotting (parallel) → section writing → refinement → evaluation |
-| Skills | 9 `paper-*` pipeline skills plus 7 `research-*` companion skills, each a portable `SKILL.md` package |
-| Templates | CVPR 2025, ICLR 2025, generic IEEE conference, arXiv preprint, or any custom venue |
+| Skills | 15 skills: a 9-skill paper pipeline (`research-orchestra` plus eight stages) and 6 research companions, each a portable `SKILL.md` package |
+| Templates | CVPR 2025, ICLR 2025, IEEE conference, arXiv preprint, OSDI/SOSP/ASPLOS/NSDI, or any custom venue |
 | Citation safety | Semantic Scholar + arXiv/Crossref/DBLP verification, strict cutoff, targeted matches at >= 90 |
 | Works with | Claude Code, opencode, Codex-style agents, custom `SKILL.md` runtimes |
 | License | Apache-2.0 |
@@ -25,13 +25,13 @@ PaperOrchestra Skills is an open-source collection of portable [Agent Skills](ht
 | Where | Command |
 |---|---|
 | Any agent via [`npx skills`](https://github.com/vercel-labs/skills) (Claude Code, Codex, Copilot, Cursor, opencode, ...) | `npx skills add MinLee0210/paper-orchestra-skills` |
-| One skill only | `npx skills add MinLee0210/paper-orchestra-skills --skill paper-outline` |
+| One skill only | `npx skills add MinLee0210/paper-orchestra-skills --skill research-outline` |
 | Claude Code marketplace | `/plugin marketplace add MinLee0210/paper-orchestra-skills`, then `/plugin install paper-orchestra-skills@paper-orchestra-skills` |
 | Codex | `codex plugin marketplace add MinLee0210/paper-orchestra-skills` |
 | GitHub Copilot | add the marketplace `MinLee0210/paper-orchestra-skills`, then install |
 | From a clone | `./install.sh` (symlinks into `~/.claude/skills` and `~/.config/opencode/skills`; on Windows see [Install on Windows](#install-on-windows)) |
 
-Each skill is self-contained, so a single one can be installed alone. Install `paper-orchestra` to get the
+Each skill is self-contained, so a single one can be installed alone. Install `research-orchestra` to get the
 full pipeline.
 
 ### Maintaining the plugin manifests
@@ -58,7 +58,7 @@ cd paper-orchestra-skills
 Then ask your agent:
 
 ```text
-Use the paper-orchestra skill to write a paper from ./my-project.
+Use the research-orchestra skill to write a paper from ./my-project.
 Inputs: raw_materials/idea.md, raw_materials/experimental_log.md.
 Template: CVPR 2025. Research cutoff: 2024-11.
 ```
@@ -66,9 +66,9 @@ Template: CVPR 2025. Research cutoff: 2024-11.
 The orchestrator validates the inputs, runs the five stages, and stops at any quality gate that fails. You can also run stages individually:
 
 ```text
-Use the paper-outline skill on ./my-project.
-Use the paper-literature-review skill with cutoff 2024-11.
-Use the paper-content-refinement skill to improve the draft and produce the final PDF.
+Use the research-outline skill on ./my-project.
+Use the research-literature-review skill with cutoff 2024-11.
+Use the research-content-refinement skill to improve the draft and produce the final PDF.
 ```
 
 ### Requirements
@@ -102,12 +102,12 @@ PaperOrchestra addresses this with specialized agents, machine-readable artifact
 
 | Stage | Skill | Input | Output | Gate |
 |---|---|---|---|---|
-| 1 | `paper-outline` | idea, log, template, guidelines | `outline.json` | valid plan with figure, search, and citation plans |
-| 2a | `paper-literature-review` | outline + materials | verified registry, `references.bib`, citation map, cited Intro/Related Work | every citation verified; targeted matches >= 90 with year/author; cutoff respected |
-| 2b | `paper-plotting` | outline + materials | figures, captions, manifests | every planned figure produced or explicitly skipped |
-| 3 | `paper-section-writing` | merged template + plan | complete LaTeX draft | compiles to PDF |
-| 4 | `paper-content-refinement` | draft + log + guidelines | final `.tex` and `.pdf` | score improves; page limit met; no undefined refs |
-| 5 | `paper-evaluation` | final paper + optional ground truth | citation F1, lit-review score, SxS wins | metrics computed from real files |
+| 1 | `research-outline` | idea, log, template, guidelines | `outline.json` | valid plan with figure, search, and citation plans |
+| 2a | `research-literature-review` | outline + materials | verified registry, `references.bib`, citation map, cited Intro/Related Work | every citation verified; targeted matches >= 90 with year/author; cutoff respected |
+| 2b | `research-plotting` | outline + materials | figures, captions, manifests | every planned figure produced or explicitly skipped |
+| 3 | `research-section-writing` | merged template + plan | complete LaTeX draft | compiles to PDF |
+| 4 | `research-content-refinement` | draft + log + guidelines | final `.tex` and `.pdf` | score improves; page limit met; no undefined refs |
+| 5 | `research-evaluation` | final paper + optional ground truth | citation F1, lit-review score, SxS wins | metrics computed from real files |
 
 Stages 2a and 2b are independent and can run in parallel. The orchestrator merges their outputs before stage 3.
 
@@ -115,35 +115,34 @@ Stages 2a and 2b are independent and can run in parallel. The orchestrator merge
 
 | Skill | Use it when you need to… |
 |---|---|
-| [`paper-orchestra`](skills/paper-orchestra/SKILL.md) | run or resume the full pipeline |
-| [`paper-inputs`](skills/paper-inputs/SKILL.md) | prepare `idea.md`, `experimental_log.md`, figures, and remove leakage |
-| [`paper-outline`](skills/paper-outline/SKILL.md) | plan the paper: sections, figures, search strategy, citation hints |
-| [`paper-template`](skills/paper-template/SKILL.md) | scaffold CVPR 2025, ICLR 2025, IEEE conference, arXiv preprint, or a custom venue template |
-| [`paper-plotting`](skills/paper-plotting/SKILL.md) | make data plots and conceptual diagrams with a critic loop |
-| [`paper-literature-review`](skills/paper-literature-review/SKILL.md) | find, verify, deduplicate, and cite real papers; write Intro/Related Work |
-| [`paper-section-writing`](skills/paper-section-writing/SKILL.md) | draft the remaining sections, tables, figures, and appendix |
-| [`paper-content-refinement`](skills/paper-content-refinement/SKILL.md) | review, revise, fix formatting, and compile the final PDF |
-| [`paper-evaluation`](skills/paper-evaluation/SKILL.md) | measure citation F1, literature quality, and side-by-side wins |
+| [`research-orchestra`](skills/research-orchestra/SKILL.md) | run or resume the full pipeline |
+| [`research-inputs`](skills/research-inputs/SKILL.md) | prepare `idea.md`, `experimental_log.md`, figures, and remove leakage |
+| [`research-outline`](skills/research-outline/SKILL.md) | plan the paper: sections, figures, search strategy, citation hints |
+| [`research-template`](skills/research-template/SKILL.md) | scaffold CVPR 2025, ICLR 2025, IEEE conference, arXiv preprint, OSDI/SOSP/ASPLOS/NSDI, or a custom venue |
+| [`research-plotting`](skills/research-plotting/SKILL.md) | make data plots and conceptual diagrams with a critic loop |
+| [`research-literature-review`](skills/research-literature-review/SKILL.md) | find, verify, deduplicate, and cite real papers; write Intro/Related Work |
+| [`research-section-writing`](skills/research-section-writing/SKILL.md) | draft the remaining sections, tables, figures, and appendix |
+| [`research-content-refinement`](skills/research-content-refinement/SKILL.md) | review, revise, fix formatting, and compile the final PDF |
+| [`research-evaluation`](skills/research-evaluation/SKILL.md) | measure citation F1, literature quality, and side-by-side wins |
 
 ### Research companion skills
 
-The `paper-*` skills turn finished experiments into a paper. These skills cover the work around it: finding
+The paper pipeline turns finished experiments into a paper. These skills cover the work around it: finding
 ideas, planning experiments, running a research project, and presenting the result. They are adapted from
 MIT-licensed projects (see [NOTICE](NOTICE)).
 
 | Skill | Use it when you need to… |
 |---|---|
-| [`research-brainstorming`](skills/research-brainstorming/SKILL.md) | explore problem spaces and pick a research direction |
-| [`research-creative-thinking`](skills/research-creative-thinking/SKILL.md) | find novel angles with analogy, constraint manipulation, and recombination |
+| [`research-ideation`](skills/research-ideation/SKILL.md) | explore problem spaces, pick a direction, and find novel angles with analogy, constraint manipulation, and recombination |
 | [`research-experimental-design`](skills/research-experimental-design/SKILL.md) | design an experiment before collecting data: randomization, blocking, factorial/DOE |
 | [`research-statistical-power`](skills/research-statistical-power/SKILL.md) | size a study: sample size, minimum detectable effect, power curves |
 | [`research-autoresearch`](skills/research-autoresearch/SKILL.md) | run a multi-hypothesis project with an inner experiment loop and an outer synthesis loop |
-| [`research-systems-paper-writing`](skills/research-systems-paper-writing/SKILL.md) | write for OSDI, SOSP, ASPLOS, NSDI, or EuroSys with paragraph-level blueprints and templates |
+| [`research-systems-paper-writing`](skills/research-systems-paper-writing/SKILL.md) | write for OSDI, SOSP, ASPLOS, NSDI, or EuroSys with paragraph-level blueprints and checklists |
 | [`research-conference-talks`](skills/research-conference-talks/SKILL.md) | turn a compiled paper into Beamer/PPTX slides with speaker notes |
 
-A typical flow: `research-brainstorming` → `research-experimental-design` → `research-statistical-power` →
-(run the experiments) → `paper-orchestra` → `research-conference-talks`. `research-autoresearch` can drive the
-whole sequence and hands the writing stage to `paper-orchestra`.
+A typical flow: `research-ideation` → `research-experimental-design` → `research-statistical-power` →
+(run the experiments) → `research-orchestra` → `research-conference-talks`. `research-autoresearch` can drive the
+whole sequence and hands the writing stage to `research-orchestra`.
 
 Each skill contains a `SKILL.md` with the workflow, plus `references/` for prompts and schemas and `scripts/` for deterministic operations. Read only what the task needs; the main file is deliberately short.
 
@@ -158,7 +157,7 @@ my-project/
 └── latex_template/             # template.tex, guidelines.md, style files
 ```
 
-The experimental log is the only source of numbers. The idea file must not contain the source paper's citations, author names, or final results. The `paper-inputs` skill audits both before any expensive stage runs.
+The experimental log is the only source of numbers. The idea file must not contain the source paper's citations, author names, or final results. The `research-inputs` skill audits both before any expensive stage runs.
 
 ## What comes out
 
@@ -190,15 +189,15 @@ The fallback chain matters in restricted environments: Semantic Scholar rate-lim
 This design targets the dominant failure mode of autonomous writers: a short, plausible reference list that is partly fabricated and misses most of the field. The bundled scripts make the verification step repeatable:
 
 ```bash
-python skills/paper-literature-review/scripts/semantic_scholar.py \
+python skills/research-literature-review/scripts/semantic_scholar.py \
   search --title "Attention Is All You Need" --year 2017 --cutoff 2024-11
-python skills/paper-literature-review/scripts/semantic_scholar.py \
+python skills/research-literature-review/scripts/semantic_scholar.py \
   search --title "AdamW" --author "Loshchilov" --year 2019 --targeted --cutoff 2024-11
 ```
 
 ## Evaluation
 
-`paper-evaluation` implements four measurements from the PaperOrchestra paper:
+`research-evaluation` implements four measurements from the PaperOrchestra paper:
 
 - **Citation F1** against a ground-truth reference list, reported overall and separately for must-cite (P0) and good-to-cite (P1) papers.
 - **Literature review quality** on six 0–100 axes with anti-inflation caps.
@@ -229,7 +228,7 @@ The workflow is built to prevent that. Discovery may guess; verification may not
 
 ### Which conferences are supported?
 
-Bundled templates: CVPR 2025 (two-column, 8 pages), ICLR 2025 (single-column, 10 pages), a generic IEEE conference scaffold, and a neutral arXiv preprint. Any venue works if you provide a `template.tex`, `guidelines.md`, and the venue's style files. See the `paper-template` skill for the contract.
+Bundled templates: CVPR 2025 (two-column, 8 pages), ICLR 2025 (single-column, 10 pages), a generic IEEE conference scaffold, and a neutral arXiv preprint. Any venue works if you provide a `template.tex`, `guidelines.md`, and the venue's style files. See the `research-template` skill for the contract.
 
 ### Which agents does it work with?
 
@@ -270,7 +269,7 @@ The skills are plain directories. You can copy or symlink them.
 Manual install:
 
 ```bash
-ln -s "$PWD/skills/paper-orchestra" ~/.claude/skills/paper-orchestra
+ln -s "$PWD/skills/research-orchestra" ~/.claude/skills/research-orchestra
 ```
 
 ### Install on Windows
@@ -286,7 +285,7 @@ Run `./install.sh` from **Git Bash**, **MSYS2**, or **Cygwin**. Inside **WSL** i
 Without bash (plain PowerShell), copy a skill by hand:
 
 ```powershell
-Copy-Item -Recurse skills\paper-orchestra $env:USERPROFILE\.claude\skills\paper-orchestra
+Copy-Item -Recurse skills\research-orchestra $env:USERPROFILE\.claude\skills\research-orchestra
 ```
 
 ## Tests and CI
@@ -297,22 +296,27 @@ Run the offline suite:
 python -m pytest -q
 ```
 
-The tests cover the blocking leakage gate, outline validation, targeted matching, provider fallbacks, bibliography construction, reviewer aggregation, LaTeX linting, template scaffolding, compilation, and the committed demo output. CI compiles all four bundled templates and runs the deterministic pipeline stages.
+The tests cover the blocking leakage gate, outline validation, targeted matching, provider fallbacks, bibliography construction, reviewer aggregation, LaTeX linting, template scaffolding, compilation, and the committed demo output. CI compiles the bundled conference templates and runs the deterministic pipeline stages.
 
 ## Repository structure
 
 ```text
-skills/                     # one directory per Agent Skill
-├── paper-orchestra/        # orchestrator + pipeline status script
-├── paper-inputs/           # raw-material templates and validator
-├── paper-outline/          # outline prompt, schema, validator
-├── paper-template/         # CVPR/ICLR/IEEE/arXiv templates, scaffold script
-├── paper-plotting/         # figure prompts, style guide, validator
-├── paper-literature-review/# S2 verification, BibTeX, citation map, validators
-├── paper-section-writing/  # section prompt, LaTeX conventions, linter
-├── paper-content-refinement/# compile, render, review decision, prompts
-├── paper-evaluation/       # citation F1, SxS aggregation, rubrics
-└── research-*/             # ideation, experiment design, power, autoresearch, systems papers, talks (adapted, MIT)
+skills/                          # one directory per Agent Skill
+├── research-orchestra/          # orchestrator + pipeline status script
+├── research-inputs/             # raw-material templates and validator
+├── research-outline/            # outline prompt, schema, validator
+├── research-template/           # CVPR/ICLR/IEEE/arXiv/OSDI/SOSP/ASPLOS/NSDI, one scaffolder
+├── research-plotting/           # figure prompts, style guide, validator
+├── research-literature-review/  # S2 verification, BibTeX, citation map, validators
+├── research-section-writing/    # section prompt, LaTeX conventions, linter
+├── research-content-refinement/ # compile, render, review decision, prompts
+├── research-evaluation/         # citation F1, SxS aggregation, rubrics
+├── research-ideation/           # ideation workflow + 13 lenses (MIT)
+├── research-experimental-design/# randomization, blocking, DOE (MIT)
+├── research-statistical-power/  # sample size, MDE, power curves (MIT)
+├── research-autoresearch/       # two-loop project orchestration (MIT)
+├── research-systems-paper-writing/ # OSDI/SOSP/ASPLOS/NSDI blueprints (MIT)
+└── research-conference-talks/   # Beamer/PPTX slides (MIT)
 tests/                      # offline pytest suite and fixtures
 .github/workflows/ci.yml    # tests + template compilation
 examples/paper-project/     # complete synthetic run with final PDF and run_report.json

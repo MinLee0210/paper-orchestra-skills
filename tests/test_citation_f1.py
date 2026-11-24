@@ -4,7 +4,7 @@ import json
 
 from conftest import load_script
 
-f1_mod = load_script("skills/paper-evaluation/scripts/citation_f1.py")
+f1_mod = load_script("skills/research-evaluation/scripts/citation_f1.py")
 
 
 def write(path, data):

@@ -256,5 +256,5 @@ A typical systems paper follows this structure (differs from ML papers):
 - **NSDI 2027**: <https://www.usenix.org/conference/nsdi27/call-for-papers>
 - **ASPLOS 2027**: <https://www.asplos-conference.org/asplos2026/call-for-papers-asplos27/>
 - **SOSP 2026**: <https://sigops.org/s/conferences/sosp/2026/cfp.html>
-- **USENIX LaTeX Template**: <https://www.usenix.org/conferences/author-resources/paper-templates>
+- **USENIX LaTeX Template**: <https://www.usenix.org/conferences/author-resources/research-templates>
 - **ACM SIGPLAN Template**: <https://www.acm.org/publications/proceedings-template>

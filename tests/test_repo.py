@@ -55,5 +55,13 @@ def test_readme_covers_all_skills_and_templates():
     readme = (ROOT / "README.md").read_text()
     for skill in (ROOT / "skills").iterdir():
         assert f"skills/{skill.name}/SKILL.md" in readme
-    for venue in ("cvpr2025", "iclr2025", "ieeeconf", "arxiv"):
-        assert venue in (ROOT / "skills/paper-template/SKILL.md").read_text()
+    for venue in ("cvpr2025", "iclr2025", "ieeeconf", "arxiv",
+                  "osdi2026", "sosp2026", "asplos2027", "nsdi2027"):
+        assert venue in (ROOT / "skills/research-template/SKILL.md").read_text()
+
+
+def test_every_skill_uses_the_research_prefix():
+    names = sorted(p.name for p in (ROOT / "skills").iterdir() if p.is_dir())
+    assert names, "no skills found"
+    wrong = [n for n in names if not n.startswith("research-")]
+    assert not wrong, f"skills missing the research- prefix: {wrong}"

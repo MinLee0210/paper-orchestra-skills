@@ -33,7 +33,7 @@ def clean_project(tmp_path):
 
 def test_fresh_project_starts_at_outline(tmp_path):
     project = clean_project(tmp_path)
-    completed = run_script("skills/paper-orchestra/scripts/pipeline_status.py", str(project))
+    completed = run_script("skills/research-orchestra/scripts/pipeline_status.py", str(project))
     assert completed.returncode == 2
     assert "Stage 1" in completed.stdout
 
@@ -41,12 +41,12 @@ def test_fresh_project_starts_at_outline(tmp_path):
 def test_outline_advances_to_literature(tmp_path):
     project = clean_project(tmp_path)
     shutil.copy(ROOT / "tests/fixtures/outline.json", project / "outline.json")
-    completed = run_script("skills/paper-orchestra/scripts/pipeline_status.py", str(project))
+    completed = run_script("skills/research-orchestra/scripts/pipeline_status.py", str(project))
     assert completed.returncode == 2
     assert "Stage 2a" in completed.stdout
 
 
 def test_complete_example_reaches_final_pdf():
-    completed = run_script("skills/paper-orchestra/scripts/pipeline_status.py", str(EXAMPLE))
+    completed = run_script("skills/research-orchestra/scripts/pipeline_status.py", str(EXAMPLE))
     assert completed.returncode == 0
     assert "Pipeline complete" in completed.stdout

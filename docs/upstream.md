@@ -6,20 +6,20 @@ This repository ports [Google Research's PaperOrchestra](https://github.com/goog
 
 | Upstream component | Here |
 |---|---|
-| `methods/paper_writer.py` orchestration | `paper-orchestra` skill |
-| `methods/paper_writer_with_plotting.py` | `paper-orchestra` + parallel stage instructions |
-| `methods/agents/outline_agent.py` + prompt | `paper-outline` skill |
-| `methods/agents/literature_review_agent.py` + prompt | `paper-literature-review` skill + scripts |
-| `methods/agents/section_writing_agent.py` + prompt | `paper-section-writing` skill |
-| `methods/agents/content_refinement_agent.py` + prompt | `paper-content-refinement` skill + scripts |
-| `methods/agents/plotting_agent.py` + PaperBanana prompts | `paper-plotting` skill + prompts |
-| `autoraters/agent_review.py` | `paper-content-refinement/references/reviewer-rubric.md`, `paper-evaluation/references/agentreview.md` |
-| `autoraters/lit_review_quality.py` | `paper-evaluation/references/lit-review-rubric.md` |
-| `autoraters/citation_f1.py` | `paper-evaluation/scripts/citation_f1.py` |
-| `autoraters/sxs_*.py` | `paper-evaluation/references/sxs-prompts.md` + `aggregate_sxs.py` |
-| `templates/cvpr2025`, `templates/iclr2025` | `paper-template/assets/templates/` |
-| `utils/pdf_utils.py` compile/render | `paper-content-refinement/scripts/compile_latex.py`, `render_pages.py` |
-| `utils/scholar_utils.py` | `paper-literature-review/scripts/semantic_scholar.py` |
+| `methods/paper_writer.py` orchestration | `research-orchestra` skill |
+| `methods/paper_writer_with_plotting.py` | `research-orchestra` + parallel stage instructions |
+| `methods/agents/outline_agent.py` + prompt | `research-outline` skill |
+| `methods/agents/literature_review_agent.py` + prompt | `research-literature-review` skill + scripts |
+| `methods/agents/section_writing_agent.py` + prompt | `research-section-writing` skill |
+| `methods/agents/content_refinement_agent.py` + prompt | `research-content-refinement` skill + scripts |
+| `methods/agents/plotting_agent.py` + PaperBanana prompts | `research-plotting` skill + prompts |
+| `autoraters/agent_review.py` | `research-content-refinement/references/reviewer-rubric.md`, `research-evaluation/references/agentreview.md` |
+| `autoraters/lit_review_quality.py` | `research-evaluation/references/lit-review-rubric.md` |
+| `autoraters/citation_f1.py` | `research-evaluation/scripts/citation_f1.py` |
+| `autoraters/sxs_*.py` | `research-evaluation/references/sxs-prompts.md` + `aggregate_sxs.py` |
+| `templates/cvpr2025`, `templates/iclr2025` | `research-template/assets/templates/` |
+| `utils/pdf_utils.py` compile/render | `research-content-refinement/scripts/compile_latex.py`, `render_pages.py` |
+| `utils/scholar_utils.py` | `research-literature-review/scripts/semantic_scholar.py` |
 | `utils/gemini_utils.py`, `openai_utils.py`, `llm_backend_utils.py` | removed; the host agent supplies the model |
 | `frontend/` Streamlit app | removed |
 | batch dataset pipeline | removed |
@@ -39,7 +39,7 @@ This repository ports [Google Research's PaperOrchestra](https://github.com/goog
 
 **Leakage gate.** The upstream anti-leakage prompt is backed by a blocking input validator. It detects citations, `et al.` and author-year citations, named authors, institutions, and result numbers in the idea file.
 
-**Templates.** The CVPR and ICLR bundles are preserved. A generic IEEE conference scaffold and a neutral arXiv preprint are added so the skill description matches what the repository actually ships.
+**Templates.** The CVPR and ICLR bundles are preserved. A generic IEEE conference scaffold and a neutral arXiv preprint are added. The OSDI/SOSP/ASPLOS/NSDI bundles, which used to live in `research-systems-paper-writing`, moved into `research-template` so one scaffolder serves every venue.
 
 **Figure generation.** Upstream uses PaperBanana and a Gemini image model. The skill prefers code-generated plots and vector diagrams, and treats image generation as an optional tool when the host provides one. This removes a hard provider dependency and makes data figures reproducible.
 
@@ -67,7 +67,7 @@ Preserved from upstream:
 - iterative review with monotonic acceptance;
 - separate content and formatting loops;
 - citation F1, literature-quality, overall-quality, and SxS evaluation concepts;
-- CVPR 2025 and ICLR 2025 templates.
+- CVPR 2025, ICLR 2025, IEEE conference, arXiv, OSDI 2026, SOSP 2026, ASPLOS 2027, and NSDI 2027 templates.
 
 Changed deliberately:
 

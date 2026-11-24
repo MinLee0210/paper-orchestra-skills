@@ -10,7 +10,7 @@ from conftest import ROOT
 
 pytestmark = pytest.mark.skipif(shutil.which("bash") is None, reason="bash is required")
 
-MARKER = ".paper-orchestra-installed"
+MARKER = ".research-orchestra-installed"
 SKILLS = sorted(p.name for p in (ROOT / "skills").iterdir() if (p / "SKILL.md").exists())
 
 
@@ -52,7 +52,7 @@ def test_unix_default_symlinks_and_uninstall(tmp_path):
     removed = install("--target", str(target), "--uninstall", home=tmp_path)
     assert removed.returncode == 0
     assert not any((target / name).exists() for name in SKILLS)
-    assert (ROOT / "skills" / "paper-orchestra" / "SKILL.md").exists()
+    assert (ROOT / "skills" / "research-orchestra" / "SKILL.md").exists()
 
 
 def test_copy_mode_marks_copies_and_refreshes_them(tmp_path):
@@ -65,7 +65,7 @@ def test_copy_mode_marks_copies_and_refreshes_them(tmp_path):
         assert (target / name / MARKER).exists()
     assert f"{len(SKILLS)} skills were copied" in done.stdout
 
-    stale = target / "paper-orchestra" / "stale.txt"
+    stale = target / "research-orchestra" / "stale.txt"
     stale.write_text("old")
     again = install("--target", str(target), "--copy", home=tmp_path)
     assert again.returncode == 0
@@ -77,19 +77,19 @@ def test_uninstall_removes_only_what_the_script_created(tmp_path):
     mine = target / "somebody-elses-skill"
     mine.mkdir(parents=True)
     (mine / "SKILL.md").write_text("not ours")
-    foreign = target / "paper-orchestra"
+    foreign = target / "research-orchestra"
     foreign.mkdir()
     (foreign / "notes.txt").write_text("a user's own directory with a clashing name")
 
     done = install("--target", str(target), "--copy", home=tmp_path)
     assert done.returncode == 0
-    assert "skip    paper-orchestra (exists; use --force)" in done.stderr
+    assert "skip    research-orchestra (exists; use --force)" in done.stderr
     assert not (foreign / MARKER).exists()
 
     install("--target", str(target), "--uninstall", home=tmp_path)
     assert (mine / "SKILL.md").exists()
     assert (foreign / "notes.txt").exists(), "an unmarked directory must survive --uninstall"
-    assert not (target / "paper-outline").exists()
+    assert not (target / "research-outline").exists()
 
     forced = install("--target", str(target), "--copy", "--force", home=tmp_path)
     assert forced.returncode == 0
@@ -109,7 +109,7 @@ def test_windows_falls_back_to_copy_when_symlinks_are_refused(tmp_path):
     removed = install("--target", str(target), "--uninstall", home=tmp_path, platform="windows", path_prefix=bin_dir)
     assert removed.returncode == 0
     assert not any((target / name).exists() for name in SKILLS)
-    assert (ROOT / "skills" / "paper-orchestra" / "SKILL.md").exists()
+    assert (ROOT / "skills" / "research-orchestra" / "SKILL.md").exists()
 
 
 def test_windows_cleans_up_when_ln_silently_copies(tmp_path):
@@ -142,6 +142,6 @@ def test_windows_default_target_follows_userprofile_not_home(tmp_path):
         extra_env={"USERPROFILE": str(profile)},
     )
     assert done.returncode == 0, done.stderr
-    assert (profile / ".claude" / "skills" / "paper-orchestra" / "SKILL.md").exists()
-    assert (profile / ".config" / "opencode" / "skills" / "paper-orchestra" / "SKILL.md").exists()
+    assert (profile / ".claude" / "skills" / "research-orchestra" / "SKILL.md").exists()
+    assert (profile / ".config" / "opencode" / "skills" / "research-orchestra" / "SKILL.md").exists()
     assert not (other_home / ".claude").exists()

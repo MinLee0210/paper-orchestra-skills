@@ -72,14 +72,14 @@ Use PDF for vector figures and PNG for raster previews. One figure per file. Do 
 
 Required: `template.tex` and `guidelines.md`. `references.bib` is a starter file (it may be empty); the literature stage replaces it with the verified bibliography. The template must compile before generation. Section placeholders can be empty `\section{...}` commands or explicit `% TODO` comments.
 
-See the `paper-template` skill and `skills/paper-template/references/template-contract.md`.
+See the `research-template` skill and `skills/research-template/references/template-contract.md`.
 
 ## Validation
 
 ```bash
-python skills/paper-inputs/scripts/validate_inputs.py my-project
-python skills/paper-outline/scripts/validate_outline.py my-project/outline.json
-python skills/paper-literature-review/scripts/validate_literature.py \
+python skills/research-inputs/scripts/validate_inputs.py my-project
+python skills/research-outline/scripts/validate_outline.py my-project/outline.json
+python skills/research-literature-review/scripts/validate_literature.py \
   --dir my-project/literature_agent_output \
   --outline my-project/outline.json \
   --template my-project/literature_agent_output/updated_template.tex
@@ -98,5 +98,5 @@ Record the cutoff in `run_report.json` and pass the same value to discovery and 
 The repository includes `examples/paper-project/` with a matching idea, log, and template scaffold. It is synthetic and exists to exercise the workflow, not to demonstrate research results.
 
 ```bash
-python skills/paper-inputs/scripts/validate_inputs.py examples/paper-project
+python skills/research-inputs/scripts/validate_inputs.py examples/paper-project
 ```

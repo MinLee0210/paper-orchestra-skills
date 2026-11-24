@@ -14,7 +14,7 @@ def test_example_template_compiles(tmp_path):
     target = tmp_path / "latex_template"
     shutil.copytree(source, target)
     completed = run_script(
-        "skills/paper-content-refinement/scripts/compile_latex.py",
+        "skills/research-content-refinement/scripts/compile_latex.py",
         str(target),
         "--name", "template",
         "--no-bib",
@@ -43,7 +43,7 @@ def test_compile_resolves_citations(tmp_path):
         "}\n"
     )
     completed = run_script(
-        "skills/paper-content-refinement/scripts/compile_latex.py",
+        "skills/research-content-refinement/scripts/compile_latex.py",
         str(tmp_path),
         "--name", "paper",
         "--timeout", "60",

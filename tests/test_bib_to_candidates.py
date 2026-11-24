@@ -4,7 +4,7 @@ import json
 
 from conftest import run_script
 
-SCRIPT = "skills/paper-literature-review/scripts/bib_to_candidates.py"
+SCRIPT = "skills/research-literature-review/scripts/bib_to_candidates.py"
 
 BIB = """@inproceedings{vaswani2017,
   title = {Attention Is All You Need},

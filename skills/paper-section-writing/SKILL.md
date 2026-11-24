@@ -49,7 +49,7 @@ Read `references/prompt.md` for the full writing directive and `references/latex
 - In a two-column venue, prefer single-column `figure` unless the figure is explicitly wide; then use `figure*` and close it with `\end{figure*}`.
 - Use `width=\linewidth` or `width=\columnwidth`; never set both width and height, which distorts the aspect ratio.
 - Do not change `cleveref` to `cleverref`.
-- Do not add packages unless the template already loads them.
+- Do not add packages unless the template already loads them. The one exception is `tabularx`, which the formatting pass in `paper-content-refinement` may add.
 - Keep indentation and spacing consistent with the template.
 
 ## Output

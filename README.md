@@ -14,7 +14,7 @@ PaperOrchestra Skills is an open-source collection of portable [Agent Skills](ht
 | Input | `idea.md`, `experimental_log.md`, a LaTeX template, optional figures, a research cutoff |
 | Output | verified bibliography, figures, `final_paper.tex`, `final_paper.pdf`, optional metrics |
 | Pipeline | outline → literature + plotting (parallel) → section writing → refinement → evaluation |
-| Skills | 9 portable `SKILL.md` packages with references and deterministic scripts |
+| Skills | 9 `paper-*` pipeline skills plus 7 `research-*` companion skills, each a portable `SKILL.md` package |
 | Templates | CVPR 2025, ICLR 2025, generic IEEE conference, arXiv preprint, or any custom venue |
 | Citation safety | Semantic Scholar + arXiv/Crossref/DBLP verification, strict cutoff, targeted matches at >= 90 |
 | Works with | Claude Code, opencode, Codex-style agents, custom `SKILL.md` runtimes |
@@ -78,12 +78,13 @@ Use the paper-content-refinement skill to improve the draft and produce the fina
 - `SEMANTIC_SCHOLAR_API_KEY` (optional) to raise literature-verification rate limits.
 - `PyMuPDF` and `Pillow` (optional) for rendering PDF pages during review.
 - `pytest` (optional) to run the offline test suite.
+- `numpy`, `pandas`, `scipy`, `statsmodels` (optional, Python 3.12+) for the scripts in `research-experimental-design` and `research-statistical-power`; `python-pptx` for `research-conference-talks`.
 
 No model API key is required by the skills. They use the model and tools provided by the host agent.
 
 ## Proof it runs
 
-The repo ships a complete synthetic run: [`examples/paper-project/final_paper.pdf`](examples/paper-project/final_paper.pdf) (5 pages), its figures, a cached 12-paper bibliography, three-review refinement rounds, and [`run_report.json`](examples/paper-project/run_report.json). The demo is deliberately labeled as synthetic; it proves the pipeline and its artifacts, not a research result.
+The repo ships a complete synthetic run: [`examples/paper-project/final_paper.pdf`](examples/paper-project/final_paper.pdf) (5 pages), its figures, a cached 12-paper bibliography (below the 20-paper target for a real paper), three-review refinement rounds, and [`run_report.json`](examples/paper-project/run_report.json). The demo is deliberately labeled as synthetic; it proves the pipeline and its artifacts, not a research result.
 
 ## Why this exists
 
@@ -123,6 +124,26 @@ Stages 2a and 2b are independent and can run in parallel. The orchestrator merge
 | [`paper-section-writing`](skills/paper-section-writing/SKILL.md) | draft the remaining sections, tables, figures, and appendix |
 | [`paper-content-refinement`](skills/paper-content-refinement/SKILL.md) | review, revise, fix formatting, and compile the final PDF |
 | [`paper-evaluation`](skills/paper-evaluation/SKILL.md) | measure citation F1, literature quality, and side-by-side wins |
+
+### Research companion skills
+
+The `paper-*` skills turn finished experiments into a paper. These skills cover the work around it: finding
+ideas, planning experiments, running a research project, and presenting the result. They are adapted from
+MIT-licensed projects (see [NOTICE](NOTICE)).
+
+| Skill | Use it when you need to… |
+|---|---|
+| [`research-brainstorming`](skills/research-brainstorming/SKILL.md) | explore problem spaces and pick a research direction |
+| [`research-creative-thinking`](skills/research-creative-thinking/SKILL.md) | find novel angles with analogy, constraint manipulation, and recombination |
+| [`research-experimental-design`](skills/research-experimental-design/SKILL.md) | design an experiment before collecting data: randomization, blocking, factorial/DOE |
+| [`research-statistical-power`](skills/research-statistical-power/SKILL.md) | size a study: sample size, minimum detectable effect, power curves |
+| [`research-autoresearch`](skills/research-autoresearch/SKILL.md) | run a multi-hypothesis project with an inner experiment loop and an outer synthesis loop |
+| [`research-systems-paper-writing`](skills/research-systems-paper-writing/SKILL.md) | write for OSDI, SOSP, ASPLOS, NSDI, or EuroSys with paragraph-level blueprints and templates |
+| [`research-conference-talks`](skills/research-conference-talks/SKILL.md) | turn a compiled paper into Beamer/PPTX slides with speaker notes |
+
+A typical flow: `research-brainstorming` → `research-experimental-design` → `research-statistical-power` →
+(run the experiments) → `paper-orchestra` → `research-conference-talks`. `research-autoresearch` can drive the
+whole sequence and hands the writing stage to `paper-orchestra`.
 
 Each skill contains a `SKILL.md` with the workflow, plus `references/` for prompts and schemas and `scripts/` for deterministic operations. Read only what the task needs; the main file is deliberately short.
 
@@ -220,7 +241,7 @@ Only for literature verification. Set `SEMANTIC_SCHOLAR_API_KEY` to raise rate l
 
 ### Can I use it without internet access?
 
-You can write and refine a paper if you already have a BIB file and figures. The literature discovery and verification stages require network access. Offline mode is not a supported path for citation generation.
+You can write and refine a paper offline only if a verified registry from an earlier run (`registry.json`, `citation_map.json`, `references.bib`) and the figures already exist. A raw BIB file is re-verified through the literature stage, which needs network access. Offline mode is not a supported path for citation generation.
 
 ### Is there a test suite and CI?
 
@@ -273,11 +294,13 @@ skills/                     # one directory per Agent Skill
 ├── paper-literature-review/# S2 verification, BibTeX, citation map, validators
 ├── paper-section-writing/  # section prompt, LaTeX conventions, linter
 ├── paper-content-refinement/# compile, render, review decision, prompts
-└── paper-evaluation/       # citation F1, SxS aggregation, rubrics
+├── paper-evaluation/       # citation F1, SxS aggregation, rubrics
+└── research-*/             # ideation, experiment design, power, autoresearch, systems papers, talks (adapted, MIT)
 tests/                      # offline pytest suite and fixtures
 .github/workflows/ci.yml    # tests + template compilation
 examples/paper-project/     # complete synthetic run with final PDF and run_report.json
 docs/                       # architecture, input format, evaluation, FAQ, upstream notes
+THIRD_PARTY_LICENSES/       # upstream MIT license texts for the research-* skills
 examples/paper-project/     # synthetic input files for a first run
 ```
 

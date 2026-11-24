@@ -88,5 +88,6 @@ This matters because a single review is noisy: one reviewer fixates on presentat
 - Most drafts score 4–6 overall, not 8.
 - A score above 8 requires strong evidence across every axis.
 - If the method is standard and the gain is small, the contribution is not "very high."
-- If the PDF has layout defects, Presentation cannot be excellent.
-- If a claim is unsupported by the log, Soundness drops.
+- Layout defects in the PDF cap Presentation at 2.
+- A claim unsupported by the log caps Soundness at 2.
+- This file is the single definition of these caps. `agentreview.md` in paper-evaluation refers here and must not restate them.

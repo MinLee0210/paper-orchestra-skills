@@ -24,3 +24,29 @@ copyright headers are preserved.
 
 The scripts in this repository are a clean-room reimplementation using the
 Python standard library unless a dependency is explicitly documented.
+
+Third-party skills (MIT License)
+--------------------------------
+The following skills under skills/ are adapted from MIT-licensed projects. Each
+SKILL.md ends with an Attribution section naming its source path and commit.
+The full upstream license texts are in THIRD_PARTY_LICENSES/.
+
+  From Orchestra-Research/AI-Research-SKILLs
+  (Copyright (c) 2025 Claude AI Research Skills Contributors):
+    - skills/research-autoresearch
+    - skills/research-brainstorming
+    - skills/research-creative-thinking
+    - skills/research-conference-talks
+    - skills/research-systems-paper-writing
+
+  From K-Dense-AI/scientific-agent-skills (Copyright (c) 2025 K-Dense Inc.):
+    - skills/research-experimental-design
+    - skills/research-statistical-power
+
+Changes: folders and `name` fields were prefixed with `research-`, long
+descriptions were quoted for strict YAML parsers, and cross-references to skills
+not present in this repository were retargeted. The systems-paper templates and
+USENIX style files under skills/research-systems-paper-writing/templates/ keep
+their original headers and terms. The research-experimental-design and
+research-statistical-power scripts need numpy, pandas, scipy and statsmodels;
+this is the only place the repository depends on third-party Python packages.

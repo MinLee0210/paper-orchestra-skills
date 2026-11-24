@@ -70,7 +70,7 @@ Use PDF for vector figures and PNG for raster previews. One figure per file. Do 
 
 ## Template
 
-Required: `template.tex`, `guidelines.md`, `references.bib`. The template must compile before generation. Section placeholders can be empty `\section{...}` commands or explicit `% TODO` comments.
+Required: `template.tex` and `guidelines.md`. `references.bib` is a starter file (it may be empty); the literature stage replaces it with the verified bibliography. The template must compile before generation. Section placeholders can be empty `\section{...}` commands or explicit `% TODO` comments.
 
 See the `paper-template` skill and `skills/paper-template/references/template-contract.md`.
 

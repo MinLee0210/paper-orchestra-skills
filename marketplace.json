@@ -17,7 +17,7 @@
     {
       "name": "paper-content-refinement",
       "source": "./skills/paper-content-refinement",
-      "description": "Iteratively review, revise, and compile a LaTeX research paper using simulated peer review and a visual formatting pass, keeping only revisions that improve the score. Use when a draft already exists and the user wants to improve it, address reviewer feedback, fix page-limit or layout problems, resolve LaTeX compile errors, or produce the final PDF. Also use after section writing as the final stage of the paper pipeline.",
+      "description": "Iteratively review, revise, and compile a LaTeX research paper using simulated peer review and a visual formatting pass, keeping only revisions that do not lower the score. Use when a draft already exists and the user wants to improve it, address reviewer feedback, fix page-limit or layout problems, resolve LaTeX compile errors, or produce the final PDF. Also use after section writing as the final stage of the paper pipeline.",
       "version": "0.1.0"
     },
     {
@@ -66,6 +66,48 @@
       "name": "paper-template",
       "source": "./skills/paper-template",
       "description": "Select, scaffold, and adapt a LaTeX template and its writing guidelines for automated paper generation. Use when the user names a venue or format (CVPR, ICLR, IEEE conference, arXiv preprint, two-column, single-column), needs template.tex plus guidelines.md, wants to add a custom template, or needs to check page limits, fonts, and required packages before drafting.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "research-autoresearch",
+      "source": "./skills/research-autoresearch",
+      "description": "Orchestrates end-to-end autonomous AI research projects using a two-loop architecture. The inner loop runs rapid experiment iterations with clear optimization targets. The outer loop synthesizes results, identifies patterns, and steers research direction. Routes to domain-specific skills for execution, supports continuous agent operation via Claude Code /loop and OpenClaw heartbeat, and hands writing to paper-orchestra and talks to research-conference-talks. Use when starting a research project, running autonomous experiments, or managing a multi-hypothesis research effort.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "research-brainstorming",
+      "source": "./skills/research-brainstorming",
+      "description": "Guides researchers through structured ideation frameworks to discover high-impact research directions. Use when exploring new problem spaces, pivoting between projects, or seeking novel angles on existing work. Start here to choose among directions; to deliberately generate more unusual ideas with cognitive-science techniques, use research-creative-thinking.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "research-conference-talks",
+      "source": "./skills/research-conference-talks",
+      "description": "Generates conference presentation slides (Beamer LaTeX PDF and editable PPTX) from a compiled paper with speaker notes and talk script. Use when preparing oral talks, spotlight presentations, or invited talks for ML and systems conferences.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "research-creative-thinking",
+      "source": "./skills/research-creative-thinking",
+      "description": "Applies cognitive science frameworks for creative thinking to CS and AI research ideation. Use when seeking genuinely novel research directions by leveraging combinatorial creativity, analogical reasoning, constraint manipulation, and other empirically grounded creative strategies. Use it when candidate directions from research-brainstorming feel too conventional, not to survey problem spaces.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "research-experimental-design",
+      "source": "./skills/research-experimental-design",
+      "description": "Designs experiments and studies BEFORE data is collected — choosing a design, randomizing, blocking, and laying out treatment combinations so results are interpretable. Use whenever someone is planning a study, asks how to assign subjects/samples to groups, mentions randomization, blocking, stratification, controls, factorial or fractional-factorial designs, design of experiments (DOE), screening many factors, response-surface optimization, crossover or repeated-measures or split-plot designs, cluster/group randomization, Latin squares, plate layouts, batch/run-order effects, replication vs. pseudoreplication, or sequential/adaptive/group-sequential designs. Trigger even for informal phrasings like 'how should I set up this experiment', 'how do I avoid confounding', 'what's the best way to test these 6 factors', or 'assign these mice to conditions'. For computing the sample size or power once the design is chosen, use research-statistical-power; analyzing data already collected is out of scope.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "research-statistical-power",
+      "source": "./skills/research-statistical-power",
+      "description": "Calculates sample sizes and statistical power for study planning. Applies when someone asks 'how many subjects/samples/replicates do I need', wants an a priori power analysis, a minimum detectable effect (MDE), a power curve, or needs to justify a sample size for a grant, IRB protocol, or pre-registration. Covers closed-form power for t-tests, ANOVA, proportions, correlations, chi-square, and regression, plus simulation-based (Monte Carlo) power for complex designs — logistic/Poisson regression, mixed models, cluster-randomized trials, survival, and interactions. Also handles requests that only mention an effect size, alpha, or '80% power' without saying 'power analysis' explicitly. For laying out the study (randomization, blocking, factorial/DOE, crossover, sequential designs) use research-experimental-design; analyzing data already collected is out of scope.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "research-systems-paper-writing",
+      "source": "./skills/research-systems-paper-writing",
+      "description": "Comprehensive guide for writing systems papers targeting OSDI, SOSP, ASPLOS, NSDI, and EuroSys. Provides paragraph-level structural blueprints, writing patterns, venue-specific checklists, reviewer guidelines, LaTeX templates, and conference deadlines. Use it for page budgets, section blueprints, and venue checklists on systems papers; for end-to-end generation from an idea and experimental log, use paper-orchestra (this skill supplies the OSDI/SOSP/ASPLOS/NSDI templates and structure).",
       "version": "0.1.0"
     }
   ]

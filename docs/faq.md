@@ -22,7 +22,7 @@ A project directory containing `outline.json`, a verified citation registry, `re
 
 ## How does it prevent fabricated citations?
 
-Discovery proposes candidates using web search. Verification requires the Semantic Scholar API to return a matching title (similarity above 70), an abstract, and a publication date before the cutoff. The writer may cite only keys in the verified `citation_map.json`. The validator rejects unknown keys.
+Discovery proposes candidates using web search. Verification requires a bibliographic provider (Semantic Scholar first, then arXiv, Crossref, and DBLP) to return a matching title (similarity above 70 for exploration, at least 90 plus a year or author check for targeted lookups), an abstract, and a publication date before the cutoff. The writer may cite only keys in the verified `citation_map.json`. The validator rejects unknown keys.
 
 ## What happens if a paper cannot be verified?
 
@@ -38,11 +38,11 @@ The outline splits the work. The Introduction gets macro context: impact, survey
 
 ## How does the refinement loop stop?
 
-It keeps a revision only when the overall reviewer score increases, or when the score ties with sub-axis gains at least as large as drops. The score is an aggregate of three independent reviewer samples, not a single self-review. It stops on a score decrease, a degrading tie, the iteration limit (default 3), or no change.
+It keeps a revision only when the overall reviewer score increases, or when the score ties with sub-axis gains at least as large as drops. The score is an aggregate of three independent reviewer samples, not a single self-review. It stops on a score decrease, any tie (a non-degrading tie is kept first), the iteration limit (default 3), or no change.
 
 ## Which models does it use?
 
-The skills do not pin a model. They use whatever model and tools the host agent provides. The scripts use the Semantic Scholar API for verification and standard Python for deterministic operations. This is a deliberate change from upstream, which used Gemini and OpenAI clients directly.
+The skills do not pin a model. They use whatever model and tools the host agent provides. The scripts use Semantic Scholar, with arXiv, Crossref, and DBLP as fallbacks, for verification and standard Python for deterministic operations. This is a deliberate change from upstream, which used Gemini and OpenAI clients directly.
 
 ## Which agents support these skills?
 
@@ -78,7 +78,7 @@ The repository is Apache-2.0. You pay only for the model and API usage your host
 
 ## Does it work offline?
 
-Writing and refinement can work offline with an existing BIB file and figures. Literature discovery and verification require network access. Offline citation generation is not supported.
+Writing and refinement can work offline only when a verified registry from an earlier run (`registry.json`, `citation_map.json`, `references.bib`) and the figures already exist. A raw BIB file is not trusted as is: its entries are re-verified through the literature stage, which needs network access. Offline citation generation is not supported.
 
 ## Why not just use one large prompt?
 

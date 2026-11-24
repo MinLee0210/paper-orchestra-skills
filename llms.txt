@@ -48,3 +48,10 @@ Clone the repository and run ./install.sh, or symlink any skills/<name> director
 
 ## License
 Apache-2.0. Prompts and templates adapted from PaperOrchestra (Apache-2.0). See NOTICE and LICENSE.
+- research-brainstorming: structured ideation to choose a research direction.
+- research-creative-thinking: analogy, constraint manipulation and recombination for novel ideas.
+- research-experimental-design: randomization, blocking, factorial/DOE designs before data collection.
+- research-statistical-power: sample size, MDE and power curves.
+- research-autoresearch: two-loop autonomous research project management.
+- research-systems-paper-writing: OSDI/SOSP/ASPLOS/NSDI/EuroSys paper blueprints and templates.
+- research-conference-talks: Beamer/PPTX slides and speaker notes from a compiled paper.

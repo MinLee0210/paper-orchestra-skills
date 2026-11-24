@@ -25,7 +25,7 @@ Required:
 Optional:
 
 - `raw_materials/figures/` — existing figures. Add `info.json` with `[{"name": "...", "caption": "..."}]` when available.
-- `raw_materials/references.bib` — a starting bibliography, if the user already has one.
+- `raw_materials/references.bib` — a starting bibliography, if the user already has one. It is never copied into the paper: the literature stage re-verifies each entry (see `paper-literature-review`, "Starting from a user-supplied bibliography"), and only verified entries reach `references.bib`.
 
 If the inputs are missing, incomplete, or contaminated with citations or author identities, run the `paper-inputs` skill first.
 

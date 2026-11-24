@@ -69,6 +69,17 @@ Semantic Scholar rate-limits unauthenticated requests aggressively. If the API r
 
 Do not proceed with a candidate whose metadata you could only obtain from model memory. If the API fails, retry later or drop the candidate; never hand-write a BibTeX entry from recall.
 
+### Starting from a user-supplied bibliography
+
+A `raw_materials/references.bib` is a source of candidates, not of citations. Convert it, then verify it like any other candidate list:
+
+```bash
+python scripts/bib_to_candidates.py raw_materials/references.bib --out candidates_user.json
+python scripts/semantic_scholar.py enrich --candidates candidates_user.json --out registry_user.json --cutoff 2024-11
+```
+
+Entries become targeted lookups (title ratio >= 90 plus a year or author check). Merge `registry_user.json` with the discovery registry before Phase 3. Entries that fail verification are dropped and reported, never kept as written.
+
 ## Phase 3: Build the bibliography and citation map
 
 ```bash
@@ -135,6 +146,7 @@ Treat 20 unique papers as the minimum for a full research paper and 40+ as healt
 - `references/prompts.md` — discovery, targeted search, and Introduction/Related Work prompts.
 - `references/citation-policy.md` — verification thresholds, cutoff logic, and P0/P1 definitions.
 - `scripts/semantic_scholar.py` — Semantic Scholar plus arXiv/Crossref/DBLP fallback, targeted matching, deduplication, and key generation.
+- `scripts/bib_to_candidates.py` — turn a user-supplied BibTeX file into targeted verification candidates.
 - `scripts/build_bib.py` — registry to BibTeX and citation map.
 - `scripts/inject_citations.py` — attach verified keys to the outline.
 - `scripts/validate_literature.py` — consistency checks before writing.

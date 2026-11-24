@@ -1,6 +1,6 @@
 ---
 name: paper-plotting
-description: Generate publication-quality figures for a research paper from raw materials: statistical plots, conceptual diagrams, captions, and a critic-driven revision loop. Use when the user asks for paper figures, plots, charts, architecture diagrams, teaser figures, or visual summaries, when plotting_plan exists in outline.json, or when a draft is missing figures. Do not use for general graphic design or slide decks.
+description: "Generate publication-quality figures for a research paper from raw materials: statistical plots, conceptual diagrams, captions, and a critic-driven revision loop. Use when the user asks for paper figures, plots, charts, architecture diagrams, teaser figures, or visual summaries, when plotting_plan exists in outline.json, or when a draft is missing figures. Do not use for general graphic design or slide decks."
 license: Apache-2.0
 ---
 

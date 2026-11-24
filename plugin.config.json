@@ -1,0 +1,11 @@
+{
+  "name": "paper-orchestra-skills",
+  "displayName": "PaperOrchestra Skills",
+  "description": "Agent Skills that turn an idea and experimental log into a submission-ready LaTeX research paper: outline, verified literature review, figures, section writing, peer-review refinement and evaluation.",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "author": { "name": "MinLee0210", "url": "https://github.com/MinLee0210" },
+  "repository": "https://github.com/MinLee0210/paper-orchestra-skills",
+  "keywords": ["agent-skills", "research-paper", "latex", "literature-review", "peer-review", "claude-code", "codex", "copilot"],
+  "category": "Research"
+}

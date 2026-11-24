@@ -1,6 +1,6 @@
 ---
 name: paper-outline
-description: Build the machine-readable plan for an AI research paper: figure plan, intro/related-work search strategy, section outline, and exhaustive citation hints. Use before drafting whenever the user has an idea and experimental log and needs an outline, story, figure plan, paper structure, or search plan, or when another paper-writing skill needs outline.json. Also use to repair or expand an existing outline.
+description: "Build the machine-readable plan for an AI research paper: figure plan, intro/related-work search strategy, section outline, and exhaustive citation hints. Use before drafting whenever the user has an idea and experimental log and needs an outline, story, figure plan, paper structure, or search plan, or when another paper-writing skill needs outline.json. Also use to repair or expand an existing outline."
 license: Apache-2.0
 ---
 

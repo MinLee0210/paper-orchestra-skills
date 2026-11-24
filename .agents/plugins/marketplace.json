@@ -1,0 +1,20 @@
+{
+  "name": "paper-orchestra-skills",
+  "interface": {
+    "displayName": "PaperOrchestra Skills"
+  },
+  "plugins": [
+    {
+      "name": "paper-orchestra-skills",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Research"
+    }
+  ]
+}

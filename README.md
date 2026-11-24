@@ -20,6 +20,33 @@ PaperOrchestra Skills is an open-source collection of portable [Agent Skills](ht
 | Works with | Claude Code, opencode, Codex-style agents, custom `SKILL.md` runtimes |
 | License | Apache-2.0 |
 
+## Install
+
+| Where | Command |
+|---|---|
+| Any agent via [`npx skills`](https://github.com/vercel-labs/skills) (Claude Code, Codex, Copilot, Cursor, opencode, ...) | `npx skills add MinLee0210/paper-orchestra-skills` |
+| One skill only | `npx skills add MinLee0210/paper-orchestra-skills --skill paper-outline` |
+| Claude Code marketplace | `/plugin marketplace add MinLee0210/paper-orchestra-skills`, then `/plugin install paper-orchestra-skills@paper-orchestra-skills` |
+| Codex | `codex plugin marketplace add MinLee0210/paper-orchestra-skills` |
+| GitHub Copilot | add the marketplace `MinLee0210/paper-orchestra-skills`, then install |
+| From a clone | `./install.sh` (symlinks into `~/.claude/skills` and `~/.config/opencode/skills`) |
+
+Each skill is self-contained, so a single one can be installed alone. Install `paper-orchestra` to get the
+full pipeline.
+
+### Maintaining the plugin manifests
+
+`skills/<name>/SKILL.md` is the single source of truth. The manifests (`.claude-plugin/`, `.codex-plugin/`,
+`.agents/plugins/`, `plugin.json`, `marketplace.json`) are generated from it and `plugin.config.json`:
+
+```bash
+node scripts/skills.mjs new my-skill   # scaffold a skill
+node scripts/skills.mjs sync           # regenerate manifests after adding or editing a skill
+node scripts/skills.mjs check          # validate; CI fails if manifests are stale
+```
+
+Quote any `description` that contains `: ` so it stays valid YAML.
+
 ## Quick start
 
 ```bash

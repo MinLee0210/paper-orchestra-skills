@@ -6,6 +6,21 @@ on:
   pull_request:
 
 jobs:
+  manifests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate skills and check plugin manifests are in sync
+        run: node scripts/skills.mjs check
+      - name: npx skills discovers every skill
+        run: |
+          out="$(npx -y skills add . --list 2>&1)"
+          echo "$out"
+          ! echo "$out" | grep -q "Skipped"
+
   test:
     runs-on: ubuntu-latest
     steps:

@@ -1,0 +1,72 @@
+{
+  "name": "paper-orchestra-skills",
+  "owner": {
+    "name": "MinLee0210",
+    "url": "https://github.com/MinLee0210"
+  },
+  "metadata": {
+    "description": "Agent Skills that turn an idea and experimental log into a submission-ready LaTeX research paper: outline, verified literature review, figures, section writing, peer-review refinement and evaluation."
+  },
+  "plugins": [
+    {
+      "name": "paper-orchestra-skills",
+      "source": "./",
+      "description": "Agent Skills that turn an idea and experimental log into a submission-ready LaTeX research paper: outline, verified literature review, figures, section writing, peer-review refinement and evaluation.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "paper-content-refinement",
+      "source": "./skills/paper-content-refinement",
+      "description": "Iteratively review, revise, and compile a LaTeX research paper using simulated peer review and a visual formatting pass, keeping only revisions that improve the score. Use when a draft already exists and the user wants to improve it, address reviewer feedback, fix page-limit or layout problems, resolve LaTeX compile errors, or produce the final PDF. Also use after section writing as the final stage of the paper pipeline.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "paper-evaluation",
+      "source": "./skills/paper-evaluation",
+      "description": "Evaluate a generated research paper against a ground-truth paper, a baseline, or a benchmark. Use when the user asks to score, benchmark, compare, or ablate paper-writing quality, measure citation precision/recall/F1, judge literature reviews, compute side-by-side win rates, or reproduce PaperWritingBench-style evaluation. Also use after generation to report objective metrics instead of impressions.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "paper-inputs",
+      "source": "./skills/paper-inputs",
+      "description": "Prepare, normalize, and audit raw materials for automated research-paper writing. Use whenever a user is starting a paper project, has messy notes or experiment outputs, needs an idea.md or experimental_log.md, wants to remove citations, author identities, or leaked paper metadata before generation, or needs figures/info.json. Also use when the paper-orchestra pipeline fails its input gate.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "paper-literature-review",
+      "source": "./skills/paper-literature-review",
+      "description": "Discover, verify, deduplicate, and cite real academic literature, then write the Introduction and Related Work sections. Use when the user asks for a literature review, related work, citation gathering, bibliography or BibTeX construction, citation coverage, or wants to find and verify papers for a manuscript. Also use when another paper-writing skill needs registry.json, citation_map.json, references.bib, or a cited LaTeX template. Enforces a research cutoff and rejects unverifiable citations.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "paper-orchestra",
+      "source": "./skills/paper-orchestra",
+      "description": "End-to-end orchestration for writing a submission-ready AI research paper from raw materials. Use when the user wants to generate, draft, write, or assemble a full research paper, LaTeX manuscript, or conference submission from an idea file plus experimental logs, or wants the complete PaperOrchestra multi-agent workflow run or resumed. Coordinates outline generation, figure generation, verified literature review, section writing, content refinement, and optional evaluation. Do not use for editing a single paragraph or for a literature-only request; use the narrower paper-* skill instead.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "paper-outline",
+      "source": "./skills/paper-outline",
+      "description": "Build the machine-readable plan for an AI research paper: figure plan, intro/related-work search strategy, section outline, and exhaustive citation hints. Use before drafting whenever the user has an idea and experimental log and needs an outline, story, figure plan, paper structure, or search plan, or when another paper-writing skill needs outline.json. Also use to repair or expand an existing outline.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "paper-plotting",
+      "source": "./skills/paper-plotting",
+      "description": "Generate publication-quality figures for a research paper from raw materials: statistical plots, conceptual diagrams, captions, and a critic-driven revision loop. Use when the user asks for paper figures, plots, charts, architecture diagrams, teaser figures, or visual summaries, when plotting_plan exists in outline.json, or when a draft is missing figures. Do not use for general graphic design or slide decks.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "paper-section-writing",
+      "source": "./skills/paper-section-writing",
+      "description": "Write the remaining sections of a LaTeX research paper from a structured outline, verified citation map, figures, and experimental log, producing a complete compilable manuscript. Use after the Introduction and Related Work are filled, or whenever the user needs the abstract, method, experiments, results, discussion, conclusion, tables, or appendix drafted into an existing template. Do not use to invent results or to fill in missing data.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "paper-template",
+      "source": "./skills/paper-template",
+      "description": "Select, scaffold, and adapt a LaTeX template and its writing guidelines for automated paper generation. Use when the user names a venue or format (CVPR, ICLR, IEEE conference, arXiv preprint, two-column, single-column), needs template.tex plus guidelines.md, wants to add a custom template, or needs to check page limits, fonts, and required packages before drafting.",
+      "version": "0.1.0"
+    }
+  ]
+}
